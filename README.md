@@ -547,7 +547,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- **Your Name** - *Initial work* - [GitHub](https://github.com/yourusername)
+- **Bhumika Agarwal** - [GitHub](https://github.com/bhumika-aga)
 
 ## 🙏 Acknowledgments
 
@@ -559,6 +559,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **⭐ If you found this project helpful, please give it a star!**
 
-**📧 Questions?** Feel free to reach out at <your.email@example.com>
+**📧 Questions?** Feel free to reach out at <bhumika.aga@gmail.com>
 
 **🐛 Found a bug?** Please create an issue on GitHub
