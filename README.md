@@ -2,8 +2,8 @@
 
 [![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://openjdk.java.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.1.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Test Coverage](https://img.shields.io/badge/coverage-85%25-brightgreen.svg)]()
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/yourusername/hospital-management-system/actions)
+[![Test Coverage](https://img.shields.io/badge/coverage-85%25-brightgreen.svg)](target/site/jacoco/index.html)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 A comprehensive **Hospital Management System** built with modern technologies to manage patient care, treatment planning, specialist assignments, and insurance claim processing. Designed for international healthcare facilities with seamless workflow automation.
@@ -22,6 +22,7 @@ A comprehensive **Hospital Management System** built with modern technologies to
 ## 🛠️ Tech Stack
 
 ### Backend
+
 - **Java 17** - Modern Java features and performance
 - **Spring Boot 3.1.5** - Enterprise-grade application framework
 - **Spring Security** - Authentication and authorization
@@ -33,6 +34,7 @@ A comprehensive **Hospital Management System** built with modern technologies to
 - **JaCoCo** - Test coverage reporting
 
 ### Frontend
+
 - **React 19** - Modern UI library
 - **TypeScript** - Type-safe JavaScript
 - **Material-UI** - Component library
@@ -41,6 +43,7 @@ A comprehensive **Hospital Management System** built with modern technologies to
 - **React Hook Form** - Form handling and validation
 
 ### Development & Deployment
+
 - **Docker** - Containerization
 - **Render.com** - Cloud deployment platform
 - **GitHub Actions** - CI/CD pipeline
@@ -87,14 +90,14 @@ npm start
 
 ### 4. Access the Application
 
-- **Backend API**: http://localhost:8080
-- **Frontend UI**: http://localhost:3000
-- **API Documentation**: http://localhost:8080/swagger-ui.html
-- **H2 Console**: http://localhost:8080/h2-console (dev mode only)
+- **Backend API**: <http://localhost:8080>
+- **Frontend UI**: <http://localhost:3000>
+- **API Documentation**: <http://localhost:8080/swagger-ui.html>
+- **H2 Console**: <http://localhost:8080/h2-console> (dev mode only)
 
 ## 🏗️ Project Structure
 
-```
+```txt
 hospital-management-system/
 ├── src/
 │   ├── main/
@@ -121,6 +124,7 @@ hospital-management-system/
 The application supports multiple environments through Spring profiles:
 
 ### Development (default)
+
 ```yaml
 spring:
   profiles:
@@ -133,6 +137,7 @@ spring:
 ```
 
 ### Production
+
 ```yaml
 spring:
   profiles:
@@ -149,6 +154,7 @@ spring:
 ### Authentication Endpoints
 
 #### Generate JWT Token
+
 ```bash
 POST /auth/generate-token
 Content-Type: application/json
@@ -159,6 +165,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiJ9...",
@@ -168,12 +175,14 @@ Content-Type: application/json
 ```
 
 #### Validate Token
+
 ```bash
 GET /auth/validate-token?token=your-jwt-token
 Authorization: Bearer your-jwt-token
 ```
 
 **Response:**
+
 ```json
 true
 ```
@@ -181,12 +190,14 @@ true
 ### Treatment Package Endpoints
 
 #### Get All Treatment Packages
+
 ```bash
 GET /IPTreatmentPackages
 Authorization: Bearer your-jwt-token
 ```
 
 **Response:**
+
 ```json
 [
   {
@@ -204,6 +215,7 @@ Authorization: Bearer your-jwt-token
 ### Insurance Claim Endpoints
 
 #### Initiate Insurance Claim
+
 ```bash
 POST /insurance/InitiateClaim
 Authorization: Bearer your-jwt-token
@@ -218,6 +230,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "claimId": 1,
@@ -229,12 +242,14 @@ Content-Type: application/json
 ```
 
 #### Get All Insurance Providers
+
 ```bash
 GET /insurance/insurers
 Authorization: Bearer your-jwt-token
 ```
 
 **Response:**
+
 ```json
 [
   {
@@ -252,19 +267,23 @@ Authorization: Bearer your-jwt-token
 ## 🧪 Testing
 
 ### Run All Tests
+
 ```bash
 mvn clean test
 ```
 
 ### Generate Coverage Report
+
 ```bash
 mvn clean test jacoco:report
 ```
 
 ### View Coverage Report
+
 Open `target/site/jacoco/index.html` in your browser to view the detailed coverage report.
 
 ### Test Coverage
+
 - **Overall Coverage**: 85%+
 - **Service Layer**: 90%+
 - **Controller Layer**: 80%+
@@ -273,6 +292,7 @@ Open `target/site/jacoco/index.html` in your browser to view the detailed covera
 ### Sample Test Cases
 
 #### Unit Test Example
+
 ```java
 @ExtendWith(MockitoExtension.class)
 class AuthServiceTest {
@@ -301,6 +321,7 @@ class AuthServiceTest {
 ```
 
 #### Integration Test Example
+
 ```java
 @SpringBootTest
 @ActiveProfiles("test")
@@ -329,12 +350,13 @@ class AuthControllerIntegrationTest {
 
 2. **Connect to Render**:
    - Sign up at [render.com](https://render.com)
-   - Create a new "Blueprint" 
+   - Create a new "Blueprint"
    - Connect your GitHub repository
    - Render will automatically detect `render.yaml` and deploy both services
 
 3. **Environment Variables** (automatically configured):
-   ```
+
+   ```text
    SPRING_PROFILES_ACTIVE=prod
    JWT_SECRET=your-secret-key
    DATABASE_URL=your-database-url (optional)
@@ -347,6 +369,7 @@ class AuthControllerIntegrationTest {
 ### Manual Deployment
 
 #### Build Application
+
 ```bash
 # Build backend JAR
 mvn clean package -DskipTests
@@ -357,6 +380,7 @@ npm run build
 ```
 
 #### Run with Docker
+
 ```bash
 # Build Docker image
 docker build -t hospital-management-system .
@@ -370,6 +394,7 @@ docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod hospital-management-syste
 The application comes with comprehensive sample data for immediate testing:
 
 ### Insurance Providers (10)
+
 - Apollo Munich Health Insurance
 - Star Health Insurance
 - HDFC ERGO Health
@@ -378,16 +403,19 @@ The application comes with comprehensive sample data for immediate testing:
 - And 5 more...
 
 ### Treatment Packages (4)
+
 - **Orthopaedics Package 1**: ₹2,500, 4 weeks, Junior specialist
 - **Orthopaedics Package 2**: ₹3,000, 6 weeks, Senior specialist
 - **Urology Package 1**: ₹4,000, 4 weeks, Junior specialist
 - **Urology Package 2**: ₹5,000, 6 weeks, Senior specialist
 
 ### Medical Specialists (8)
+
 - 4 Orthopaedics specialists (2 Junior, 2 Senior)
 - 4 Urology specialists (2 Junior, 2 Senior)
 
 ### Patient Records (6)
+
 - Diverse patient profiles with treatment history
 - Various age groups and medical conditions
 - Complete contact information and insurance mappings
@@ -404,11 +432,13 @@ The application comes with comprehensive sample data for immediate testing:
 ## 📊 Monitoring & Health Checks
 
 ### Built-in Endpoints
+
 - `GET /actuator/health` - Application health status
 - `GET /actuator/info` - Application information
 - `GET /actuator/metrics` - Application metrics
 
 ### Health Check Response
+
 ```json
 {
   "status": "UP",
@@ -442,6 +472,7 @@ The application comes with comprehensive sample data for immediate testing:
 5. **Open a Pull Request**
 
 ### Coding Standards
+
 - Follow Java naming conventions
 - Write unit tests for new features
 - Maintain test coverage above 80%
@@ -451,16 +482,19 @@ The application comes with comprehensive sample data for immediate testing:
 ## 📈 Performance Metrics
 
 ### Response Times (Average)
+
 - **Authentication**: ~50ms
 - **Treatment Packages**: ~100ms
 - **Insurance Claims**: ~150ms
 - **Specialist Lookup**: ~75ms
 
 ### Throughput
+
 - **Development**: 500 requests/minute
 - **Production**: 2000+ requests/minute (with scaling)
 
 ### Resource Usage
+
 - **Memory**: ~400MB (optimized for free tier)
 - **CPU**: <10% under normal load
 - **Database**: H2 in-memory (~50MB)
@@ -477,6 +511,7 @@ The application comes with comprehensive sample data for immediate testing:
 ### Common Issues
 
 #### Port Already in Use
+
 ```bash
 # Check what's using port 8080
 lsof -i :8080
@@ -486,6 +521,7 @@ kill -9 <PID>
 ```
 
 #### Database Connection Issues
+
 ```bash
 # Verify H2 console access
 http://localhost:8080/h2-console
@@ -496,6 +532,7 @@ http://localhost:8080/h2-console
 ```
 
 #### Build Issues
+
 ```bash
 # Clean and rebuild
 mvn clean install
@@ -522,6 +559,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **⭐ If you found this project helpful, please give it a star!**
 
-**📧 Questions?** Feel free to reach out at your.email@example.com
+**📧 Questions?** Feel free to reach out at <your.email@example.com>
 
 **🐛 Found a bug?** Please create an issue on GitHub
