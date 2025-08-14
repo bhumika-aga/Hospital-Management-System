@@ -1,0 +1,45 @@
+# Test Configuration
+spring:
+  profiles:
+    active: test
+  
+  # In-memory H2 database for tests
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+    
+  # JPA Configuration for tests
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+    database-platform: org.hibernate.dialect.H2Dialect
+    
+  # Disable data initialization for tests
+  sql:
+    init:
+      mode: never
+
+# Logging configuration for tests
+logging:
+  level:
+    com.hospital: DEBUG
+    org.springframework.security: WARN
+    org.hibernate: WARN
+
+# JWT Configuration for tests
+jwt:
+  secret: testSecretKey
+  expiration: 86400000
+
+# Disable security for integration tests
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
