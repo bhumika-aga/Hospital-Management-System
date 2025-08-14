@@ -60,7 +60,7 @@ public class TreatmentController {
         List<PatientDetail> treatments = treatmentService.getAllPatients();
         return ResponseEntity.ok(treatments);
     }
-
+    
     @GetMapping("/patients")
     @Operation(
         summary = "Get All Patients",

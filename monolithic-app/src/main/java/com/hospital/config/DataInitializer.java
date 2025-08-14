@@ -162,28 +162,28 @@ public class DataInitializer {
         if (patientDetailRepository.count() == 0) {
             logger.info("Initializing patient details...");
             List<PatientDetail> patients = Arrays.asList(
-                createPatient("Amit Sharma", 45, "Knee joint pain and stiffness", "Orthopaedics Package 1", 
-                    LocalDate.now().minusDays(10), "+91-9876543220", "amit.sharma@gmail.com", 
+                createPatient("Amit Sharma", 45, "Knee joint pain and stiffness", "Orthopaedics Package 1",
+                    LocalDate.now().minusDays(10), "+91-9876543220", "amit.sharma@gmail.com",
                     "123 MG Road, Bangalore", "Star Health Insurance"),
                 
-                createPatient("Priya Patel", 38, "Lower back pain and disc problems", "Orthopaedics Package 2", 
-                    LocalDate.now().minusDays(15), "+91-9876543221", "priya.patel@gmail.com", 
+                createPatient("Priya Patel", 38, "Lower back pain and disc problems", "Orthopaedics Package 2",
+                    LocalDate.now().minusDays(15), "+91-9876543221", "priya.patel@gmail.com",
                     "456 Park Street, Mumbai", "HDFC ERGO Health"),
                 
-                createPatient("Rajesh Kumar", 52, "Kidney stones and urinary issues", "Urology Package 1", 
-                    LocalDate.now().minusDays(8), "+91-9876543222", "rajesh.kumar@gmail.com", 
+                createPatient("Rajesh Kumar", 52, "Kidney stones and urinary issues", "Urology Package 1",
+                    LocalDate.now().minusDays(8), "+91-9876543222", "rajesh.kumar@gmail.com",
                     "789 Anna Salai, Chennai", "ICICI Lombard Health"),
                 
-                createPatient("Sunita Singh", 41, "Bladder infection and related complications", "Urology Package 2", 
-                    LocalDate.now().minusDays(12), "+91-9876543223", "sunita.singh@gmail.com", 
+                createPatient("Sunita Singh", 41, "Bladder infection and related complications", "Urology Package 2",
+                    LocalDate.now().minusDays(12), "+91-9876543223", "sunita.singh@gmail.com",
                     "321 CP Road, Delhi", "Max Bupa Health"),
                 
-                createPatient("Vikram Rao", 48, "Hip replacement surgery required", "Orthopaedics Package 2", 
-                    LocalDate.now().minusDays(5), "+91-9876543224", "vikram.rao@gmail.com", 
+                createPatient("Vikram Rao", 48, "Hip replacement surgery required", "Orthopaedics Package 2",
+                    LocalDate.now().minusDays(5), "+91-9876543224", "vikram.rao@gmail.com",
                     "654 Brigade Road, Bangalore", "Apollo Munich Health Insurance"),
                 
-                createPatient("Neha Gupta", 35, "Prostate treatment and monitoring", "Urology Package 1", 
-                    LocalDate.now().minusDays(18), "+91-9876543225", "neha.gupta@gmail.com", 
+                createPatient("Neha Gupta", 35, "Prostate treatment and monitoring", "Urology Package 1",
+                    LocalDate.now().minusDays(18), "+91-9876543225", "neha.gupta@gmail.com",
                     "987 Linking Road, Mumbai", "Bajaj Allianz Health")
             );
             
@@ -195,33 +195,33 @@ public class DataInitializer {
         if (treatmentPlanRepository.count() == 0) {
             logger.info("Initializing treatment plans...");
             List<TreatmentPlan> treatmentPlans = Arrays.asList(
-                createTreatmentPlan(1L, "Orthopaedics Package 1", Arrays.asList("X-Ray", "MRI Scan"), 
-                    2500.0, "Dr. Rajesh Kumar", "JUNIOR", "Orthopaedics", 
+                createTreatmentPlan(1L, "Orthopaedics Package 1", Arrays.asList("X-Ray", "MRI Scan"),
+                    2500.0, "Dr. Rajesh Kumar", "JUNIOR", "Orthopaedics",
                     LocalDate.now().minusDays(10), LocalDate.now().plusDays(18), 4,
                     "+91-9876543210", "rajesh.kumar@mediflow.com"),
                 
-                createTreatmentPlan(2L, "Orthopaedics Package 2", Arrays.asList("CT Scan", "Blood Test"), 
-                    3000.0, "Dr. Anil Gupta", "SENIOR", "Orthopaedics", 
+                createTreatmentPlan(2L, "Orthopaedics Package 2", Arrays.asList("CT Scan", "Blood Test"),
+                    3000.0, "Dr. Anil Gupta", "SENIOR", "Orthopaedics",
                     LocalDate.now().minusDays(15), LocalDate.now().plusDays(27), 6,
                     "+91-9876543212", "anil.gupta@mediflow.com"),
                 
-                createTreatmentPlan(3L, "Urology Package 1", Arrays.asList("Ultrasound", "Urine Test"), 
-                    4000.0, "Dr. Vikram Singh", "JUNIOR", "Urology", 
+                createTreatmentPlan(3L, "Urology Package 1", Arrays.asList("Ultrasound", "Urine Test"),
+                    4000.0, "Dr. Vikram Singh", "JUNIOR", "Urology",
                     LocalDate.now().minusDays(8), LocalDate.now().plusDays(20), 4,
                     "+91-9876543214", "vikram.singh@mediflow.com"),
                 
-                createTreatmentPlan(4L, "Urology Package 2", Arrays.asList("Cystoscopy", "PSA Test"), 
-                    5000.0, "Dr. Ashok Mehta", "SENIOR", "Urology", 
+                createTreatmentPlan(4L, "Urology Package 2", Arrays.asList("Cystoscopy", "PSA Test"),
+                    5000.0, "Dr. Ashok Mehta", "SENIOR", "Urology",
                     LocalDate.now().minusDays(12), LocalDate.now().plusDays(30), 6,
                     "+91-9876543216", "ashok.mehta@mediflow.com"),
                 
-                createTreatmentPlan(5L, "Orthopaedics Package 2", Arrays.asList("Pre-op Tests", "Post-op Care"), 
-                    3000.0, "Dr. Sunita Rao", "SENIOR", "Orthopaedics", 
+                createTreatmentPlan(5L, "Orthopaedics Package 2", Arrays.asList("Pre-op Tests", "Post-op Care"),
+                    3000.0, "Dr. Sunita Rao", "SENIOR", "Orthopaedics",
                     LocalDate.now().minusDays(5), LocalDate.now().plusDays(37), 6,
                     "+91-9876543213", "sunita.rao@mediflow.com"),
                 
-                createTreatmentPlan(6L, "Urology Package 1", Arrays.asList("Kidney Function Test", "Imaging"), 
-                    4000.0, "Dr. Neha Jain", "JUNIOR", "Urology", 
+                createTreatmentPlan(6L, "Urology Package 1", Arrays.asList("Kidney Function Test", "Imaging"),
+                    4000.0, "Dr. Neha Jain", "JUNIOR", "Urology",
                     LocalDate.now().minusDays(18), LocalDate.now().plusDays(10), 4,
                     "+91-9876543215", "neha.jain@mediflow.com")
             );
@@ -241,8 +241,8 @@ public class DataInitializer {
         return insurer;
     }
     
-    private PatientDetail createPatient(String name, Integer age, String ailment, String packageName, 
-                                       LocalDate startDate, String phone, String email, String address, String insurance) {
+    private PatientDetail createPatient(String name, Integer age, String ailment, String packageName,
+                                        LocalDate startDate, String phone, String email, String address, String insurance) {
         PatientDetail patient = new PatientDetail(name, age, ailment, packageName, startDate);
         patient.setTreatmentEndDate(startDate.plusWeeks(packageName.contains("Package 1") ? 4 : 6));
         patient.setContactNumber(phone);
@@ -252,11 +252,11 @@ public class DataInitializer {
         return patient;
     }
     
-    private TreatmentPlan createTreatmentPlan(Long patientId, String packageName, List<String> tests, 
-                                            Double cost, String specialistName, String specialistLevel, String specialization,
-                                            LocalDate startDate, LocalDate endDate, Integer durationWeeks,
-                                            String specialistPhone, String specialistEmail) {
-        TreatmentPlan plan = new TreatmentPlan(patientId, packageName, tests, cost, specialistName, 
+    private TreatmentPlan createTreatmentPlan(Long patientId, String packageName, List<String> tests,
+                                              Double cost, String specialistName, String specialistLevel, String specialization,
+                                              LocalDate startDate, LocalDate endDate, Integer durationWeeks,
+                                              String specialistPhone, String specialistEmail) {
+        TreatmentPlan plan = new TreatmentPlan(patientId, packageName, tests, cost, specialistName,
             specialistLevel, specialization, startDate, endDate, durationWeeks);
         plan.setSpecialistContactNumber(specialistPhone);
         plan.setSpecialistEmail(specialistEmail);

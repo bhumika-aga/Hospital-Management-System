@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 @Tag(name = "Authorization", description = "JWT Token Management APIs")
 public class AuthController {
-    
     @Autowired
     private AuthService authService;
     
