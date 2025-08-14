@@ -1,14 +1,9 @@
-import axios from 'axios';
-import { API_ENDPOINTS } from '../config/api';
+import { api, API_ENDPOINTS } from '../config/api';
 import { TokenRequest, TokenResponse } from '../types';
-
-const authApi = axios.create({
-  baseURL: API_ENDPOINTS.auth.base,
-});
 
 export class AuthService {
   static async generateToken(request: TokenRequest): Promise<TokenResponse> {
-    const response = await authApi.post<TokenResponse>(
+    const response = await api.post<TokenResponse>(
       API_ENDPOINTS.auth.generateToken,
       request
     );
@@ -16,7 +11,7 @@ export class AuthService {
   }
 
   static async checkHealth(): Promise<string> {
-    const response = await authApi.get<string>(API_ENDPOINTS.auth.health);
+    const response = await api.get<string>(API_ENDPOINTS.auth.health);
     return response.data;
   }
 

@@ -28,7 +28,7 @@ services:
     env: node
     plan: free
     buildCommand: cd member-portal && npm ci && npm run build
-    startCommand: cd member-portal && npm start
+    startCommand: cd member-portal && npm run serve
     healthCheckPath: /
     envVars:
       - key: NODE_ENV
