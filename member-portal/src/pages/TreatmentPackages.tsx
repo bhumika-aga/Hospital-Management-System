@@ -262,9 +262,7 @@ const TreatmentPackages: React.FC = () => {
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <LocalHospital sx={{ mr: 2, color: "primary.main" }} />
                 <Box>
-                  <Typography variant="h5">
-                    {selectedPackage.name}
-                  </Typography>
+                  <Typography variant="h5">{selectedPackage.name}</Typography>
                   <Typography variant="subtitle1" color="text.secondary">
                     {selectedPackage.specialization}
                   </Typography>

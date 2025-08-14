@@ -1,7 +1,5 @@
 # Test Configuration
 spring:
-  profiles:
-    active: test
   
   # In-memory H2 database for tests
   datasource:

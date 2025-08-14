@@ -144,14 +144,14 @@ public class DataInitializer {
         if (specialistRepository.count() == 0) {
             logger.info("Initializing specialists...");
             List<Specialist> specialists = Arrays.asList(
-                new Specialist("Dr. Rajesh Kumar", "Orthopaedics", "JUNIOR", "MBBS, MS Orthopaedics", 3, "+91-9876543210", "rajesh.kumar@mediflow.com"),
-                new Specialist("Dr. Priya Sharma", "Orthopaedics", "JUNIOR", "MBBS, DNB Orthopaedics", 4, "+91-9876543211", "priya.sharma@mediflow.com"),
-                new Specialist("Dr. Anil Gupta", "Orthopaedics", "SENIOR", "MBBS, MS, MCh Orthopaedics", 15, "+91-9876543212", "anil.gupta@mediflow.com"),
-                new Specialist("Dr. Sunita Rao", "Orthopaedics", "SENIOR", "MBBS, MS, Fellowship Joint Replacement", 18, "+91-9876543213", "sunita.rao@mediflow.com"),
-                new Specialist("Dr. Vikram Singh", "Urology", "JUNIOR", "MBBS, MS Urology", 2, "+91-9876543214", "vikram.singh@mediflow.com"),
-                new Specialist("Dr. Neha Jain", "Urology", "JUNIOR", "MBBS, DNB Urology", 3, "+91-9876543215", "neha.jain@mediflow.com"),
-                new Specialist("Dr. Ashok Mehta", "Urology", "SENIOR", "MBBS, MS, MCh Urology", 20, "+91-9876543216", "ashok.mehta@mediflow.com"),
-                new Specialist("Dr. Kavita Verma", "Urology", "SENIOR", "MBBS, MS, Fellowship Uro-Oncology", 16, "+91-9876543217", "kavita.verma@mediflow.com")
+                new Specialist("Dr. Rajesh Kumar", "Orthopaedics", "JUNIOR", "MBBS, MS Orthopaedics", 3, "+91-9876543210", "rajesh.kumar@healthsync.com"),
+                new Specialist("Dr. Priya Sharma", "Orthopaedics", "JUNIOR", "MBBS, DNB Orthopaedics", 4, "+91-9876543211", "priya.sharma@healthsync.com"),
+                new Specialist("Dr. Anil Gupta", "Orthopaedics", "SENIOR", "MBBS, MS, MCh Orthopaedics", 15, "+91-9876543212", "anil.gupta@healthsync.com"),
+                new Specialist("Dr. Sunita Rao", "Orthopaedics", "SENIOR", "MBBS, MS, Fellowship Joint Replacement", 18, "+91-9876543213", "sunita.rao@healthsync.com"),
+                new Specialist("Dr. Vikram Singh", "Urology", "JUNIOR", "MBBS, MS Urology", 2, "+91-9876543214", "vikram.singh@healthsync.com"),
+                new Specialist("Dr. Neha Jain", "Urology", "JUNIOR", "MBBS, DNB Urology", 3, "+91-9876543215", "neha.jain@healthsync.com"),
+                new Specialist("Dr. Ashok Mehta", "Urology", "SENIOR", "MBBS, MS, MCh Urology", 20, "+91-9876543216", "ashok.mehta@healthsync.com"),
+                new Specialist("Dr. Kavita Verma", "Urology", "SENIOR", "MBBS, MS, Fellowship Uro-Oncology", 16, "+91-9876543217", "kavita.verma@healthsync.com")
             );
             
             specialistRepository.saveAll(specialists);
@@ -198,32 +198,32 @@ public class DataInitializer {
                 createTreatmentPlan(1L, "Orthopaedics Package 1", Arrays.asList("X-Ray", "MRI Scan"),
                     2500.0, "Dr. Rajesh Kumar", "JUNIOR", "Orthopaedics",
                     LocalDate.now().minusDays(10), LocalDate.now().plusDays(18), 4,
-                    "+91-9876543210", "rajesh.kumar@mediflow.com"),
+                    "+91-9876543210", "rajesh.kumar@healthsync.com"),
                 
                 createTreatmentPlan(2L, "Orthopaedics Package 2", Arrays.asList("CT Scan", "Blood Test"),
                     3000.0, "Dr. Anil Gupta", "SENIOR", "Orthopaedics",
                     LocalDate.now().minusDays(15), LocalDate.now().plusDays(27), 6,
-                    "+91-9876543212", "anil.gupta@mediflow.com"),
+                    "+91-9876543212", "anil.gupta@healthsync.com"),
                 
                 createTreatmentPlan(3L, "Urology Package 1", Arrays.asList("Ultrasound", "Urine Test"),
                     4000.0, "Dr. Vikram Singh", "JUNIOR", "Urology",
                     LocalDate.now().minusDays(8), LocalDate.now().plusDays(20), 4,
-                    "+91-9876543214", "vikram.singh@mediflow.com"),
+                    "+91-9876543214", "vikram.singh@healthsync.com"),
                 
                 createTreatmentPlan(4L, "Urology Package 2", Arrays.asList("Cystoscopy", "PSA Test"),
                     5000.0, "Dr. Ashok Mehta", "SENIOR", "Urology",
                     LocalDate.now().minusDays(12), LocalDate.now().plusDays(30), 6,
-                    "+91-9876543216", "ashok.mehta@mediflow.com"),
+                    "+91-9876543216", "ashok.mehta@healthsync.com"),
                 
                 createTreatmentPlan(5L, "Orthopaedics Package 2", Arrays.asList("Pre-op Tests", "Post-op Care"),
                     3000.0, "Dr. Sunita Rao", "SENIOR", "Orthopaedics",
                     LocalDate.now().minusDays(5), LocalDate.now().plusDays(37), 6,
-                    "+91-9876543213", "sunita.rao@mediflow.com"),
+                    "+91-9876543213", "sunita.rao@healthsync.com"),
                 
                 createTreatmentPlan(6L, "Urology Package 1", Arrays.asList("Kidney Function Test", "Imaging"),
                     4000.0, "Dr. Neha Jain", "JUNIOR", "Urology",
                     LocalDate.now().minusDays(18), LocalDate.now().plusDays(10), 4,
-                    "+91-9876543215", "neha.jain@mediflow.com")
+                    "+91-9876543215", "neha.jain@healthsync.com")
             );
             
             treatmentPlanRepository.saveAll(treatmentPlans);

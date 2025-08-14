@@ -99,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({
               fontSize: "1.5rem",
             }}
           >
-            MediFlow
+            HealthSync
           </Typography>
           <Chip
             label="Portal"

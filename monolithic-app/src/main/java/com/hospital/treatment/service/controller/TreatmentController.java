@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/IPTreatment")
 @CrossOrigin(origins = "*")
 @SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Treatment Management", description = "International Patient Treatment Timetable and Management")
@@ -27,7 +28,7 @@ public class TreatmentController {
     @Autowired
     private TreatmentTimetableService treatmentService;
     
-    @PostMapping("/FormulateTreatmentTimetable")
+    @PostMapping("/generateTimetable")
     @Operation(
         summary = "Formulate Treatment Timetable",
         description = "Generate a comprehensive treatment timetable for a patient based on their ailment and chosen package. " +

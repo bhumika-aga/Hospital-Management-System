@@ -1,84 +1,193 @@
-# 🏥 Hospital Management System
+# 🏥 HealthSync - Advanced Hospital Management System
 
 [![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://openjdk.java.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.1.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![React](https://img.shields.io/badge/React-19.1.1-blue.svg)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-blue.svg)](https://www.typescriptlang.org/)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/yourusername/hospital-management-system/actions)
-[![Test Coverage](https://img.shields.io/badge/coverage-85%25-brightgreen.svg)](target/site/jacoco/index.html)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Deploy](https://img.shields.io/badge/deploy-Render.com-purple.svg)](https://render.com)
 
-A comprehensive **Hospital Management System** built with modern technologies to manage patient care, treatment planning, specialist assignments, and insurance claim processing. Designed for international healthcare facilities with seamless workflow automation.
+> **HealthSync is a comprehensive, production-ready Hospital Management System built with modern technologies for seamless patient care, treatment planning, and insurance claims processing. Streamline your healthcare operations with intelligent workflow automation.**
 
-## 🚀 Features
+## 🌟 **Live Demo**
 
-- **🔐 JWT Authentication & Authorization** - Secure token-based authentication
-- **👨‍⚕️ Treatment Package Management** - Orthopaedics & Urology specializations
-- **💰 Insurance Claim Processing** - Automated claim initiation and tracking
-- **📅 Treatment Scheduling** - Automatic specialist assignments based on package tier
-- **📊 Comprehensive Reporting** - Real-time dashboards and analytics
-- **🔍 API Documentation** - Interactive Swagger UI documentation
-- **🌐 RESTful APIs** - Clean, well-documented REST endpoints
-- **📱 Responsive Frontend** - Modern React-based user interface
+- **🌐 healthsync Portal**: [https://healthsync-portal.onrender.com](https://healthsync-portal.onrender.com)
+- **⚡ Backend API**: [https://healthsync-api.onrender.com](https://healthsync-api.onrender.com)
+- **📚 API Documentation**: [https://healthsync-api.onrender.com/swagger-ui.html](https://healthsync-api.onrender.com/swagger-ui.html)
 
-## 🛠️ Tech Stack
+---
 
-### Backend
+## 📋 **Table of Contents**
 
-- **Java 17** - Modern Java features and performance
-- **Spring Boot 3.1.5** - Enterprise-grade application framework
-- **Spring Security** - Authentication and authorization
-- **Spring Data JPA** - Data persistence layer
-- **H2 Database** - In-memory database for development/testing
-- **JWT** - JSON Web Token for secure authentication
-- **Maven** - Dependency management and build tool
-- **JUnit 5** - Unit and integration testing
-- **JaCoCo** - Test coverage reporting
+- [🚀 Features](#-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📁 Project Structure](#-project-structure)
+- [⚡ Quick Start](#-quick-start)
+- [🔧 Configuration](#-configuration)
+- [📚 API Documentation](#-api-documentation)
+- [🧪 Testing](#-testing)
+- [🚀 Deployment](#-deployment)
+- [🔐 Security](#-security)
+- [🎨 Screenshots](#-screenshots)
 
-### Frontend
+---
 
-- **React 19** - Modern UI library
-- **TypeScript** - Type-safe JavaScript
-- **Material-UI** - Component library
-- **React Router** - Client-side routing
-- **Axios** - HTTP client for API calls
-- **React Hook Form** - Form handling and validation
+## 🚀 **Features**
 
-### Development & Deployment
+### 🔐 **Authentication & Security**
 
-- **Docker** - Containerization
-- **Render.com** - Cloud deployment platform
-- **GitHub Actions** - CI/CD pipeline
-- **Swagger/OpenAPI** - API documentation
+- JWT-based authentication system
+- Secure token management with configurable expiration
+- CORS-enabled for cross-origin requests
+- Input validation on all endpoints
 
-## 📋 Prerequisites
+### 👨‍⚕️ **Treatment Management**
 
-- **Java 17** or higher
-- **Node.js 18** or higher
-- **Maven 3.8** or higher
-- **Git**
+- **Treatment Packages**: Orthopaedics & Urology specializations
+- **Specialist Assignment**: Automatic assignment based on package tier
+- **Timetable Generation**: Intelligent scheduling system
+- **Package Tiers**: Junior (Tier 1) and Senior (Tier 2) specialists
 
-## ⚡ Quick Start
+### 💰 **Insurance Claims Processing**
 
-### 1. Clone the Repository
+- Automated claim initiation and tracking
+- Integration with 10+ insurance providers
+- Real-time coverage calculation
+- Status tracking and notifications
+
+### 📊 **Comprehensive Dashboards**
+
+- Patient management interface
+- Treatment progress tracking
+- Insurance claim status monitoring
+- Specialist workload distribution
+
+### 🔍 **API Documentation**
+
+- Interactive Swagger UI
+- Complete endpoint documentation
+- Request/response examples
+- Authentication testing interface
+
+---
+
+## 🛠️ **Tech Stack**
+
+### **Backend**
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| Java | 17 | Core programming language |
+| Spring Boot | 3.1.5 | Application framework |
+| Spring Security | 6.0.13 | Authentication & authorization |
+| Spring Data JPA | 3.1.5 | Data persistence |
+| H2 Database | 2.1.214 | In-memory database |
+| JWT | 0.11.5 | Token-based authentication |
+| Maven | 3.8+ | Dependency management |
+| JUnit 5 | 5.9.3 | Testing framework |
+
+### **Frontend**
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| React | 19.1.1 | UI framework |
+| TypeScript | 4.9.5 | Type-safe JavaScript |
+| Material-UI | 7.3.1 | Component library |
+| React Router | 6.30.1 | Client-side routing |
+| Axios | 1.11.0 | HTTP client |
+| React Hook Form | 7.62.0 | Form handling |
+
+### **DevOps & Deployment**
+
+| Technology | Purpose |
+|------------|---------|
+| Render.com | Cloud deployment |
+| Docker | Containerization |
+| GitHub Actions | CI/CD pipeline |
+| Maven | Build automation |
+
+---
+
+## 📁 **Project Structure**
+
+```txt
+HealthSync/
+├── 📁 monolithic-app/                    # Spring Boot Backend
+│   ├── 📁 src/main/java/com/hospital/
+│   │   ├── 📁 auth/                      # JWT Authentication
+│   │   │   ├── 📁 controller/            # REST Controllers
+│   │   │   ├── 📁 dto/                   # Data Transfer Objects
+│   │   │   ├── 📁 security/              # Security Configuration
+│   │   │   ├── 📁 service/               # Business Logic
+│   │   │   └── 📁 util/                  # JWT Utilities
+│   │   ├── 📁 insurance/                 # Insurance Management
+│   │   │   ├── 📁 controller/            # Insurance Controllers
+│   │   │   ├── 📁 dto/                   # Insurance DTOs
+│   │   │   ├── 📁 entity/                # JPA Entities
+│   │   │   ├── 📁 repository/            # Data Repositories
+│   │   │   └── 📁 service/               # Insurance Services
+│   │   ├── 📁 treatment/                 # Treatment Management
+│   │   │   ├── 📁 offering/              # Treatment Packages & Specialists
+│   │   │   └── 📁 service/               # Treatment Services
+│   │   ├── 📁 config/                    # Application Configuration
+│   │   └── 📁 swagger/                   # API Documentation
+│   ├── 📁 src/main/resources/
+│   │   ├── 📄 application.yml            # Main configuration
+│   │   ├── 📄 application-local.yml      # Local environment
+│   │   ├── 📄 application-prod.yml       # Production environment
+│   │   └── 📄 application.properties     # Legacy properties
+│   └── 📁 src/test/                      # Unit & Integration Tests
+├── 📁 member-portal/                     # React Frontend
+│   ├── 📁 src/
+│   │   ├── 📁 components/                # Reusable Components
+│   │   ├── 📁 pages/                     # Page Components
+│   │   ├── 📁 services/                  # API Services
+│   │   ├── 📁 config/                    # Configuration
+│   │   ├── 📁 types/                     # TypeScript Definitions
+│   │   └── 📁 theme/                     # Material-UI Theme
+│   ├── 📄 .env.local                     # Local environment variables
+│   ├── 📄 .env.production               # Production environment variables
+│   └── 📄 package.json                   # Dependencies
+├── 📄 render.yaml                        # Deployment configuration
+├── 📄 deploy.sh                         # Deployment script
+└── 📄 README.md                         # Project documentation
+```
+
+---
+
+## ⚡ **Quick Start**
+
+### **Prerequisites**
+
+- ☕ **Java 17** or higher
+- 🟢 **Node.js 18** or higher  
+- 📦 **Maven 3.8** or higher
+- 🔧 **Git**
+
+### **1. Clone & Setup**
 
 ```bash
 git clone https://github.com/yourusername/hospital-management-system.git
 cd hospital-management-system
 ```
 
-### 2. Backend Setup
+### **2. Backend Setup**
 
 ```bash
-# Run in development mode (uses H2 in-memory database)
-mvn spring-boot:run
+cd monolithic-app
 
-# Or run in production mode
-mvn spring-boot:run -Dspring-boot.run.profiles=prod
+# Run in local development mode
+mvn spring-boot:run -Dspring-boot.run.profiles=local
+
+# Or build and run JAR
+mvn clean package -DskipTests
+java -jar target/hospital-management-system-2.0.0.jar --spring.profiles.active=local
 ```
 
-### 3. Frontend Setup
+### **3. Frontend Setup**
 
 ```bash
-# Navigate to frontend directory
 cd member-portal
 
 # Install dependencies
@@ -86,74 +195,59 @@ npm install
 
 # Start development server
 npm start
+
+# Or build for production
+npm run build
+npm run serve
 ```
 
-### 4. Access the Application
+### **4. Access Applications**
 
-- **Backend API**: <http://localhost:8080>
-- **Frontend UI**: <http://localhost:3000>
-- **API Documentation**: <http://localhost:8080/swagger-ui.html>
-- **H2 Console**: <http://localhost:8080/h2-console> (dev mode only)
+| Service | URL | Description |
+|---------|-----|-------------|
+| 🌐 **Frontend** | <http://localhost:3000> | React application |
+| ⚡ **Backend API** | <http://localhost:8080> | Spring Boot API |
+| 📚 **Swagger UI** | <http://localhost:8080/swagger-ui.html> | API documentation |
+| 💾 **H2 Console** | <http://localhost:8080/h2-console> | Database console |
+| 📊 **Health Check** | <http://localhost:8080/actuator/health> | Application health |
 
-## 🏗️ Project Structure
+---
 
-```txt
-hospital-management-system/
-├── src/
-│   ├── main/
-│   │   ├── java/com/hospital/
-│   │   │   ├── auth/                 # Authentication & JWT
-│   │   │   ├── config/               # Configuration classes
-│   │   │   ├── insurance/            # Insurance claim management
-│   │   │   ├── treatment/            # Treatment & specialist management
-│   │   │   └── swagger/              # API documentation
-│   │   └── resources/
-│   │       ├── application.yml       # Multi-environment configuration
-│   │       └── application-*.yml     # Environment-specific configs
-│   └── test/
-│       ├── java/                     # JUnit test cases
-│       └── resources/                # Test configurations
-├── member-portal/                    # React frontend application
-├── pom.xml                          # Maven configuration
-├── render.yaml                      # Deployment configuration
-└── README.md                        # This file
-```
+## 🔧 **Configuration**
 
-## 🔧 Configuration
+### **Environment Profiles**
 
-The application supports multiple environments through Spring profiles:
+#### **Local Development** (`application-local.yml`)
 
-### Development (default)
+- H2 in-memory database
+- H2 console enabled
+- Debug logging
+- CORS for localhost origins
 
-```yaml
-spring:
-  profiles:
-    active: dev
-  datasource:
-    url: jdbc:h2:mem:hospital_db
-  h2:
-    console:
-      enabled: true
-```
+#### **Production** (`application-prod.yml`)
 
-### Production
+- Optimized for Render.com free tier
+- Limited connection pool (5 max)
+- Info-level logging
+- Environment-based configuration
 
-```yaml
-spring:
-  profiles:
-    active: prod
-  datasource:
-    url: ${DATABASE_URL}
-  h2:
-    console:
-      enabled: false
-```
+### **Environment Variables**
 
-## 📚 API Documentation
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `SPRING_PROFILES_ACTIVE` | `local` | Active profile |
+| `DATABASE_URL` | `jdbc:h2:mem:hospital_db` | Database URL |
+| `JWT_SECRET` | Auto-generated | JWT signing secret |
+| `PORT` | `8080` | Server port |
+| `CORS_ALLOWED_ORIGINS` | Localhost | Allowed CORS origins |
 
-### Authentication Endpoints
+---
 
-#### Generate JWT Token
+## 📚 **API Documentation**
+
+### **🔐 Authentication**
+
+#### **Generate Token**
 
 ```bash
 POST /auth/generate-token
@@ -170,26 +264,20 @@ Content-Type: application/json
 {
   "token": "eyJhbGciOiJIUzI1NiJ9...",
   "type": "Bearer",
-  "expiresIn": 86400000
+  "expiresIn": 86400
 }
 ```
 
-#### Validate Token
+#### **Validate Token**
 
 ```bash
 GET /auth/validate-token?token=your-jwt-token
 Authorization: Bearer your-jwt-token
 ```
 
-**Response:**
+### **🏥 Treatment Packages**
 
-```json
-true
-```
-
-### Treatment Package Endpoints
-
-#### Get All Treatment Packages
+#### **Get All Packages**
 
 ```bash
 GET /IPTreatmentPackages
@@ -204,17 +292,52 @@ Authorization: Bearer your-jwt-token
     "id": 1,
     "packageName": "Orthopaedics Package 1",
     "specialization": "Orthopaedics",
-    "testList": ["OPT1", "OPT2"],
+    "testList": ["OPT1", "OPT2", "OPT3"],
     "packageCost": 2500.0,
     "durationWeeks": 4,
     "packageTier": 1
+  },
+  {
+    "id": 2,
+    "packageName": "Urology Package 2",
+    "specialization": "Urology", 
+    "testList": ["URT1", "URT2", "URT3"],
+    "packageCost": 5000.0,
+    "durationWeeks": 6,
+    "packageTier": 2
   }
 ]
 ```
 
-### Insurance Claim Endpoints
+### **👨‍⚕️ Specialists**
 
-#### Initiate Insurance Claim
+#### **Get All Specialists**
+
+```bash
+GET /specialists
+Authorization: Bearer your-jwt-token
+```
+
+**Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Dr. Sarah Johnson",
+    "specialization": "Orthopaedics",
+    "qualification": "MBBS, MS (Ortho)",
+    "experience": "15 years",
+    "tier": 2,
+    "contactEmail": "dr.sarah@hospital.com",
+    "contactPhone": "+1-555-0101"
+  }
+]
+```
+
+### **💰 Insurance Claims**
+
+#### **Initiate Claim**
 
 ```bash
 POST /insurance/InitiateClaim
@@ -225,7 +348,7 @@ Content-Type: application/json
   "patientName": "John Doe",
   "treatmentCost": 5000.0,
   "insurerId": 1,
-  "treatmentDetails": "Orthopaedic surgery"
+  "treatmentDetails": "Orthopaedic surgery for knee replacement"
 }
 ```
 
@@ -233,15 +356,15 @@ Content-Type: application/json
 
 ```json
 {
-  "claimId": 1,
+  "claimId": 12345,
   "status": "INITIATED",
   "estimatedAmount": 4000.0,
   "processingTime": "7-15 days",
-  "message": "Claim initiated successfully"
+  "message": "Claim initiated successfully. Reference ID: CLM-2024-12345"
 }
 ```
 
-#### Get All Insurance Providers
+#### **Get Insurance Providers**
 
 ```bash
 GET /insurance/insurers
@@ -255,8 +378,8 @@ Authorization: Bearer your-jwt-token
   {
     "id": 1,
     "insurerName": "Apollo Munich Health Insurance",
-    "packageName": "Orthopaedics Basic",
-    "amountLimit": 2000.0,
+    "packageName": "Comprehensive Health Plus",
+    "amountLimit": 500000.0,
     "disbursementDays": 7,
     "contactEmail": "claims@apollomunich.com",
     "active": true
@@ -264,301 +387,331 @@ Authorization: Bearer your-jwt-token
 ]
 ```
 
-## 🧪 Testing
+### **📅 Treatment Timetable**
 
-### Run All Tests
+#### **Generate Timetable**
 
 ```bash
+POST /IPTreatment/generateTimetable
+Authorization: Bearer your-jwt-token
+Content-Type: application/json
+
+{
+  "patientName": "Jane Smith",
+  "contactNumber": "+1-555-0202",
+  "packageId": 1,
+  "preferredStartDate": "2024-09-01"
+}
+```
+
+**Response:**
+
+```json
+{
+  "timetableId": 67890,
+  "patientName": "Jane Smith",
+  "assignedSpecialist": "Dr. Michael Chen",
+  "treatmentPlan": "4-week Orthopaedics rehabilitation program",
+  "startDate": "2024-09-01",
+  "endDate": "2024-09-29",
+  "sessions": [
+    {
+      "week": 1,
+      "sessionDate": "2024-09-01",
+      "sessionType": "Initial Assessment",
+      "duration": "60 minutes"
+    }
+  ]
+}
+```
+
+---
+
+## 🧪 **Testing**
+
+### **Run Tests**
+
+```bash
+cd monolithic-app
+
+# Run all tests
 mvn clean test
-```
 
-### Generate Coverage Report
-
-```bash
+# Run with coverage report
 mvn clean test jacoco:report
+
+# Skip tests during build
+mvn clean package -DskipTests
 ```
 
-### View Coverage Report
+### **Test Coverage**
 
-Open `target/site/jacoco/index.html` in your browser to view the detailed coverage report.
+- **Overall Coverage**: 75%+
+- **Service Layer**: 85%+
+- **Controller Layer**: 70%+
+- **Repository Layer**: 80%+
 
-### Test Coverage
+### **Test Categories**
 
-- **Overall Coverage**: 85%+
-- **Service Layer**: 90%+
-- **Controller Layer**: 80%+
-- **Repository Layer**: 75%+
+- ✅ **Unit Tests**: Service and utility classes
+- ✅ **Integration Tests**: API endpoints and database
+- ✅ **Security Tests**: Authentication and authorization
+- ✅ **Contract Tests**: API response validation
 
-### Sample Test Cases
+---
 
-#### Unit Test Example
+## 🚀 **Deployment**
 
-```java
-@ExtendWith(MockitoExtension.class)
-class AuthServiceTest {
-
-    @Mock
-    private JwtUtil jwtUtil;
-
-    @InjectMocks
-    private AuthService authService;
-
-    @Test
-    void generateToken_ShouldReturnJwtToken() {
-        // Given
-        TokenRequest request = new TokenRequest("testuser");
-        String expectedToken = "mock.jwt.token";
-        
-        when(jwtUtil.generateToken(anyString())).thenReturn(expectedToken);
-
-        // When
-        String actualToken = authService.generateToken(request);
-
-        // Then
-        assertEquals(expectedToken, actualToken);
-    }
-}
-```
-
-#### Integration Test Example
-
-```java
-@SpringBootTest
-@ActiveProfiles("test")
-class AuthControllerIntegrationTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Test
-    void generateToken_ShouldReturnTokenResponse() throws Exception {
-        mockMvc.perform(post("/auth/generate-token")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"username\":\"testuser\"}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.token").exists())
-                .andExpect(jsonPath("$.type").value("Bearer"));
-    }
-}
-```
-
-## 🚀 Deployment
-
-### Render.com (Recommended)
+### **🌟 One-Click Deployment (Render.com)**
 
 1. **Fork this repository** to your GitHub account
 
-2. **Connect to Render**:
+2. **Connect to Render.com**:
    - Sign up at [render.com](https://render.com)
-   - Create a new "Blueprint"
+   - Click "New +" → "Blueprint"
    - Connect your GitHub repository
-   - Render will automatically detect `render.yaml` and deploy both services
+   - Render automatically detects `render.yaml`
 
-3. **Environment Variables** (automatically configured):
+3. **Deploy**:
+   - Services deploy automatically
+   - Backend: `https://healthsync-api.onrender.com`
+   - Frontend: `https://healthsync-portal.onrender.com`
 
-   ```text
-   SPRING_PROFILES_ACTIVE=prod
-   JWT_SECRET=your-secret-key
-   DATABASE_URL=your-database-url (optional)
-   ```
-
-4. **Access Deployed Application**:
-   - Backend: `https://hospital-management-system.onrender.com`
-   - Frontend: `https://mediflow-portal.onrender.com`
-
-### Manual Deployment
-
-#### Build Application
+### **🐳 Docker Deployment**
 
 ```bash
-# Build backend JAR
-mvn clean package -DskipTests
+# Build and run with Docker
+docker build -t healthsync .
+docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod healthsync
+```
 
-# Build frontend
+### **⚡ Quick Deploy Script**
+
+```bash
+# Use the provided deployment script
+./deploy.sh
+```
+
+### **🔧 Manual Deployment**
+
+```bash
+# Backend
+cd monolithic-app
+mvn clean package -DskipTests
+java -Xmx400m -jar target/hospital-management-system-2.0.0.jar
+
+# Frontend
 cd member-portal
 npm run build
+npm run serve
 ```
 
-#### Run with Docker
+---
 
-```bash
-# Build Docker image
-docker build -t hospital-management-system .
+## 🔐 **Security**
 
-# Run container
-docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod hospital-management-system
-```
-
-## 🔍 Sample Data
-
-The application comes with comprehensive sample data for immediate testing:
-
-### Insurance Providers (10)
-
-- Apollo Munich Health Insurance
-- Star Health Insurance
-- HDFC ERGO Health
-- ICICI Lombard Health
-- Max Bupa Health
-- And 5 more...
-
-### Treatment Packages (4)
-
-- **Orthopaedics Package 1**: ₹2,500, 4 weeks, Junior specialist
-- **Orthopaedics Package 2**: ₹3,000, 6 weeks, Senior specialist
-- **Urology Package 1**: ₹4,000, 4 weeks, Junior specialist
-- **Urology Package 2**: ₹5,000, 6 weeks, Senior specialist
-
-### Medical Specialists (8)
-
-- 4 Orthopaedics specialists (2 Junior, 2 Senior)
-- 4 Urology specialists (2 Junior, 2 Senior)
-
-### Patient Records (6)
-
-- Diverse patient profiles with treatment history
-- Various age groups and medical conditions
-- Complete contact information and insurance mappings
-
-## 🔐 Security Features
+### **🛡️ Security Features**
 
 - **JWT Authentication** with configurable expiration
 - **CORS Configuration** for cross-origin requests
 - **Input Validation** on all API endpoints
 - **Error Handling** with sanitized error messages
-- **Security Headers** configured via Spring Security
+- **Security Headers** via Spring Security
 - **Rate Limiting** (configurable for production)
 
-## 📊 Monitoring & Health Checks
+### **🔑 Authentication Flow**
 
-### Built-in Endpoints
+1. Client sends credentials to `/auth/generate-token`
+2. Server validates and returns JWT token
+3. Client includes token in `Authorization: Bearer <token>` header
+4. Server validates token on protected endpoints
+5. Token expires after configured time (default: 24 hours)
 
-- `GET /actuator/health` - Application health status
-- `GET /actuator/info` - Application information
-- `GET /actuator/metrics` - Application metrics
+---
 
-### Health Check Response
+## 🎨 **Screenshots**
 
-```json
-{
-  "status": "UP",
-  "components": {
-    "db": {
-      "status": "UP",
-      "details": {
-        "database": "H2",
-        "validationQuery": "isValid()"
-      }
-    },
-    "diskSpace": {
-      "status": "UP",
-      "details": {
-        "total": 499963174912,
-        "free": 91943116800,
-        "threshold": 10485760,
-        "exists": true
-      }
-    }
-  }
-}
+### 🔐 Authentication
+
+```txt
+┌─────────────────────────────────────┐
+│ 🏥 HealthSync - Patient Portal       │
+├─────────────────────────────────────┤
+│ Username: [admin            ]      │
+│ Password: [••••••           ]      │
+│                                     │
+│         [🔑 Sign In]               │
+└─────────────────────────────────────┘
 ```
 
-## 🤝 Contributing
+### **📊 Dashboard**
 
-1. **Fork the repository**
-2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
-3. **Commit your changes** (`git commit -m 'Add some AmazingFeature'`)
-4. **Push to the branch** (`git push origin feature/amazing-feature`)
-5. **Open a Pull Request**
+```txt
+┌─────────────────────────────────────────────────────────┐
+│ 🏥 HealthSync Dashboard                          👤 Admin │
+├─────────────────────────────────────────────────────────┤
+│ 📈 Overview                                            │
+│ ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐      │
+│ │📋 Patients│ │👨‍⚕️ Doctors│ │💰 Claims│ │📅 Appts │      │
+│ │   156    │ │    8     │ │   42   │ │   23   │      │
+│ └─────────┘ └─────────┘ └─────────┘ └─────────┘      │
+├─────────────────────────────────────────────────────────┤
+│ 🔄 Recent Activity                                     │
+│ • New patient John Doe registered                      │
+│ • Insurance claim #12345 approved                      │
+│ • Dr. Smith added to Orthopaedics                     │
+└─────────────────────────────────────────────────────────┘
+```
 
-### Coding Standards
+### **📋 Treatment Packages**
+
+```txt
+┌─────────────────────────────────────────────────────────┐
+│ 🏥 Treatment Packages                                   │
+├─────────────────────────────────────────────────────────┤
+│ 🦴 Orthopaedics Package 1               💰 $2,500      │
+│ ⏱️  4 weeks • 👨‍⚕️ Junior Specialist                      │
+│ 📋 Tests: OPT1, OPT2, OPT3                            │
+│                                         [📋 Details]   │
+├─────────────────────────────────────────────────────────┤
+│ 🫘 Urology Package 2                   💰 $5,000      │
+│ ⏱️  6 weeks • 👨‍⚕️ Senior Specialist                      │
+│ 📋 Tests: URT1, URT2, URT3                            │
+│                                         [📋 Details]   │
+└─────────────────────────────────────────────────────────┘
+```
+
+### **📚 API Documentation (Swagger)**
+
+```txt
+┌─────────────────────────────────────────────────────────┐
+│ 📚 HealthSync API v2.0.0                                 │
+├─────────────────────────────────────────────────────────┤
+│ 🔐 auth-controller                                      │
+│ ├─ POST /auth/generate-token     Generate JWT Token    │
+│ └─ GET  /auth/validate-token     Validate Token        │
+│                                                         │
+│ 🏥 treatment-controller                                 │
+│ ├─ GET  /IPTreatmentPackages     Get Treatment Packages│
+│ └─ POST /IPTreatment/generateTimetable  Generate Plan  │
+│                                                         │
+│ 💰 insurance-controller                                 │
+│ ├─ POST /insurance/InitiateClaim    Start Insurance    │
+│ └─ GET  /insurance/insurers        Get Providers       │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📊 **Sample Data**
+
+The application comes with comprehensive sample data for immediate testing:
+
+### **Insurance Providers (10)**
+
+- Apollo Munich Health Insurance
+- Star Health Insurance  
+- HDFC ERGO Health Insurance
+- ICICI Lombard Health Insurance
+- Max Bupa Health Insurance
+- Care Health Insurance
+- SBI General Insurance
+- Bajaj Allianz Health
+- Oriental Insurance Company
+- United India Insurance
+
+### **Treatment Packages (4)**
+
+| Package | Cost | Duration | Tier | Specialization |
+|---------|------|----------|------|----------------|
+| Orthopaedics Package 1 | ₹2,500 | 4 weeks | Junior | Orthopaedics |
+| Orthopaedics Package 2 | ₹3,000 | 6 weeks | Senior | Orthopaedics |
+| Urology Package 1 | ₹4,000 | 4 weeks | Junior | Urology |
+| Urology Package 2 | ₹5,000 | 6 weeks | Senior | Urology |
+
+### **Medical Specialists (8)**
+
+- 4 Orthopaedics specialists (2 Junior, 2 Senior)
+- 4 Urology specialists (2 Junior, 2 Senior)
+
+### **Patient Records (6)**
+
+- Diverse patient profiles with complete medical history
+- Various age groups and medical conditions
+- Insurance mappings and treatment preferences
+
+---
+
+## 🚀 **Performance Metrics**
+
+### **⚡ Response Times (Average)**
+
+- Authentication: ~50ms
+- Treatment Packages: ~100ms  
+- Insurance Claims: ~150ms
+- Specialist Lookup: ~75ms
+
+### **📈 Throughput**
+
+- Development: 500 requests/minute
+- Production: 2000+ requests/minute (with scaling)
+
+### **💾 Resource Usage (Optimized for Free Tier)**
+
+- Memory: ~400MB
+- CPU: <10% under normal load
+- Database: H2 in-memory (~50MB)
+
+---
+
+## 🤝 **Contributing**
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
+
+### **📋 Development Guidelines**
 
 - Follow Java naming conventions
 - Write unit tests for new features
-- Maintain test coverage above 80%
+- Maintain test coverage above 70%
 - Use meaningful commit messages
 - Update documentation as needed
 
-## 📈 Performance Metrics
+---
 
-### Response Times (Average)
+## 📄 **License**
 
-- **Authentication**: ~50ms
-- **Treatment Packages**: ~100ms
-- **Insurance Claims**: ~150ms
-- **Specialist Lookup**: ~75ms
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
-### Throughput
+---
 
-- **Development**: 500 requests/minute
-- **Production**: 2000+ requests/minute (with scaling)
+## 👥 **Authors & Contributors**
 
-### Resource Usage
+- **Bhumika Agarwal** - *Initial work* - [GitHub](https://github.com/bhumika-aga)
 
-- **Memory**: ~400MB (optimized for free tier)
-- **CPU**: <10% under normal load
-- **Database**: H2 in-memory (~50MB)
+---
 
-## 📚 Additional Resources
-
-- [Spring Boot Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
-- [React Documentation](https://reactjs.org/docs/getting-started.html)
-- [JWT.io](https://jwt.io/) - JWT token debugger
-- [Render.com Docs](https://render.com/docs) - Deployment platform documentation
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-#### Port Already in Use
-
-```bash
-# Check what's using port 8080
-lsof -i :8080
-
-# Kill the process
-kill -9 <PID>
-```
-
-#### Database Connection Issues
-
-```bash
-# Verify H2 console access
-http://localhost:8080/h2-console
-
-# JDBC URL: jdbc:h2:mem:hospital_db
-# Username: sa
-# Password: password
-```
-
-#### Build Issues
-
-```bash
-# Clean and rebuild
-mvn clean install
-
-# Skip tests if needed
-mvn clean install -DskipTests
-```
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Authors
-
-- **Bhumika Agarwal** - [GitHub](https://github.com/bhumika-aga)
-
-## 🙏 Acknowledgments
+## 🙏 **Acknowledgments**
 
 - Spring Boot team for the excellent framework
-- React community for the powerful UI library
-- All contributors and testers who helped improve this project
+- React community for the powerful UI library  
+- Material-UI for the beautiful component library
+- Render.com for free hosting
+- All contributors and testers
+
+---
+
+## 📞 **Support & Contact**
+
+- **📧 Email**: <bhumika.aga@gmail.com>
+- **🐛 Issues**: [GitHub Issues](https://github.com/bhumika-aga/hospital-management-system/issues)
+- **💬 Discussions**: [GitHub Discussions](https://github.com/bhuika-aga/hospital-management-system/discussions)
 
 ---
 
 **⭐ If you found this project helpful, please give it a star!**
 
-**📧 Questions?** Feel free to reach out at <bhumika.aga@gmail.com>
-
-**🐛 Found a bug?** Please create an issue on GitHub
+Made with ❤️ for healthcare innovation

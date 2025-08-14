@@ -209,7 +209,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
         }}
       >
         <Typography variant="caption" color="text.secondary" align="center">
-          MediFlow v1.0
+          HealthSync v1.0
         </Typography>
       </Box>
     </Box>

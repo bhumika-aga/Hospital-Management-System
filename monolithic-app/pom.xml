@@ -138,22 +138,7 @@
                 <configuration>
                     <source>17</source>
                     <target>17</target>
-                    <skip>false</skip>
-                    <skipMain>false</skipMain>
-                    <testSkip>true</testSkip>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>default-testCompile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>

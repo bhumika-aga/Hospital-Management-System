@@ -1,6 +1,6 @@
-# 🌐 MediFlow Portal - Frontend Application
+# 🌐 HealthSync Portal - Frontend Application
 
-The **MediFlow Portal** is a modern React application that serves as the frontend for the Hospital Management System. Built with Apple & Vercel-inspired design principles, it provides an intuitive interface for managing patient treatments, insurance claims, and specialist assignments.
+The **HealthSync Portal** is a modern React application that serves as the frontend for the HealthSync Hospital Management System. Built with Apple & Vercel-inspired design principles, it provides an intuitive interface for managing patient treatments, insurance claims, and specialist assignments.
 
 ## ✨ Features
 
@@ -23,7 +23,7 @@ The **MediFlow Portal** is a modern React application that serves as the fronten
 
 ## 🏗️ Project Structure
 
-```
+```text
 member-portal/
 ├── public/                     # Static assets
 ├── src/
@@ -68,7 +68,7 @@ cd member-portal
 npm install
 ```
 
-2. **Configure API endpoint:**
+2.**Configure API endpoint:**
 
 Create `.env.local` file (optional):
 
@@ -76,7 +76,7 @@ Create `.env.local` file (optional):
 REACT_APP_API_BASE_URL=http://localhost:8080
 ```
 
-3. **Start development server:**
+3.**Start development server:**
 
 ```bash
 npm start
@@ -184,7 +184,7 @@ npm test Dashboard.test.tsx
 
 ### Environment Variables
 
-- `REACT_APP_API_BASE_URL` - Backend server URL (default: http://localhost:8080)
+- `REACT_APP_API_BASE_URL` - Backend server URL (default: <http://localhost:8080>)
 - `REACT_APP_VERSION` - Application version for display
 
 ### Build Configuration
@@ -211,7 +211,7 @@ npx serve -s build
 # render.yaml
 services:
   - type: web
-    name: mediflow-portal
+    name: healthsync-portal
     env: node
     buildCommand: npm ci && npm run build
     startCommand: npm start
@@ -229,26 +229,31 @@ services:
 ## 🎯 User Journey
 
 ### 1. Authentication
+
 - Landing page with clean login form
 - JWT token generation and storage
 - Automatic redirect to dashboard
 
 ### 2. Dashboard Overview
+
 - System statistics and health metrics
 - Quick navigation to main features
 - Real-time data updates
 
 ### 3. Treatment Management
+
 - Browse available treatment packages
 - View specialist details and availability
 - Generate patient treatment plans
 
 ### 4. Insurance Processing
+
 - Initiate new insurance claims
 - Select appropriate insurance providers
 - Track claim status and progress
 
 ### 5. Navigation
+
 - Collapsible sidebar with smooth animations
 - Breadcrumb navigation for deep pages
 - Mobile-responsive hamburger menu

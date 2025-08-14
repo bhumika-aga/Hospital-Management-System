@@ -30,7 +30,9 @@ public class SecurityConfig {
         http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .headers(headers -> headers.frameOptions().sameOrigin())
             .authorizeHttpRequests(authz -> authz
+                                                .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                                                 .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
                                                 .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
                                                 .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()

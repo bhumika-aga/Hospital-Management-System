@@ -130,18 +130,18 @@ public class TreatmentTimetableService {
         if ("Orthopaedics".equals(packageInfo.specialization)) {
             if ("JUNIOR".equals(level)) {
                 return new SpecialistAssignment("Dr. Rajesh Kumar", "JUNIOR", "Orthopaedics",
-                    "+91-9876543210", "rajesh.kumar@mediflow.com", "MBBS, MS Orthopaedics", 3);
+                    "+91-9876543210", "rajesh.kumar@healthsync.com", "MBBS, MS Orthopaedics", 3);
             } else {
                 return new SpecialistAssignment("Dr. Anil Gupta", "SENIOR", "Orthopaedics",
-                    "+91-9876543212", "anil.gupta@mediflow.com", "MBBS, MS, MCh Orthopaedics", 15);
+                    "+91-9876543212", "anil.gupta@healthsync.com", "MBBS, MS, MCh Orthopaedics", 15);
             }
         } else if ("Urology".equals(packageInfo.specialization)) {
             if ("JUNIOR".equals(level)) {
                 return new SpecialistAssignment("Dr. Vikram Singh", "JUNIOR", "Urology",
-                    "+91-9876543214", "vikram.singh@mediflow.com", "MBBS, MS Urology", 2);
+                    "+91-9876543214", "vikram.singh@healthsync.com", "MBBS, MS Urology", 2);
             } else {
                 return new SpecialistAssignment("Dr. Ashok Mehta", "SENIOR", "Urology",
-                    "+91-9876543216", "ashok.mehta@mediflow.com", "MBBS, MS, MCh Urology", 20);
+                    "+91-9876543216", "ashok.mehta@healthsync.com", "MBBS, MS, MCh Urology", 20);
             }
         }
         

@@ -1,10 +1,4 @@
-import {
-  People,
-  Phone,
-  Refresh,
-  Schedule,
-  Star,
-} from "@mui/icons-material";
+import { People, Phone, Refresh, Schedule, Star } from "@mui/icons-material";
 import {
   Alert,
   Avatar,
@@ -152,9 +146,7 @@ const Specialists: React.FC = () => {
                       label={specialist.level}
                       size="small"
                       color={
-                        specialist.level === "SENIOR"
-                          ? "warning"
-                          : "success"
+                        specialist.level === "SENIOR" ? "warning" : "success"
                       }
                       sx={{ mb: 0.5 }}
                     />

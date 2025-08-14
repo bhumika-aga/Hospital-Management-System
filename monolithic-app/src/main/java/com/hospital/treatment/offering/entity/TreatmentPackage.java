@@ -17,7 +17,7 @@ public class TreatmentPackage {
     @Column(nullable = false)
     private String specialization;
     
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "package_tests", joinColumns = @JoinColumn(name = "package_id"))
     @Column(name = "test_name")
     private List<String> tests;

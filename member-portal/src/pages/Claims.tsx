@@ -53,10 +53,10 @@ const Claims: React.FC = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      patientName: '',
-      ailment: '',
-      treatmentPackageName: '',
-      insurerId: '',
+      patientName: "",
+      ailment: "",
+      treatmentPackageName: "",
+      insurerId: "",
       treatmentCost: 0,
     },
   });
@@ -87,11 +87,13 @@ const Claims: React.FC = () => {
     setSubmitting(true);
     try {
       // Find the selected insurer to get the insurer name
-      const selectedInsurer = insurers.find(insurer => insurer.id.toString() === data.insurerId);
+      const selectedInsurer = insurers.find(
+        (insurer) => insurer.id.toString() === data.insurerId
+      );
       if (!selectedInsurer) {
         throw new Error("Selected insurer not found");
       }
-      
+
       const claimRequest = {
         patientName: data.patientName,
         ailment: data.ailment,
@@ -498,7 +500,7 @@ const Claims: React.FC = () => {
                   {insurers.map((insurer) => (
                     <MenuItem key={insurer.id} value={insurer.id}>
                       {insurer.insurerName} (Max: ₹
-                      {insurer.maxCashlessAmount?.toLocaleString() ?? '0'})
+                      {insurer.maxCashlessAmount?.toLocaleString() ?? "0"})
                     </MenuItem>
                   ))}
                 </TextField>

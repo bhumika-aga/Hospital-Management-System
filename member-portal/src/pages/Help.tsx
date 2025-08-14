@@ -36,7 +36,7 @@ const Help: React.FC = () => {
           Help & Support
         </Typography>
         <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
-          Get assistance with MediFlow
+          Get assistance with HealthSync
         </Typography>
         <Divider />
       </Box>
@@ -100,7 +100,7 @@ const Help: React.FC = () => {
               </ListItemIcon>
               <ListItemText
                 primary="Email Support"
-                secondary="support@mediflow.com"
+                secondary="support@HealthSync.com"
               />
               <Button variant="outlined" size="small">
                 Send Email

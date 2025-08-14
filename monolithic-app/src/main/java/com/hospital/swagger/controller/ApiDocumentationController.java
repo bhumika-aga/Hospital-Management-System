@@ -84,7 +84,7 @@ public class ApiDocumentationController {
     
     @Operation(
         summary = "Get service information",
-        description = "Returns basic information about the MediFlow system"
+        description = "Returns basic information about the HealthSync system"
     )
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Successfully retrieved service information")
@@ -92,7 +92,7 @@ public class ApiDocumentationController {
     @GetMapping("/info")
     public ResponseEntity<Map<String, Object>> getServiceInfo() {
         Map<String, Object> info = new HashMap<>();
-        info.put("name", "MediFlow - International Patient Treatment Management System");
+        info.put("name", "HealthSync - International Patient Treatment Management System");
         info.put("version", "1.0.0");
         info.put("description", "Comprehensive microservices-based hospital management system");
         

@@ -5,6 +5,7 @@ import com.hospital.treatment.offering.entity.TreatmentPackage;
 import com.hospital.treatment.offering.repository.TreatmentPackageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ public class TreatmentPackageService {
     @Autowired
     private TreatmentPackageRepository packageRepository;
     
+    @Transactional(readOnly = true)
     public List<TreatmentPackageDTO> getAllPackages() {
         return packageRepository.findAll()
                    .stream()
@@ -22,12 +24,14 @@ public class TreatmentPackageService {
                    .collect(Collectors.toList());
     }
     
+    @Transactional(readOnly = true)
     public TreatmentPackageDTO getPackageByName(String name) {
         TreatmentPackage pkg = packageRepository.findByName(name)
                                    .orElseThrow(() -> new RuntimeException("Package not found: " + name));
         return convertToDTO(pkg);
     }
     
+    @Transactional(readOnly = true)
     public List<TreatmentPackageDTO> getPackagesBySpecialization(String specialization) {
         return packageRepository.findBySpecialization(specialization)
                    .stream()
@@ -35,6 +39,7 @@ public class TreatmentPackageService {
                    .collect(Collectors.toList());
     }
     
+    @Transactional
     public TreatmentPackageDTO updatePackage(Long packageId, TreatmentPackageDTO packageDTO) {
         TreatmentPackage existingPackage = packageRepository.findById(packageId)
                                                .orElseThrow(() -> new RuntimeException("Package not found with id: " + packageId));

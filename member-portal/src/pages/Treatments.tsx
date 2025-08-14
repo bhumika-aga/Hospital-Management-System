@@ -209,11 +209,15 @@ const Treatments: React.FC = () => {
                   </Box>
                   <Chip
                     label={
-                      getStatusColor(treatment.treatmentEndDate || new Date().toISOString()) === "success"
+                      getStatusColor(
+                        treatment.treatmentEndDate || new Date().toISOString()
+                      ) === "success"
                         ? "Active"
                         : "Completed"
                     }
-                    color={getStatusColor(treatment.treatmentEndDate || new Date().toISOString())}
+                    color={getStatusColor(
+                      treatment.treatmentEndDate || new Date().toISOString()
+                    )}
                     size="small"
                   />
                 </Box>
@@ -225,7 +229,8 @@ const Treatments: React.FC = () => {
                       sx={{ mr: 1, color: "primary.main", fontSize: 18 }}
                     />
                     <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                      {treatment.treatmentPackage?.name || treatment.treatmentPackageName}
+                      {treatment.treatmentPackage?.name ||
+                        treatment.treatmentPackageName}
                     </Typography>
                   </Box>
                   <Typography
@@ -248,7 +253,9 @@ const Treatments: React.FC = () => {
                           </Typography>
                           <Typography variant="body2">
                             {new Date(
-                              treatment.treatmentCommencementDate || treatment.treatmentStartDate || new Date()
+                              treatment.treatmentCommencementDate ||
+                                treatment.treatmentStartDate ||
+                                new Date()
                             ).toLocaleDateString()}
                           </Typography>
                         </Box>

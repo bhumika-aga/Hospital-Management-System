@@ -1,12 +1,10 @@
-# Render.com deployment configuration for MediFlow Hospital Management System
+# Render.com deployment configuration for healthsync Hospital Management System
 services:
   # Monolithic Backend Service
   - type: web
     name: hospital-management-system
-    env: java
+    runtime: docker
     plan: free
-    buildCommand: cd monolithic-app && mvn clean package -DskipTests
-    startCommand: cd monolithic-app && java -Xmx400m -XX:MaxRAMPercentage=75 -Dserver.port=$PORT -jar target/hospital-management-system-2.0.0.jar
     healthCheckPath: /actuator/health
     envVars:
       - key: JAVA_TOOL_OPTIONS
@@ -18,14 +16,14 @@ services:
       - key: JWT_EXPIRATION
         value: 86400000
       - key: SPRING_JPA_SHOW_SQL
-        value: false
+        value: "false"
       - key: LOGGING_LEVEL_ROOT
         value: INFO
-        
-  # React Frontend Service  
+
+  # React Frontend Service
   - type: web
-    name: mediflow-portal
-    env: node
+    name: healthsync-portal
+    runtime: node
     plan: free
     buildCommand: cd member-portal && npm ci && npm run build
     startCommand: cd member-portal && npm run serve
@@ -36,8 +34,7 @@ services:
       - key: REACT_APP_API_BASE_URL
         value: https://hospital-management-system.onrender.com
       - key: GENERATE_SOURCEMAP
-        value: false
-
+        value: "false"
 # Database (using H2 in-memory for simplicity on free tier)
 # No external database needed - H2 is embedded
 
