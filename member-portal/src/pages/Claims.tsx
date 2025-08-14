@@ -33,45 +33,85 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import React, { useCallback, useEffect, useState } from "react";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { InsuranceService } from "../services/insurance.service";
-import { ClaimRequest, Insurer } from "../types";
+import { TreatmentService } from "../services/treatment.service";
+import { ClaimRequest, Insurer, TreatmentPackage } from "../types";
 
 const Claims: React.FC = () => {
   const [claims, setClaims] = useState<ClaimRequest[]>([]);
   const [insurers, setInsurers] = useState<Insurer[]>([]);
+  const [treatmentPackages, setTreatmentPackages] = useState<TreatmentPackage[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [viewDialogOpen, setViewDialogOpen] = useState(false);
+  const [selectedClaim, setSelectedClaim] = useState<ClaimRequest | null>(null);
 
   const {
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
       patientName: "",
       ailment: "",
-      treatmentPackageName: "",
+      treatmentPackageId: "",
       insurerId: "",
       treatmentCost: 0,
     },
   });
+
+  // Watch the treatment package selection to auto-populate cost
+  const selectedPackageId = useWatch({ control, name: "treatmentPackageId" });
+
+  useEffect(() => {
+    if (selectedPackageId && treatmentPackages.length > 0) {
+      console.log('Selected package ID:', selectedPackageId, 'Type:', typeof selectedPackageId);
+      console.log('Available packages:', treatmentPackages.map(pkg => ({ id: pkg.id, name: pkg.name, cost: pkg.cost })));
+      
+      const selectedPackage = treatmentPackages.find(
+        (pkg) => pkg.id === Number(selectedPackageId) || pkg.id.toString() === selectedPackageId.toString()
+      );
+      
+      console.log('Found package:', selectedPackage);
+      
+      if (selectedPackage) {
+        console.log('Setting cost to:', selectedPackage.cost);
+        setValue("treatmentCost", selectedPackage.cost);
+      }
+    }
+  }, [selectedPackageId, treatmentPackages, setValue]);
+
+  // Handler for when treatment package is selected
+  const handlePackageChange = useCallback((packageId: string) => {
+    if (packageId && treatmentPackages.length > 0) {
+      const selectedPackage = treatmentPackages.find(
+        (pkg) => pkg.id.toString() === packageId || pkg.id === Number(packageId)
+      );
+      if (selectedPackage) {
+        setValue("treatmentCost", selectedPackage.cost);
+      }
+    }
+  }, [treatmentPackages, setValue]);
 
   const loadData = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      const [claimsData, insurersData] = await Promise.all([
+      const [claimsData, insurersData, packagesData] = await Promise.all([
         InsuranceService.getAllClaims(),
         InsuranceService.getAllInsurers(),
+        TreatmentService.getTreatmentPackages(),
       ]);
       setClaims(claimsData);
       setInsurers(insurersData);
+      setTreatmentPackages(packagesData);
     } catch (err: any) {
       setError("Failed to load claims data");
     } finally {
@@ -86,27 +126,60 @@ const Claims: React.FC = () => {
   const onSubmit = async (data: any) => {
     setSubmitting(true);
     try {
+      console.log('Form data submitted:', data);
+      console.log('Available insurers:', insurers.map(ins => ({ id: ins.id, name: ins.insurerName })));
+      console.log('Looking for insurer ID:', data.insurerId, 'Type:', typeof data.insurerId);
+      
       // Find the selected insurer to get the insurer name
       const selectedInsurer = insurers.find(
-        (insurer) => insurer.id.toString() === data.insurerId
+        (insurer) => insurer.id === Number(data.insurerId) || insurer.id.toString() === data.insurerId.toString()
       );
+      
+      console.log('Found insurer:', selectedInsurer);
+      
       if (!selectedInsurer) {
-        throw new Error("Selected insurer not found");
+        throw new Error(`Selected insurer not found. Insurer ID: ${data.insurerId}, Available IDs: ${insurers.map(i => i.id).join(', ')}`);
+      }
+
+      // Find the selected treatment package to get the package name
+      const selectedPackage = treatmentPackages.find(
+        (pkg) => pkg.id === Number(data.treatmentPackageId) || pkg.id.toString() === data.treatmentPackageId.toString()
+      );
+      if (!selectedPackage) {
+        throw new Error(`Selected treatment package not found. Package ID: ${data.treatmentPackageId}`);
       }
 
       const claimRequest = {
         patientName: data.patientName,
         ailment: data.ailment,
-        treatmentPackageName: data.treatmentPackageName,
+        treatmentPackageName: selectedPackage.name,
         insurerName: selectedInsurer.insurerName,
         treatmentCost: Number(data.treatmentCost),
       };
+      
+      console.log('Initiating claim with data:', claimRequest);
       const newClaim = await InsuranceService.initiateClaim(claimRequest);
-      setClaims([...claims, newClaim]);
+      console.log('API response - new claim:', newClaim);
+      
+      // Ensure the new claim has all required properties
+      const claimWithDefaults: ClaimRequest = {
+        ...newClaim,
+        id: newClaim.id || Date.now() + Math.floor(Math.random() * 1000), // Fallback unique number ID if not provided
+        treatmentCost: newClaim.treatmentCost || claimRequest.treatmentCost,
+        claimAmount: newClaim.claimAmount || 0,
+        claimStatus: newClaim.claimStatus || 'INITIATED',
+        dateOfClaim: newClaim.dateOfClaim || new Date().toISOString(),
+        patientName: newClaim.patientName || claimRequest.patientName,
+        insurerId: newClaim.insurerId || 0,
+      };
+      
+      console.log('Claim with defaults:', claimWithDefaults);
+      setClaims([...claims, claimWithDefaults]);
       setDialogOpen(false);
       reset();
     } catch (err: any) {
-      setError("Failed to initiate claim");
+      console.error('Failed to initiate claim:', err);
+      setError(`Failed to initiate claim: ${err.message || err.toString()}`);
     } finally {
       setSubmitting(false);
     }
@@ -134,6 +207,100 @@ const Claims: React.FC = () => {
     }
   };
 
+  const handleViewClaim = (claim: ClaimRequest) => {
+    setSelectedClaim(claim);
+    setViewDialogOpen(true);
+  };
+
+  const downloadReceipt = (claim: ClaimRequest | null) => {
+    if (!claim) return;
+
+    // Create HTML receipt
+    const receiptHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Insurance Claim Receipt</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 20px; margin-bottom: 30px; }
+        .hospital-name { font-size: 24px; font-weight: bold; color: #000; }
+        .receipt-title { font-size: 20px; margin: 20px 0; }
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+        .detail-item { margin: 10px 0; }
+        .label { font-weight: bold; color: #666; }
+        .value { margin-left: 10px; }
+        .status { padding: 5px 15px; border-radius: 20px; font-weight: bold; }
+        .status.APPROVED { background-color: #d4edda; color: #155724; }
+        .status.REJECTED { background-color: #f8d7da; color: #721c24; }
+        .status.INITIATED { background-color: #fff3cd; color: #856404; }
+        .footer { margin-top: 40px; text-align: center; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="hospital-name">HealthSync - Hospital Management System</div>
+        <div>123 Medical Street, Healthcare City, HC 110001</div>
+        <div>Phone: +91 12345 67890 | Email: support@healthsync.com</div>
+    </div>
+    
+    <div class="receipt-title">Insurance Claim Receipt</div>
+    
+    <div class="details-grid">
+        <div>
+            <div class="detail-item">
+                <span class="label">Claim ID:</span>
+                <span class="value">#${claim.id}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Patient Name:</span>
+                <span class="value">${claim.patientName}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Insurance Provider:</span>
+                <span class="value">${claim.insurer?.insurerName || 'N/A'}</span>
+            </div>
+        </div>
+        <div>
+            <div class="detail-item">
+                <span class="label">Treatment Cost:</span>
+                <span class="value">₹${claim.treatmentCost?.toLocaleString() || '0'}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Claim Amount:</span>
+                <span class="value">₹${claim.claimAmount?.toLocaleString() || '0'}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Date of Claim:</span>
+                <span class="value">${new Date(claim.dateOfClaim).toLocaleDateString('en-IN')}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="detail-item">
+        <span class="label">Status:</span>
+        <span class="status ${claim.claimStatus}">${claim.claimStatus}</span>
+    </div>
+    
+    <div class="footer">
+        <p>This is a computer-generated receipt. No signature is required.</p>
+        <p>Generated on: ${new Date().toLocaleDateString('en-IN')} at ${new Date().toLocaleTimeString('en-IN')}</p>
+    </div>
+</body>
+</html>`;
+
+    // Create and download the receipt
+    const blob = new Blob([receiptHTML], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `claim-receipt-${claim.id}-${new Date().toISOString().split('T')[0]}.html`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   if (loading) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
@@ -142,7 +309,8 @@ const Claims: React.FC = () => {
     );
   }
 
-  return (
+  try {
+    return (
     <Box>
       {/* Header */}
       <Box sx={{ mb: 4 }}>
@@ -297,7 +465,7 @@ const Claims: React.FC = () => {
                   <Typography variant="h4" sx={{ fontWeight: 600 }}>
                     ₹
                     {claims
-                      .reduce((sum, c) => sum + c.claimAmount, 0)
+                      .reduce((sum, c) => sum + (c.claimAmount || 0), 0)
                       .toLocaleString()}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
@@ -326,8 +494,8 @@ const Claims: React.FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {claims.map((claim) => (
-                <TableRow key={claim.id} hover>
+              {claims.map((claim, index) => (
+                <TableRow key={claim.id || `claim_${index}_${claim.patientName}`} hover>
                   <TableCell>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <Avatar
@@ -362,7 +530,7 @@ const Claims: React.FC = () => {
                   </TableCell>
                   <TableCell align="right">
                     <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                      ₹{claim.treatmentCost.toLocaleString()}
+                      ₹{claim.treatmentCost?.toLocaleString() || '0'}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
@@ -370,7 +538,7 @@ const Claims: React.FC = () => {
                       variant="body2"
                       sx={{ fontWeight: 600, color: "primary.main" }}
                     >
-                      ₹{claim.claimAmount.toLocaleString()}
+                      ₹{claim.claimAmount?.toLocaleString() || '0'}
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
@@ -388,7 +556,11 @@ const Claims: React.FC = () => {
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Button size="small" variant="outlined">
+                    <Button 
+                      size="small" 
+                      variant="outlined"
+                      onClick={() => handleViewClaim(claim)}
+                    >
                       View
                     </Button>
                   </TableCell>
@@ -451,18 +623,30 @@ const Claims: React.FC = () => {
             />
 
             <Controller
-              name="treatmentPackageName"
+              name="treatmentPackageId"
               control={control}
-              rules={{ required: "Treatment package name is required" }}
+              rules={{ required: "Treatment package is required" }}
               render={({ field }) => (
                 <TextField
                   {...field}
+                  select
                   fullWidth
-                  label="Treatment Package Name"
+                  label="Treatment Package"
                   margin="normal"
-                  error={!!errors.treatmentPackageName}
-                  helperText={errors.treatmentPackageName?.message}
-                />
+                  value={field.value || ""}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    handlePackageChange(e.target.value);
+                  }}
+                  error={!!errors.treatmentPackageId}
+                  helperText={errors.treatmentPackageId?.message}
+                >
+                  {treatmentPackages.map((pkg) => (
+                    <MenuItem key={pkg.id} value={pkg.id}>
+                      {pkg.name} - {pkg.specialization} (₹{pkg.cost.toLocaleString()})
+                    </MenuItem>
+                  ))}
+                </TextField>
               )}
             />
 
@@ -477,8 +661,10 @@ const Claims: React.FC = () => {
                   type="number"
                   label="Treatment Cost (₹)"
                   margin="normal"
+                  value={field.value || 0}
+                  slotProps={{ input: { readOnly: true } }}
                   error={!!errors.treatmentCost}
-                  helperText={errors.treatmentCost?.message}
+                  helperText={errors.treatmentCost?.message || "Auto-populated based on selected package"}
                 />
               )}
             />
@@ -494,6 +680,7 @@ const Claims: React.FC = () => {
                   fullWidth
                   label="Insurance Provider"
                   margin="normal"
+                  value={field.value || ""}
                   error={!!errors.insurerId}
                   helperText={errors.insurerId?.message}
                 >
@@ -520,8 +707,188 @@ const Claims: React.FC = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* View Claim Details Dialog */}
+      <Dialog
+        open={viewDialogOpen}
+        onClose={() => setViewDialogOpen(false)}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Receipt sx={{ color: 'primary.main' }} />
+            Claim Details
+          </Box>
+        </DialogTitle>
+        <DialogContent>
+          {selectedClaim && (
+            <Box sx={{ mt: 1 }}>
+              {/* Header Section */}
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
+                <Avatar
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    bgcolor: 'primary.main',
+                    fontSize: '1.2rem',
+                  }}
+                >
+                  {selectedClaim.patientName
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")
+                    .toUpperCase()}
+                </Avatar>
+                <Box>
+                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                    {selectedClaim.patientName}
+                  </Typography>
+                  <Chip
+                    label={selectedClaim.claimStatus}
+                    color={getStatusColor(selectedClaim.claimStatus) as any}
+                    size="small"
+                    icon={getStatusIcon(selectedClaim.claimStatus)}
+                    variant="outlined"
+                  />
+                </Box>
+              </Box>
+
+              <Divider sx={{ mb: 3 }} />
+
+              {/* Claim Information Grid */}
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 3 }}>
+                <Card variant="outlined">
+                  <CardContent>
+                    <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                      Claim ID
+                    </Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                      #{selectedClaim.id}
+                    </Typography>
+                  </CardContent>
+                </Card>
+
+                <Card variant="outlined">
+                  <CardContent>
+                    <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                      Treatment Cost
+                    </Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 600, color: 'primary.main' }}>
+                      ₹{selectedClaim.treatmentCost?.toLocaleString() || '0'}
+                    </Typography>
+                  </CardContent>
+                </Card>
+
+                <Card variant="outlined">
+                  <CardContent>
+                    <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                      Claim Amount
+                    </Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 600, color: 'success.main' }}>
+                      ₹{selectedClaim.claimAmount?.toLocaleString() || '0'}
+                    </Typography>
+                  </CardContent>
+                </Card>
+
+                <Card variant="outlined">
+                  <CardContent>
+                    <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                      Date of Claim
+                    </Typography>
+                    <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                      {new Date(selectedClaim.dateOfClaim).toLocaleDateString('en-IN', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+
+              {selectedClaim.insurer && (
+                <>
+                  <Divider sx={{ my: 3 }} />
+                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+                    Insurance Provider Details
+                  </Typography>
+                  <Card variant="outlined">
+                    <CardContent>
+                      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 2 }}>
+                        <Box>
+                          <Typography variant="subtitle2" color="text.secondary">
+                            Provider Name
+                          </Typography>
+                          <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                            {selectedClaim.insurer.insurerName}
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Typography variant="subtitle2" color="text.secondary">
+                            Contact Number
+                          </Typography>
+                          <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                            {selectedClaim.insurer.insurerContactNumber}
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Typography variant="subtitle2" color="text.secondary">
+                            Max Cashless Amount
+                          </Typography>
+                          <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                            ₹{selectedClaim.insurer.maxCashlessAmount?.toLocaleString() || '0'}
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <Typography variant="subtitle2" color="text.secondary">
+                            Address
+                          </Typography>
+                          <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                            {selectedClaim.insurer.insurerAddress}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </>
+              )}
+            </Box>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setViewDialogOpen(false)}>Close</Button>
+          <Button 
+            variant="contained" 
+            startIcon={<Receipt />}
+            onClick={() => downloadReceipt(selectedClaim)}
+          >
+            Download Receipt
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
-  );
+    );
+  } catch (error) {
+    console.error('Error in Claims component:', error);
+    return (
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", py: 8 }}>
+        <Typography variant="h6" color="error" gutterBottom>
+          An error occurred in the Claims component
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Please refresh the page or contact support if the issue persists.
+        </Typography>
+        <Button 
+          variant="contained" 
+          sx={{ mt: 2 }}
+          onClick={() => window.location.reload()}
+        >
+          Refresh Page
+        </Button>
+      </Box>
+    );
+  }
 };
 
 export default Claims;

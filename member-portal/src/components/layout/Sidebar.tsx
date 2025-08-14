@@ -48,6 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isDarkMode = theme.palette.mode === 'dark';
 
   const handleNavigation = (path: string) => {
     navigate(path);
@@ -66,7 +67,9 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           p: 3,
           borderBottom: "1px solid",
           borderColor: "divider",
-          background: "linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)",
+          background: isDarkMode 
+            ? "linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)"
+            : "linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)",
         }}
       >
         <Typography
@@ -205,7 +208,9 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           p: 2,
           borderTop: "1px solid",
           borderColor: "divider",
-          background: "linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)",
+          background: isDarkMode 
+            ? "linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)"
+            : "linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)",
         }}
       >
         <Typography variant="caption" color="text.secondary" align="center">
@@ -231,7 +236,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           boxSizing: "border-box",
           borderRight: "1px solid",
           borderColor: "divider",
-          background: "#ffffff",
+          background: "background.paper",
         },
       }}
     >

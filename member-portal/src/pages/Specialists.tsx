@@ -14,10 +14,12 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { TreatmentService } from "../services/treatment.service";
 import { Specialist } from "../types";
 
 const Specialists: React.FC = () => {
+  const navigate = useNavigate();
   const [specialists, setSpecialists] = useState<Specialist[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -39,6 +41,28 @@ const Specialists: React.FC = () => {
   useEffect(() => {
     loadSpecialists();
   }, []);
+
+  const handleContactSpecialist = (specialist: Specialist) => {
+    // Create a mailto link with pre-filled subject and body
+    const subject = encodeURIComponent(`Appointment Request - Dr. ${specialist.name}`);
+    const body = encodeURIComponent(
+      `Dear Dr. ${specialist.name},\n\nI would like to schedule an appointment for consultation.\n\nSpecialization: ${specialist.specialization}\nContact: ${specialist.contactNumber}\n\nThank you for your time.\n\nBest regards`
+    );
+    
+    // Try to open email client, fallback to phone number if no email
+    if (specialist.email) {
+      window.location.href = `mailto:${specialist.email}?subject=${subject}&body=${body}`;
+    } else {
+      // If no email, show phone number contact
+      window.open(`tel:${specialist.contactNumber}`);
+    }
+  };
+
+  const handleBookAppointment = (specialist: Specialist) => {
+    // Store selected specialist info in sessionStorage and navigate to treatments
+    sessionStorage.setItem('selectedSpecialist', JSON.stringify(specialist));
+    navigate('/treatments');
+  };
 
   if (loading) {
     return (
@@ -203,6 +227,7 @@ const Specialists: React.FC = () => {
                     variant="outlined"
                     size="small"
                     startIcon={<Phone />}
+                    onClick={() => handleContactSpecialist(specialist)}
                     sx={{ flex: 1 }}
                   >
                     Contact
@@ -211,6 +236,7 @@ const Specialists: React.FC = () => {
                     variant="contained"
                     size="small"
                     startIcon={<Schedule />}
+                    onClick={() => handleBookAppointment(specialist)}
                     sx={{ flex: 1 }}
                   >
                     Book

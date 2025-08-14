@@ -37,38 +37,58 @@
 
 ### 🔐 **Authentication & Security**
 
-- JWT-based authentication system
+- JWT-based authentication system with user creation flow
 - Secure token management with configurable expiration
+- User registration with role-based access (Patient, Doctor, Admin, User)
 - CORS-enabled for cross-origin requests
 - Input validation on all endpoints
+- Profile management with password change capabilities
 
 ### 👨‍⚕️ **Treatment Management**
 
-- **Treatment Packages**: Orthopaedics & Urology specializations
-- **Specialist Assignment**: Automatic assignment based on package tier
-- **Timetable Generation**: Intelligent scheduling system
+- **Treatment Packages**: Orthopaedics & Urology specializations with detailed views
+- **Package Selection**: Direct selection from packages view with seamless navigation
+- **Specialist Assignment**: Automatic assignment based on package tier with contact capabilities
+- **Timetable Generation**: Intelligent scheduling system with timeline visualization
+- **Treatment Tracking**: View timeline, update status, and progress monitoring
 - **Package Tiers**: Junior (Tier 1) and Senior (Tier 2) specialists
+- **Communication**: Direct email and phone contact with specialists
 
 ### 💰 **Insurance Claims Processing**
 
-- Automated claim initiation and tracking
-- Integration with 10+ insurance providers
-- Real-time coverage calculation
-- Status tracking and notifications
+- Automated claim initiation with treatment package integration
+- Auto-population of treatment costs based on selected packages
+- Integration with 10+ insurance providers with detailed coverage information
+- Comprehensive claim viewing with detailed modal dialogs
+- Professional HTML receipt generation and download
+- Real-time status tracking and notifications
 
 ### 📊 **Comprehensive Dashboards**
 
-- Patient management interface
-- Treatment progress tracking
-- Insurance claim status monitoring
-- Specialist workload distribution
+- Patient management interface with real-time statistics
+- Treatment progress tracking with visual timelines
+- Insurance claim status monitoring with detailed views
+- Specialist workload distribution with contact capabilities
+- Dark/Light theme toggle with persistent settings
+- Multi-language support (English, Hindi, Tamil, Telugu, Bengali)
 
-### 🔍 **API Documentation**
+### 🔍 **API Documentation & Support**
 
-- Interactive Swagger UI
-- Complete endpoint documentation
-- Request/response examples
-- Authentication testing interface
+- Interactive Swagger UI with complete endpoint documentation
+- Integrated help system with FAQ and support contacts
+- Direct email support with pre-filled templates
+- Phone support with click-to-call functionality
+- Comprehensive documentation viewer with README.md access
+- Request/response examples and authentication testing interface
+
+### ⚙️ **Advanced Settings & Preferences**
+
+- **Theme Management**: Seamless dark/light mode switching with system-wide persistence
+- **Notification Preferences**: Configurable email, SMS, and sound notifications
+- **Data Management**: Export personal data for backup, clear all data functionality
+- **Language Selection**: Multi-language support with regional preferences
+- **Profile Management**: Complete user profile editing with avatar display
+- **Security Settings**: Password management and account security options
 
 ---
 
@@ -531,35 +551,42 @@ npm run serve
 
 ## 🎨 **Screenshots**
 
-### 🔐 Authentication
+### 🔐 Authentication & User Creation
 
 ```txt
 ┌─────────────────────────────────────┐
 │ 🏥 HealthSync - Patient Portal       │
 ├─────────────────────────────────────┤
+│ [Sign In] | [Create Account]        │
+│                                     │
 │ Username: [admin            ]      │
-│ Password: [••••••           ]      │
 │                                     │
 │         [🔑 Sign In]               │
+├─────────────────────────────────────┤
+│ Create Account Flow:                │
+│ • Username, Full Name, Email       │
+│ • Phone, User Type Selection       │
+│ • Role-based Access Control        │
 └─────────────────────────────────────┘
 ```
 
-### **📊 Dashboard**
+### **📊 Enhanced Dashboard**
 
 ```txt
 ┌─────────────────────────────────────────────────────────┐
-│ 🏥 HealthSync Dashboard                          👤 Admin │
+│ 🏥 HealthSync Dashboard    🌙[Dark] 👤[Profile▼] 🔔    │
 ├─────────────────────────────────────────────────────────┤
-│ 📈 Overview                                            │
+│ 📈 Overview & Real-time Statistics                    │
 │ ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐      │
-│ │📋 Patients│ │👨‍⚕️ Doctors│ │💰 Claims│ │📅 Appts │      │
+│ │📋 Patients│ │👨‍⚕️ Doctors│ │💰 Claims│ │📄 Receipts│      │
 │ │   156    │ │    8     │ │   42   │ │   23   │      │
 │ └─────────┘ └─────────┘ └─────────┘ └─────────┘      │
 ├─────────────────────────────────────────────────────────┤
-│ 🔄 Recent Activity                                     │
+│ 🔄 Recent Activity & Quick Actions                    │
 │ • New patient John Doe registered                      │
-│ • Insurance claim #12345 approved                      │
-│ • Dr. Smith added to Orthopaedics                     │
+│ • Insurance claim #12345 approved ⬇️[Download Receipt] │
+│ • Dr. Smith contacted via email 📧                    │
+│ [📞 Contact] [📧 Email] [📋 New Treatment] [💰 Claim] │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -585,19 +612,50 @@ npm run serve
 
 ```txt
 ┌─────────────────────────────────────────────────────────┐
-│ 📚 HealthSync API v2.0.0                                 │
+│ 📚 HealthSync API v2.0.0 + Enhanced Features            │
 ├─────────────────────────────────────────────────────────┤
-│ 🔐 auth-controller                                      │
+│ 🔐 auth-controller + User Management                   │
 │ ├─ POST /auth/generate-token     Generate JWT Token    │
-│ └─ GET  /auth/validate-token     Validate Token        │
+│ ├─ GET  /auth/validate-token     Validate Token        │
+│ └─ [Frontend] User Registration  Create New Accounts   │
 │                                                         │
-│ 🏥 treatment-controller                                 │
+│ 🏥 treatment-controller + Timeline Views               │
 │ ├─ GET  /IPTreatmentPackages     Get Treatment Packages│
-│ └─ POST /IPTreatment/generateTimetable  Generate Plan  │
+│ ├─ POST /IPTreatment/generateTimetable  Generate Plan  │
+│ └─ [Frontend] Timeline View      Visual Progress Track │
 │                                                         │
-│ 💰 insurance-controller                                 │
+│ 💰 insurance-controller + Receipt Generation           │
 │ ├─ POST /insurance/InitiateClaim    Start Insurance    │
-│ └─ GET  /insurance/insurers        Get Providers       │
+│ ├─ GET  /insurance/insurers        Get Providers       │
+│ └─ [Frontend] Receipt Download    HTML Receipt Gen     │
+│                                                         │
+│ 📞 communication-features                              │
+│ ├─ [Frontend] Email Integration   Support Templates   │
+│ ├─ [Frontend] Phone Integration   Click-to-Call       │
+│ └─ [Frontend] Documentation      README.md Viewer     │
+└─────────────────────────────────────────────────────────┘
+```
+
+### **⚙️ Settings & Profile Management**
+
+```txt
+┌─────────────────────────────────────────────────────────┐
+│ ⚙️ Settings & Preferences                              │
+├─────────────────────────────────────────────────────────┤
+│ 🌙 Appearance                                          │
+│ │ Dark Mode: [🌙 ON ] Light Mode: [☀️ OFF]            │
+│                                                         │
+│ 🔔 Notifications                                       │
+│ │ Email: [✅] SMS: [❌] Sound: [✅]                   │
+│                                                         │
+│ 🌍 Language & Region                                   │
+│ │ Language: [English ▼] (Hindi, Tamil, Telugu, Bengali)│
+│                                                         │
+│ 📁 Data Management                                     │
+│ │ [⬇️ Export Data] [🗑️ Clear All Data]               │
+│                                                         │
+│ 👤 Profile Management                                  │
+│ │ [✏️ Edit Profile] [🔐 Change Password]              │
 └─────────────────────────────────────────────────────────┘
 ```
 

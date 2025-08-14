@@ -25,10 +25,12 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { TreatmentService } from "../services/treatment.service";
 import { TreatmentPackage } from "../types";
 
 const TreatmentPackages: React.FC = () => {
+  const navigate = useNavigate();
   const [packages, setPackages] = useState<TreatmentPackage[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -62,6 +64,13 @@ const TreatmentPackages: React.FC = () => {
   const handleCloseDetails = () => {
     setDetailsOpen(false);
     setSelectedPackage(null);
+  };
+
+  const handleSelectPackage = (pkg: TreatmentPackage) => {
+    // Store selected package in sessionStorage for the Treatments page
+    sessionStorage.setItem('selectedPackage', JSON.stringify(pkg));
+    // Navigate to treatments page
+    navigate('/treatments');
   };
 
   if (loading) {
@@ -330,7 +339,10 @@ const TreatmentPackages: React.FC = () => {
 
             <DialogActions>
               <Button onClick={handleCloseDetails}>Close</Button>
-              <Button variant="contained" onClick={handleCloseDetails}>
+              <Button 
+                variant="contained" 
+                onClick={() => handleSelectPackage(selectedPackage!)}
+              >
                 Select Package
               </Button>
             </DialogActions>

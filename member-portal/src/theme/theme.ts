@@ -1,14 +1,14 @@
 import { createTheme } from '@mui/material/styles';
 
 // Modern theme inspired by Vercel and Apple design systems
-export const theme = createTheme({
+export const createAppTheme = (isDark: boolean) => createTheme({
   palette: {
-    mode: 'light',
+    mode: isDark ? 'dark' : 'light',
     primary: {
-      main: '#000000', // Apple-inspired black
-      light: '#333333',
-      dark: '#000000',
-      contrastText: '#ffffff',
+      main: isDark ? '#ffffff' : '#000000',
+      light: isDark ? '#f5f5f5' : '#333333',
+      dark: isDark ? '#e0e0e0' : '#000000',
+      contrastText: isDark ? '#000000' : '#ffffff',
     },
     secondary: {
       main: '#0070F3', // Vercel blue
@@ -17,24 +17,24 @@ export const theme = createTheme({
       contrastText: '#ffffff',
     },
     background: {
-      default: '#fafafa', // Apple's subtle background
-      paper: '#ffffff',
+      default: isDark ? '#0a0a0a' : '#fafafa',
+      paper: isDark ? '#161616' : '#ffffff',
     },
     text: {
-      primary: '#1a1a1a',
-      secondary: '#666666',
+      primary: isDark ? '#ffffff' : '#1a1a1a',
+      secondary: isDark ? '#a0a0a0' : '#666666',
     },
     grey: {
-      50: '#fafafa',
-      100: '#f5f5f5',
-      200: '#eeeeee',
-      300: '#e0e0e0',
-      400: '#bdbdbd',
-      500: '#9e9e9e',
-      600: '#757575',
-      700: '#616161',
-      800: '#424242',
-      900: '#212121',
+      50: isDark ? '#121212' : '#fafafa',
+      100: isDark ? '#1e1e1e' : '#f5f5f5',
+      200: isDark ? '#2a2a2a' : '#eeeeee',
+      300: isDark ? '#3a3a3a' : '#e0e0e0',
+      400: isDark ? '#4a4a4a' : '#bdbdbd',
+      500: isDark ? '#6a6a6a' : '#9e9e9e',
+      600: isDark ? '#8a8a8a' : '#757575',
+      700: isDark ? '#a0a0a0' : '#616161',
+      800: isDark ? '#bdbdbd' : '#424242',
+      900: isDark ? '#e0e0e0' : '#212121',
     },
     error: {
       main: '#FF3B30', // Apple red
@@ -45,6 +45,7 @@ export const theme = createTheme({
     success: {
       main: '#30D158', // Apple green
     },
+    divider: isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)',
   },
   typography: {
     fontFamily: [
@@ -120,9 +121,14 @@ export const theme = createTheme({
           transition: 'all 0.2s ease-in-out',
         },
         containedPrimary: {
-          background: 'linear-gradient(135deg, #000000 0%, #333333 100%)',
+          background: isDark 
+            ? 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)'
+            : 'linear-gradient(135deg, #000000 0%, #333333 100%)',
+          color: isDark ? '#000000' : '#ffffff',
           '&:hover': {
-            background: 'linear-gradient(135deg, #333333 0%, #555555 100%)',
+            background: isDark 
+              ? 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)'
+              : 'linear-gradient(135deg, #333333 0%, #555555 100%)',
           },
         },
         containedSecondary: {
@@ -133,26 +139,12 @@ export const theme = createTheme({
         },
       },
     },
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          borderRadius: 16,
-          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
-          border: '1px solid #f0f0f0',
-          '&:hover': {
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-            transform: 'translateY(-2px)',
-          },
-          transition: 'all 0.3s ease-in-out',
-        },
-      },
-    },
     MuiTextField: {
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
             borderRadius: 8,
-            backgroundColor: '#fafafa',
+            backgroundColor: isDark ? 'rgba(255, 255, 255, 0.05)' : '#fafafa',
             '&:hover fieldset': {
               borderColor: '#0070F3',
             },
@@ -167,10 +159,34 @@ export const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          backgroundColor: isDark 
+            ? 'rgba(16, 16, 16, 0.8)' 
+            : 'rgba(255, 255, 255, 0.8)',
           backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+          borderBottom: isDark 
+            ? '1px solid rgba(255, 255, 255, 0.1)' 
+            : '1px solid rgba(0, 0, 0, 0.1)',
           boxShadow: 'none',
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          boxShadow: isDark 
+            ? '0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3)'
+            : '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+          border: isDark 
+            ? '1px solid rgba(255, 255, 255, 0.1)' 
+            : '1px solid #f0f0f0',
+          '&:hover': {
+            boxShadow: isDark 
+              ? '0 4px 12px rgba(0, 0, 0, 0.6)'
+              : '0 4px 12px rgba(0, 0, 0, 0.15)',
+            transform: 'translateY(-2px)',
+          },
+          transition: 'all 0.3s ease-in-out',
         },
       },
     },
@@ -184,4 +200,6 @@ export const theme = createTheme({
   },
 });
 
-export default theme;
+// Export both the theme function and default light theme for backwards compatibility
+export const theme = createAppTheme(false);
+export default createAppTheme;

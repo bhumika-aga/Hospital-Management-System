@@ -4,12 +4,22 @@ The **HealthSync Portal** is a modern React application that serves as the front
 
 ## ✨ Features
 
-- **🔐 Authentication** - Secure JWT-based login system
-- **👨‍⚕️ Treatment Management** - Browse treatment packages and view specialist details
-- **📋 Treatment Plans** - Generate and manage patient treatment timetables
-- **💰 Insurance Claims** - Initiate and track insurance claim processing
-- **📊 Dashboard** - System overview with real-time statistics
-- **🎨 Modern UI/UX** - Apple-inspired design with Vercel-style animations
+### Core Functionality
+
+- **🔐 Authentication & User Management** - Secure JWT-based login with user creation flow
+- **👨‍⚕️ Treatment Management** - Browse treatment packages and specialist assignment
+- **📋 Treatment Plans** - Generate and manage patient treatment timetables with timeline views
+- **💰 Insurance Claims** - Comprehensive claims processing with receipt generation
+- **📊 Dashboard** - Real-time system overview with intelligent navigation
+
+### Advanced Features
+
+- **🌙 Dark/Light Theme** - Seamless theme switching with persistent settings
+- **👤 Profile Management** - Complete user profile editing and account management
+- **⚙️ Settings & Preferences** - Comprehensive settings with data export/import
+- **📞 Integrated Communication** - Email, phone, and documentation access
+- **📄 Receipt Generation** - Professional HTML receipt downloads for claims
+- **🎨 Modern UI/UX** - Apple-inspired design with enhanced accessibility
 
 ## 🛠️ Technology Stack
 
@@ -31,11 +41,14 @@ member-portal/
 │   │   └── layout/           # Layout components (Header, Sidebar)
 │   ├── pages/                # Application pages
 │   │   ├── Dashboard.tsx     # System overview dashboard
-│   │   ├── Login.tsx         # Authentication page
+│   │   ├── Login.tsx         # Authentication & user creation
+│   │   ├── Profile.tsx       # User profile management
+│   │   ├── Settings.tsx      # Application settings & preferences
 │   │   ├── TreatmentPackages.tsx  # Treatment packages listing
 │   │   ├── Specialists.tsx   # Specialists management
-│   │   ├── TreatmentPlans.tsx # Treatment planning
-│   │   └── Claims.tsx        # Insurance claims management
+│   │   ├── Treatments.tsx    # Treatment planning & timeline
+│   │   ├── Claims.tsx        # Insurance claims with receipt generation
+│   │   └── Help.tsx          # Support & documentation
 │   ├── services/             # API service layer
 │   │   ├── api.ts           # Base API configuration
 │   │   ├── auth.service.ts   # Authentication services
@@ -240,23 +253,46 @@ services:
 - Quick navigation to main features
 - Real-time data updates
 
-### 3. Treatment Management
+### 3. Profile & Settings Management
 
-- Browse available treatment packages
-- View specialist details and availability
-- Generate patient treatment plans
+- Edit personal information and account details
+- Change password and security settings
+- Toggle dark/light theme with immediate effect
+- Configure notification preferences (Email, SMS, Sound)
+- Select language from multiple Indian languages
+- Export/import personal data for backup
 
-### 4. Insurance Processing
+### 4. Treatment Management
 
-- Initiate new insurance claims
-- Select appropriate insurance providers
-- Track claim status and progress
+- Browse available treatment packages with detailed information
+- Select packages directly from the packages view
+- View specialist details with contact capabilities
+- Generate patient treatment plans with timeline visualization
+- Update treatment status and view progress
+- Seamless navigation between package selection and treatment creation
 
-### 5. Navigation
+### 5. Insurance Processing
+
+- Initiate new insurance claims with treatment package selection
+- Auto-populate treatment costs based on selected packages
+- Select appropriate insurance providers with coverage details
+- Track claim status and progress with detailed views
+- Download professional HTML receipts for claims
+- View comprehensive claim details in modal dialogs
+
+### 6. Communication & Support
+
+- Send support emails with pre-filled templates
+- Make phone calls directly from the interface
+- View comprehensive documentation in new browser tabs
+- Access help resources and FAQ sections
+
+### 7. Navigation
 
 - Collapsible sidebar with smooth animations
-- Breadcrumb navigation for deep pages
+- Responsive header with theme toggle
 - Mobile-responsive hamburger menu
+- Profile dropdown with quick access to settings
 
 ## 🔍 Performance Optimization
 

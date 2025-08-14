@@ -1,4 +1,4 @@
-import { Login as LoginIcon, MedicalServices } from "@mui/icons-material";
+import { Login as LoginIcon, MedicalServices, PersonAdd, Email, Phone, AccountCircle } from "@mui/icons-material";
 import {
   Alert,
   Box,
@@ -11,6 +11,13 @@ import {
   Fade,
   TextField,
   Typography,
+  Tab,
+  Tabs,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  MenuItem,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -18,16 +25,34 @@ import { useNavigate } from "react-router-dom";
 import { AuthService } from "../services/auth.service";
 import { LoginForm } from "../types";
 
+interface CreateUserForm {
+  username: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  userType: 'patient' | 'doctor' | 'admin' | 'user';
+}
+
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [tabValue, setTabValue] = useState(0);
+  const [createUserDialogOpen, setCreateUserDialogOpen] = useState(false);
+  const [createUserSuccess, setCreateUserSuccess] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginForm>();
+
+  const {
+    register: registerCreateUser,
+    handleSubmit: handleSubmitCreateUser,
+    formState: { errors: createUserErrors },
+    reset: resetCreateUser,
+  } = useForm<CreateUserForm>();
 
   const onSubmit = async (data: LoginForm) => {
     setLoading(true);
@@ -46,6 +71,54 @@ const Login: React.FC = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const onCreateUser = async (data: CreateUserForm) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Simulate user creation (since this is a demo system, we'll just store in localStorage)
+      const userData = {
+        username: data.username,
+        fullName: data.fullName,
+        email: data.email,
+        phone: data.phone,
+        userType: data.userType,
+        createdAt: new Date().toISOString(),
+      };
+
+      // Store user data in localStorage (in a real system, this would be an API call)
+      const existingUsers = JSON.parse(localStorage.getItem('hospitalUsers') || '[]');
+      
+      // Check if username already exists
+      if (existingUsers.some((user: any) => user.username === data.username)) {
+        setError('Username already exists. Please choose a different username.');
+        setLoading(false);
+        return;
+      }
+
+      existingUsers.push(userData);
+      localStorage.setItem('hospitalUsers', JSON.stringify(existingUsers));
+
+      setCreateUserSuccess(true);
+      resetCreateUser();
+      setTimeout(() => {
+        setCreateUserDialogOpen(false);
+        setCreateUserSuccess(false);
+        setTabValue(0); // Switch back to login tab
+      }, 2000);
+
+    } catch (err: any) {
+      setError("Failed to create user. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+    setError(null);
   };
 
   return (
@@ -114,7 +187,7 @@ const Login: React.FC = () => {
                     mb: 1,
                   }}
                 >
-                  MediFlow
+                  HealthSync
                 </Typography>
 
                 <Typography
@@ -122,26 +195,40 @@ const Login: React.FC = () => {
                   color="text.secondary"
                   sx={{ mb: 2 }}
                 >
-                  International Patient Treatment Management
+                  Advanced Hospital Management System
                 </Typography>
 
                 <Divider sx={{ maxWidth: 200, mx: "auto" }} />
               </Box>
 
-              {/* Login Form */}
-              <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-                <Typography
-                  variant="h5"
-                  component="h2"
-                  sx={{
-                    fontWeight: 600,
-                    textAlign: "center",
-                    mb: 3,
-                    color: "text.primary",
-                  }}
+              {/* Tabs */}
+              <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
+                <Tabs 
+                  value={tabValue} 
+                  onChange={handleTabChange} 
+                  centered
+                  variant="fullWidth"
                 >
-                  Welcome Back
-                </Typography>
+                  <Tab label="Sign In" icon={<LoginIcon />} />
+                  <Tab label="Create Account" icon={<PersonAdd />} />
+                </Tabs>
+              </Box>
+
+              {/* Login Form */}
+              {tabValue === 0 && (
+                <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+                  <Typography
+                    variant="h5"
+                    component="h2"
+                    sx={{
+                      fontWeight: 600,
+                      textAlign: "center",
+                      mb: 3,
+                      color: "text.primary",
+                    }}
+                  >
+                    Welcome Back
+                  </Typography>
 
                 {error && (
                   <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
@@ -200,24 +287,215 @@ const Login: React.FC = () => {
                   {loading ? "Signing In..." : "Sign In"}
                 </Button>
 
-                {/* Additional Info */}
-                <Box sx={{ mt: 4, textAlign: "center" }}>
-                  <Typography variant="body2" color="text.secondary">
-                    Use any username to access the system
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    sx={{ display: "block", mt: 1 }}
-                  >
-                    Demo credentials: admin, user, doctor, patient
-                  </Typography>
+                  {/* Additional Info */}
+                  <Box sx={{ mt: 4, textAlign: "center" }}>
+                    <Typography variant="body2" color="text.secondary">
+                      Use any username to access the system
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      sx={{ display: "block", mt: 1 }}
+                    >
+                      Demo credentials: admin, user, doctor, patient
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
+              )}
+
+              {/* Create User Form */}
+              {tabValue === 1 && (
+                <Box>
+                  <Typography
+                    variant="h5"
+                    component="h2"
+                    sx={{
+                      fontWeight: 600,
+                      textAlign: "center",
+                      mb: 3,
+                      color: "text.primary",
+                    }}
+                  >
+                    Create New Account
+                  </Typography>
+
+                  {error && (
+                    <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
+                      {error}
+                    </Alert>
+                  )}
+
+                  {createUserSuccess && (
+                    <Alert severity="success" sx={{ mb: 3, borderRadius: 2 }}>
+                      Account created successfully! You can now sign in.
+                    </Alert>
+                  )}
+
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    size="large"
+                    startIcon={<PersonAdd />}
+                    onClick={() => setCreateUserDialogOpen(true)}
+                    sx={{
+                      py: 1.5,
+                      borderRadius: 2,
+                      fontSize: "1rem",
+                      fontWeight: 600,
+                      textTransform: "none",
+                      borderColor: "primary.main",
+                      color: "primary.main",
+                      "&:hover": {
+                        background: "rgba(0, 112, 243, 0.04)",
+                        borderColor: "primary.dark",
+                      },
+                    }}
+                  >
+                    Create New User Account
+                  </Button>
+
+                  <Box sx={{ mt: 3, textAlign: "center" }}>
+                    <Typography variant="body2" color="text.secondary">
+                      Fill in your details to create a new account
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      sx={{ display: "block", mt: 1 }}
+                    >
+                      Available roles: Patient, Doctor, Admin, User
+                    </Typography>
+                  </Box>
+                </Box>
+              )}
             </CardContent>
           </Card>
         </Fade>
       </Container>
+
+      {/* Create User Dialog */}
+      <Dialog
+        open={createUserDialogOpen}
+        onClose={() => setCreateUserDialogOpen(false)}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <PersonAdd sx={{ color: 'primary.main' }} />
+            Create New User Account
+          </Box>
+        </DialogTitle>
+        <DialogContent>
+          <Box component="form" sx={{ mt: 1 }}>
+            <TextField
+              fullWidth
+              label="Username"
+              margin="normal"
+              {...registerCreateUser("username", {
+                required: "Username is required",
+                minLength: {
+                  value: 3,
+                  message: "Username must be at least 3 characters",
+                },
+              })}
+              error={!!createUserErrors.username}
+              helperText={createUserErrors.username?.message}
+              slotProps={{
+                input: {
+                  startAdornment: <AccountCircle sx={{ mr: 1, color: 'text.secondary' }} />,
+                },
+              }}
+            />
+
+            <TextField
+              fullWidth
+              label="Full Name"
+              margin="normal"
+              {...registerCreateUser("fullName", {
+                required: "Full name is required",
+                minLength: {
+                  value: 2,
+                  message: "Full name must be at least 2 characters",
+                },
+              })}
+              error={!!createUserErrors.fullName}
+              helperText={createUserErrors.fullName?.message}
+              slotProps={{
+                input: {
+                  startAdornment: <AccountCircle sx={{ mr: 1, color: 'text.secondary' }} />,
+                },
+              }}
+            />
+
+            <TextField
+              fullWidth
+              label="Email Address"
+              type="email"
+              margin="normal"
+              {...registerCreateUser("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address",
+                },
+              })}
+              error={!!createUserErrors.email}
+              helperText={createUserErrors.email?.message}
+              slotProps={{
+                input: {
+                  startAdornment: <Email sx={{ mr: 1, color: 'text.secondary' }} />,
+                },
+              }}
+            />
+
+            <TextField
+              fullWidth
+              label="Phone Number"
+              margin="normal"
+              {...registerCreateUser("phone", {
+                required: "Phone number is required",
+              })}
+              error={!!createUserErrors.phone}
+              helperText={createUserErrors.phone?.message}
+              slotProps={{
+                input: {
+                  startAdornment: <Phone sx={{ mr: 1, color: 'text.secondary' }} />,
+                },
+              }}
+            />
+
+            <TextField
+              select
+              fullWidth
+              label="User Type"
+              margin="normal"
+              defaultValue="patient"
+              {...registerCreateUser("userType", {
+                required: "User type is required",
+              })}
+              error={!!createUserErrors.userType}
+              helperText={createUserErrors.userType?.message || "Select your role in the system"}
+            >
+              <MenuItem value="patient">Patient</MenuItem>
+              <MenuItem value="doctor">Doctor</MenuItem>
+              <MenuItem value="admin">Administrator</MenuItem>
+              <MenuItem value="user">General User</MenuItem>
+            </TextField>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setCreateUserDialogOpen(false)}>Cancel</Button>
+          <Button
+            variant="contained"
+            onClick={handleSubmitCreateUser(onCreateUser)}
+            disabled={loading}
+            startIcon={loading ? <CircularProgress size={20} /> : <PersonAdd />}
+          >
+            {loading ? "Creating..." : "Create Account"}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

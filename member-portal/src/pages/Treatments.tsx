@@ -2,10 +2,15 @@ import {
   AccessTime,
   Add,
   CalendarToday,
+  CheckCircle,
+  ContactPhone,
+  Edit,
   LocalHospital,
   Person,
   Refresh,
   Schedule,
+  Timeline,
+  Update,
 } from "@mui/icons-material";
 import {
   Alert,
@@ -24,10 +29,14 @@ import {
   IconButton,
   MenuItem,
   Paper,
+  Step,
+  StepContent,
+  StepLabel,
+  Stepper,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { TimetableService } from "../services/timetable.service";
 import { TreatmentService } from "../services/treatment.service";
@@ -40,6 +49,10 @@ const Treatments: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [timelineDialogOpen, setTimelineDialogOpen] = useState(false);
+  const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
+  const [selectedTreatment, setSelectedTreatment] = useState<TreatmentPlan | null>(null);
+  const hasProcessedInitialSelection = useRef(false);
 
   const {
     control,
@@ -78,6 +91,62 @@ const Treatments: React.FC = () => {
     loadData();
   }, []);
 
+  // Handle selected package/specialist after data is loaded - only once
+  useEffect(() => {
+    if (packages.length === 0 || hasProcessedInitialSelection.current) return;
+
+    // Check if a package was selected from the packages page
+    const selectedPackageData = sessionStorage.getItem('selectedPackage');
+    if (selectedPackageData) {
+      try {
+        const pkg = JSON.parse(selectedPackageData);
+        reset({
+          patientName: "",
+          age: 0,
+          ailmentDetails: "",
+          treatmentPackageId: pkg.id,
+          treatmentCommencementDate: "",
+        });
+        setDialogOpen(true);
+        // Clear the stored package
+        sessionStorage.removeItem('selectedPackage');
+        hasProcessedInitialSelection.current = true;
+      } catch (error) {
+        console.error('Error parsing selected package:', error);
+      }
+      return; // Exit early if package was processed
+    }
+
+    // Check if a specialist was selected from the specialists page
+    const selectedSpecialistData = sessionStorage.getItem('selectedSpecialist');
+    if (selectedSpecialistData) {
+      try {
+        const specialist = JSON.parse(selectedSpecialistData);
+        // Filter packages by specialist's specialization if available
+        const specialistPackages = packages.filter(pkg => 
+          pkg.specialization.toLowerCase() === specialist.specialization.toLowerCase()
+        );
+        
+        if (specialistPackages.length > 0) {
+          reset({
+            patientName: "",
+            age: 0,
+            ailmentDetails: "",
+            treatmentPackageId: specialistPackages[0].id, // Pre-select first matching package
+            treatmentCommencementDate: "",
+          });
+        }
+        setDialogOpen(true);
+        // Clear the stored specialist
+        sessionStorage.removeItem('selectedSpecialist');
+        hasProcessedInitialSelection.current = true;
+      } catch (error) {
+        console.error('Error parsing selected specialist:', error);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [packages]);
+
   const onSubmit = async (data: PatientForm) => {
     setSubmitting(true);
     try {
@@ -96,6 +165,44 @@ const Treatments: React.FC = () => {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleViewTimeline = (treatment: TreatmentPlan) => {
+    setSelectedTreatment(treatment);
+    setTimelineDialogOpen(true);
+  };
+
+  const handleUpdateTreatment = (treatment: TreatmentPlan) => {
+    setSelectedTreatment(treatment);
+    setUpdateDialogOpen(true);
+  };
+
+  const handleCloseTimelineDialog = () => {
+    setTimelineDialogOpen(false);
+    setSelectedTreatment(null);
+  };
+
+  const handleCloseUpdateDialog = () => {
+    setUpdateDialogOpen(false);
+    setSelectedTreatment(null);
+  };
+
+  const handleContactSpecialist = (treatment: TreatmentPlan) => {
+    if (treatment.specialist?.email) {
+      const subject = encodeURIComponent(`Treatment Update Request - ${treatment.patientName || treatment.name}`);
+      const body = encodeURIComponent(
+        `Dear Dr. ${treatment.specialist.name},\n\nI would like to discuss updates to the treatment plan for ${treatment.patientName || treatment.name}.\n\nTreatment ID: ${treatment.id}\nPackage: ${treatment.treatmentPackage?.name || treatment.treatmentPackageName}\n\nPlease let me know your availability for consultation.\n\nBest regards`
+      );
+      window.location.href = `mailto:${treatment.specialist.email}?subject=${subject}&body=${body}`;
+    } else {
+      // Fallback to a generic contact message
+      alert(`Please contact Dr. ${treatment.specialist?.name || "your assigned specialist"} directly for treatment updates.`);
+    }
+  };
+
+  const handleRequestChanges = (treatment: TreatmentPlan) => {
+    // This could open another dialog for change requests in the future
+    alert(`Change request functionality for ${treatment.patientName || treatment.name}'s treatment will be available soon. Please contact the specialist directly for now.`);
   };
 
   const getStatusColor = (endDate: string) => {
@@ -299,10 +406,22 @@ const Treatments: React.FC = () => {
 
                 {/* Action Buttons */}
                 <Box sx={{ display: "flex", gap: 1 }}>
-                  <Button variant="outlined" size="small" sx={{ flex: 1 }}>
+                  <Button 
+                    variant="outlined" 
+                    size="small" 
+                    startIcon={<Timeline />}
+                    onClick={() => handleViewTimeline(treatment)}
+                    sx={{ flex: 1 }}
+                  >
                     View Timeline
                   </Button>
-                  <Button variant="contained" size="small" sx={{ flex: 1 }}>
+                  <Button 
+                    variant="contained" 
+                    size="small" 
+                    startIcon={<Edit />}
+                    onClick={() => handleUpdateTreatment(treatment)}
+                    sx={{ flex: 1 }}
+                  >
                     Update
                   </Button>
                 </Box>
@@ -444,6 +563,229 @@ const Treatments: React.FC = () => {
             {submitting ? "Creating..." : "Create Treatment"}
           </Button>
         </DialogActions>
+      </Dialog>
+
+      {/* Timeline Dialog */}
+      <Dialog
+        open={timelineDialogOpen}
+        onClose={handleCloseTimelineDialog}
+        maxWidth="md"
+        fullWidth
+      >
+        {selectedTreatment && (
+          <>
+            <DialogTitle>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Timeline sx={{ mr: 2, color: "primary.main" }} />
+                <Box>
+                  <Typography variant="h5">Treatment Timeline</Typography>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    {selectedTreatment.patientName || selectedTreatment.name}
+                  </Typography>
+                </Box>
+              </Box>
+            </DialogTitle>
+
+            <DialogContent>
+              <Stepper orientation="vertical">
+                <Step active>
+                  <StepLabel icon={<CheckCircle color="success" />}>
+                    Treatment Started
+                  </StepLabel>
+                  <StepContent>
+                    <Typography variant="body2" color="text.secondary">
+                      Started: {new Date(
+                        selectedTreatment.treatmentCommencementDate ||
+                        selectedTreatment.treatmentStartDate ||
+                        new Date()
+                      ).toLocaleDateString()}
+                    </Typography>
+                    <Typography variant="body2">
+                      Package: {selectedTreatment.treatmentPackage?.name || selectedTreatment.treatmentPackageName}
+                    </Typography>
+                  </StepContent>
+                </Step>
+
+                <Step active>
+                  <StepLabel icon={<Person color="primary" />}>
+                    Specialist Assigned
+                  </StepLabel>
+                  <StepContent>
+                    <Typography variant="body2">
+                      Dr. {selectedTreatment.specialist?.name || "Not Assigned"}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {selectedTreatment.specialist?.specialization || "General"} • {selectedTreatment.specialist?.level || "Available"}
+                    </Typography>
+                  </StepContent>
+                </Step>
+
+                <Step active={getStatusColor(selectedTreatment.treatmentEndDate || new Date().toISOString()) === "success"}>
+                  <StepLabel icon={<Schedule color={getStatusColor(selectedTreatment.treatmentEndDate || new Date().toISOString()) === "success" ? "primary" : "disabled"} />}>
+                    Treatment In Progress
+                  </StepLabel>
+                  <StepContent>
+                    <Typography variant="body2" color="text.secondary">
+                      Duration: {selectedTreatment.treatmentPackage?.durationWeeks || 4} weeks
+                    </Typography>
+                    <Typography variant="body2">
+                      Ailment: {selectedTreatment.ailmentDetails || selectedTreatment.ailment}
+                    </Typography>
+                  </StepContent>
+                </Step>
+
+                <Step completed={getStatusColor(selectedTreatment.treatmentEndDate || new Date().toISOString()) === "default"}>
+                  <StepLabel icon={<CheckCircle color={getStatusColor(selectedTreatment.treatmentEndDate || new Date().toISOString()) === "default" ? "success" : "disabled"} />}>
+                    Treatment Completed
+                  </StepLabel>
+                  <StepContent>
+                    <Typography variant="body2" color="text.secondary">
+                      Expected End: {new Date(
+                        selectedTreatment.treatmentEndDate || new Date()
+                      ).toLocaleDateString()}
+                    </Typography>
+                  </StepContent>
+                </Step>
+              </Stepper>
+            </DialogContent>
+
+            <DialogActions>
+              <Button onClick={handleCloseTimelineDialog}>Close</Button>
+            </DialogActions>
+          </>
+        )}
+      </Dialog>
+
+      {/* Update Dialog */}
+      <Dialog
+        open={updateDialogOpen}
+        onClose={handleCloseUpdateDialog}
+        maxWidth="sm"
+        fullWidth
+      >
+        {selectedTreatment && (
+          <>
+            <DialogTitle>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Edit sx={{ mr: 2, color: "primary.main" }} />
+                <Box>
+                  <Typography variant="h5">Update Treatment</Typography>
+                  <Typography variant="subtitle1" color="text.secondary">
+                    {selectedTreatment.patientName || selectedTreatment.name}
+                  </Typography>
+                </Box>
+              </Box>
+            </DialogTitle>
+
+            <DialogContent>
+              <Box sx={{ mt: 1 }}>
+                <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
+                  Current Treatment Status
+                </Typography>
+                
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  {/* Treatment Overview Card */}
+                  <Paper sx={{ p: 2, bgcolor: "primary.50", border: 1, borderColor: "primary.200" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                      <LocalHospital sx={{ mr: 1, color: "primary.main" }} />
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                        {selectedTreatment.treatmentPackage?.name || selectedTreatment.treatmentPackageName}
+                      </Typography>
+                      <Chip 
+                        label={getStatusColor(selectedTreatment.treatmentEndDate || new Date().toISOString()) === "success" ? "Active" : "Completed"}
+                        color={getStatusColor(selectedTreatment.treatmentEndDate || new Date().toISOString()) === "success" ? "success" : "default"}
+                        size="small" 
+                        sx={{ ml: "auto" }}
+                      />
+                    </Box>
+                    <Typography variant="body2" color="text.secondary">
+                      Treatment ID: {selectedTreatment.id} • Duration: {selectedTreatment.treatmentPackage?.durationWeeks || 4} weeks
+                    </Typography>
+                  </Paper>
+
+                  {/* Specialist Information Card */}
+                  <Paper sx={{ p: 2, bgcolor: "background.paper", border: 1, borderColor: "divider" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                      <Person sx={{ mr: 1, color: "text.secondary" }} />
+                      <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                        Assigned Specialist
+                      </Typography>
+                    </Box>
+                    <Typography variant="body1">
+                      Dr. {selectedTreatment.specialist?.name || "Not Assigned"}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {selectedTreatment.specialist?.specialization || "General"} • {selectedTreatment.specialist?.level || "Available"}
+                    </Typography>
+                    {selectedTreatment.specialist?.contactNumber && (
+                      <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                        Contact: {selectedTreatment.specialist.contactNumber}
+                      </Typography>
+                    )}
+                  </Paper>
+
+                  {/* Timeline Information */}
+                  <Paper sx={{ p: 2, bgcolor: "background.paper", border: 1, borderColor: "divider" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                      <Schedule sx={{ mr: 1, color: "text.secondary" }} />
+                      <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                        Treatment Schedule
+                      </Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+                      <Box>
+                        <Typography variant="caption" color="text.secondary">Start Date</Typography>
+                        <Typography variant="body2">
+                          {new Date(
+                            selectedTreatment.treatmentCommencementDate ||
+                            selectedTreatment.treatmentStartDate ||
+                            new Date()
+                          ).toLocaleDateString()}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Typography variant="caption" color="text.secondary">End Date</Typography>
+                        <Typography variant="body2">
+                          {new Date(selectedTreatment.treatmentEndDate || new Date()).toLocaleDateString()}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Paper>
+                </Box>
+
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 3, p: 2, bgcolor: "warning.50", borderRadius: 1, border: 1, borderColor: "warning.200" }}>
+                  <strong>💡 Need Changes?</strong> Use the buttons below to contact your specialist or request treatment modifications. All changes require specialist approval for safety and effectiveness.
+                </Typography>
+              </Box>
+            </DialogContent>
+
+            <DialogActions sx={{ p: 3, gap: 1 }}>
+              <Button 
+                onClick={handleCloseUpdateDialog}
+                color="inherit"
+              >
+                Close
+              </Button>
+              <Box sx={{ flex: 1 }} />
+              <Button 
+                variant="outlined" 
+                startIcon={<ContactPhone />}
+                onClick={() => handleContactSpecialist(selectedTreatment)}
+                sx={{ minWidth: 140 }}
+              >
+                Contact Specialist
+              </Button>
+              <Button 
+                variant="contained" 
+                startIcon={<Update />}
+                onClick={() => handleRequestChanges(selectedTreatment)}
+                sx={{ minWidth: 140 }}
+              >
+                Request Changes
+              </Button>
+            </DialogActions>
+          </>
+        )}
       </Dialog>
     </Box>
   );

@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 
 // Theme
-import theme from "./theme/theme";
+import createAppTheme from "./theme/theme";
 
 // Components
 import Layout from "./components/layout/Layout";
@@ -20,6 +20,7 @@ import Claims from "./pages/Claims";
 import Dashboard from "./pages/Dashboard";
 import Help from "./pages/Help";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Specialists from "./pages/Specialists";
 import TreatmentPackages from "./pages/TreatmentPackages";
@@ -66,23 +67,7 @@ const App: React.FC = () => {
   };
 
   const currentTheme = React.useMemo(
-    () => ({
-      ...theme,
-      palette: {
-        ...theme.palette,
-        mode: isDarkMode ? "dark" : "light",
-        ...(isDarkMode && {
-          background: {
-            default: "#121212",
-            paper: "#1e1e1e",
-          },
-          text: {
-            primary: "#ffffff",
-            secondary: "#b0b0b0",
-          },
-        }),
-      },
-    }),
+    () => createAppTheme(isDarkMode),
     [isDarkMode]
   );
 
@@ -115,6 +100,7 @@ const App: React.FC = () => {
               <Route path="specialists" element={<Specialists />} />
               <Route path="treatments" element={<Treatments />} />
               <Route path="claims" element={<Claims />} />
+              <Route path="profile" element={<Profile />} />
               <Route path="settings" element={<Settings />} />
               <Route path="help" element={<Help />} />
             </Route>

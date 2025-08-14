@@ -1,5 +1,4 @@
 import {
-  Analytics,
   ArrowForward,
   LocalHospital,
   People,
@@ -314,26 +313,6 @@ const Dashboard: React.FC = () => {
                 sx={{ py: 2, borderRadius: 2 }}
               >
                 Process Claim
-              </Button>
-            </Box>
-            <Box
-              sx={{
-                flex: {
-                  xs: "1 1 100%",
-                  sm: "1 1 calc(50% - 8px)",
-                  md: "1 1 calc(25% - 12px)",
-                },
-              }}
-            >
-              <Button
-                fullWidth
-                variant="outlined"
-                size="large"
-                startIcon={<Analytics />}
-                onClick={() => navigate("/analytics")}
-                sx={{ py: 2, borderRadius: 2 }}
-              >
-                View Analytics
               </Button>
             </Box>
           </Box>
