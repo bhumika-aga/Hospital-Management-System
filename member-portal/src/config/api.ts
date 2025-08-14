@@ -25,7 +25,7 @@ export const API_ENDPOINTS = {
   },
   timetable: {
     generateTimetable: '/IPTreatment/generateTimetable',
-    treatments: '/treatments',
+    treatments: '/IPTreatment/treatments',
   },
   insurance: {
     initiateClaim: '/insurance/InitiateClaim',
