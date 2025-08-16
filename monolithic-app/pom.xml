@@ -62,6 +62,13 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+        
+        <!-- PostgreSQL for production -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
         <!-- JWT -->
         <dependency>

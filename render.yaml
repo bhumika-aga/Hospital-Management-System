@@ -1,4 +1,6 @@
-# Render.com deployment configuration for healthsync Hospital Management System
+# Render.com deployment configuration for HealthSync Hospital Management System
+# Uses existing mediflow-database (free tier limitation)
+
 services:
   # Monolithic Backend Service
   - type: web
@@ -19,6 +21,10 @@ services:
         value: "false"
       - key: LOGGING_LEVEL_ROOT
         value: INFO
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: DATABASE_URL
+        value: postgresql://mediflow_user:p9b7x3MCz3VJFZycM6AagAu4023WzX8Z@dpg-d2a7qjadbo4c73b2j4n0-a/mediflow
 
   # React Frontend Service
   - type: web
@@ -35,11 +41,9 @@ services:
         value: https://hospital-management-system.onrender.com
       - key: GENERATE_SOURCEMAP
         value: "false"
-# Database (using H2 in-memory for simplicity on free tier)
-# No external database needed - H2 is embedded
 
 # Build settings optimized for Render free tier
-# - Build timeout: Under 15 minutes
-# - Memory usage: Under 512MB
-# - No persistent storage required (H2 in-memory)
+# - Uses existing mediflow-database (free tier limitation)
+# - Backend connects to shared PostgreSQL database
 # - Automatic deployment on git push
+# - Tables created with DDL auto-update to avoid conflicts

@@ -102,7 +102,8 @@
 | Spring Boot | 3.1.5 | Application framework |
 | Spring Security | 6.0.13 | Authentication & authorization |
 | Spring Data JPA | 3.1.5 | Data persistence |
-| H2 Database | 2.1.214 | In-memory database |
+| PostgreSQL | 15+ | Production database |
+| H2 Database | 2.1.214 | Development database |
 | JWT | 0.11.5 | Token-based authentication |
 | Maven | 3.8+ | Dependency management |
 | JUnit 5 | 5.9.3 | Testing framework |
@@ -123,6 +124,7 @@
 | Technology | Purpose |
 |------------|---------|
 | Render.com | Cloud deployment |
+| PostgreSQL | Production database |
 | Docker | Containerization |
 | GitHub Actions | CI/CD pipeline |
 | Maven | Build automation |
@@ -184,6 +186,8 @@ HealthSync/
 - 🟢 **Node.js 18** or higher  
 - 📦 **Maven 3.8** or higher
 - 🔧 **Git**
+- 🐘 **PostgreSQL 15+** (for production deployment)
+- 🐳 **Docker** (optional, for containerized deployment)
 
 ### **1. Clone & Setup**
 
@@ -228,7 +232,8 @@ npm run serve
 | 🌐 **Frontend** | <http://localhost:3000> | React application |
 | ⚡ **Backend API** | <http://localhost:8080> | Spring Boot API |
 | 📚 **Swagger UI** | <http://localhost:8080/swagger-ui.html> | API documentation |
-| 💾 **H2 Console** | <http://localhost:8080/h2-console> | Database console |
+| 💾 **H2 Console** | <http://localhost:8080/h2-console> | Database console (local dev) |
+| 🐘 **PgAdmin** | <http://localhost:8082> | PostgreSQL admin (Docker) |
 | 📊 **Health Check** | <http://localhost:8080/actuator/health> | Application health |
 
 ---
@@ -239,24 +244,27 @@ npm run serve
 
 #### **Local Development** (`application-local.yml`)
 
-- H2 in-memory database
-- H2 console enabled
-- Debug logging
+- H2 in-memory database (for fast development)
+- H2 console enabled for debugging
+- Debug logging enabled
 - CORS for localhost origins
 
 #### **Production** (`application-prod.yml`)
 
-- Optimized for Render.com free tier
-- Limited connection pool (5 max)
-- Info-level logging
+- PostgreSQL database for data persistence
+- Optimized connection pooling
+- Info-level logging for performance
 - Environment-based configuration
+- Enhanced security settings
 
 ### **Environment Variables**
 
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `SPRING_PROFILES_ACTIVE` | `local` | Active profile |
-| `DATABASE_URL` | `jdbc:h2:mem:hospital_db` | Database URL |
+| `DATABASE_URL` | H2 (local) / PostgreSQL (prod) | Database connection URL |
+| `DATABASE_USERNAME` | User-specific | Database username |
+| `DATABASE_PASSWORD` | User-specific | Database password |
 | `JWT_SECRET` | Auto-generated | JWT signing secret |
 | `PORT` | `8080` | Server port |
 | `CORS_ALLOWED_ORIGINS` | Localhost | Allowed CORS origins |
@@ -499,31 +507,266 @@ mvn clean package -DskipTests
 
 ### **🐳 Docker Deployment**
 
+#### **Quick Start with Docker Compose**
+
 ```bash
-# Build and run with Docker
-docker build -t healthsync .
-docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod healthsync
+# Clone repository
+git clone https://github.com/yourusername/hospital-management-system.git
+cd hospital-management-system
+
+# Copy environment configuration
+cp .env.example .env
+# Edit .env with your configuration
+
+# Start all services
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
 ```
 
-### **⚡ Quick Deploy Script**
+#### **Individual Container Deployment**
 
 ```bash
-# Use the provided deployment script
-./deploy.sh
-```
-
-### **🔧 Manual Deployment**
-
-```bash
-# Backend
+# Backend only
 cd monolithic-app
-mvn clean package -DskipTests
-java -Xmx400m -jar target/hospital-management-system-2.0.0.jar
+docker build -t healthsync-backend .
+docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod healthsync-backend
 
-# Frontend
+# Frontend only
 cd member-portal
-npm run build
-npm run serve
+docker build -t healthsync-frontend .
+docker run -p 3000:80 healthsync-frontend
+```
+
+#### **Production with Profiles**
+
+```bash
+# Production deployment
+docker-compose --profile production up -d
+
+# Development with monitoring
+docker-compose --profile development --profile monitoring up -d
+```
+
+### **⚡ Manual Deployment on Render.com**
+
+#### **Deployment Prerequisites**
+
+- GitHub account with your forked repository
+- Render.com account (free tier available)
+- Basic understanding of environment variables
+
+#### **Step 1: Prepare Repository**
+
+```bash
+# 1. Fork this repository to your GitHub account
+# 2. Clone your fork locally
+git clone https://github.com/bhumika-aga/Hospital-Management-System.git
+cd hospital-management-system
+
+# 3. Ensure render.yaml is configured (already included)
+cat render.yaml
+```
+
+#### **Step 2: Use Existing Database**
+
+Since you're on the free tier with an existing database, we'll use your `mediflow-database`:
+
+1. **Database Details (Already Available)**
+   - **Database Name**: `mediflow`
+   - **User**: `mediflow_user`
+   - **Internal URL**: `postgresql://mediflow_user:p9b7x3MCz3VJFZycM6AagAu4023WzX8Z@dpg-d2a7qjadbo4c73b2j4n0-a/mediflow`
+   - **External URL**: `postgresql://mediflow_user:p9b7x3MCz3VJFZycM6AagAu4023WzX8Z@dpg-d2a7qjadbo4c73b2j4n0-a.oregon-postgres.render.com/mediflow`
+
+2. **Table Isolation**
+   - HealthSync will create its own tables in the `mediflow` database
+   - Tables will be automatically prefixed to avoid conflicts with existing MediFlow tables
+   - Hibernate will use DDL mode `update` to create tables as needed
+   - No manual schema creation required
+
+#### **Step 3: Deploy Backend Service**
+
+1. **Create Web Service**
+   - Click "New +" → "Web Service"
+   - Connect your GitHub repository
+   - Select the forked repository
+
+2. **Configure Backend Service**
+   - **Name**: `hospital-management-system`
+   - **Runtime**: `Docker`
+   - **Build Command**: `cd monolithic-app && mvn clean package -DskipTests`
+   - **Start Command**: `java -jar target/hospital-management-system-2.0.0.jar`
+   - **Dockerfile Path**: `monolithic-app/Dockerfile`
+
+3. **Set Environment Variables**
+
+   ```env
+   SPRING_PROFILES_ACTIVE=prod
+   DATABASE_URL=postgresql://mediflow_user:p9b7x3MCz3VJFZycM6AagAu4023WzX8Z@dpg-d2a7qjadbo4c73b2j4n0-a/mediflow
+   JWT_SECRET=healthsync-super-secret-jwt-key-change-in-production
+   JAVA_TOOL_OPTIONS=-Xmx400m -XX:MaxRAMPercentage=75
+   SPRING_JPA_HIBERNATE_DDL_AUTO=update
+   ```
+
+#### **Step 4: Deploy Frontend Service**
+
+1. **Create Frontend Service**
+   - Click "New +" → "Static Site"
+   - Connect same GitHub repository
+
+2. **Configure Frontend**
+   - **Name**: `healthsync-portal`
+   - **Build Command**: `cd member-portal && npm install && npm run build`
+   - **Publish Directory**: `member-portal/build`
+
+3. **Set Environment Variables**
+
+   ```env
+   NODE_ENV=production
+   REACT_APP_API_BASE_URL=https://hospital-management-system.onrender.com
+   GENERATE_SOURCEMAP=false
+   ```
+
+#### **Step 5: Blueprint Deployment (Alternative)**
+
+Instead of manual setup, use the included `render.yaml`:
+
+1. **Use Blueprint**
+   - Go to Render Dashboard
+   - Click "New +" → "Blueprint"
+   - Connect your GitHub repository
+   - Render will automatically detect `render.yaml`
+   - All services deploy automatically
+
+#### **Step 6: Verify Deployment**
+
+```bash
+# Check backend health
+curl https://hospital-management-system.onrender.com/actuator/health
+
+# Test API endpoint
+curl https://hospital-management-system.onrender.com/auth/generate-token \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin"}'
+
+# Access frontend
+open https://healthsync-portal.onrender.com
+```
+
+#### **Step 7: Custom Domain (Optional)**
+
+1. **Add Custom Domain**
+   - Go to service settings
+   - Click "Custom Domains"
+   - Add your domain name
+   - Update DNS records as instructed
+
+2. **Update Environment Variables**
+
+   ```env
+   CORS_ALLOWED_ORIGINS=https://yourdomain.com
+   REACT_APP_API_BASE_URL=https://api.yourdomain.com
+   ```
+
+#### **Deployment URLs**
+
+After successful deployment:
+
+- **Frontend**: `https://healthsync-portal.onrender.com`
+- **Backend API**: `https://hospital-management-system.onrender.com`
+- **API Docs**: `https://hospital-management-system.onrender.com/swagger-ui.html`
+- **Health Check**: `https://hospital-management-system.onrender.com/actuator/health`
+
+#### **Local Development**
+
+```bash
+# Backend (uses H2 in-memory)
+cd monolithic-app && mvn spring-boot:run
+
+# Frontend (separate terminal)
+cd member-portal && npm start
+```
+
+### **🌐 Cloud Platform Deployment**
+
+#### **Manual Cloud Setup**
+
+```bash
+# AWS EC2 / GCP / Azure setup:
+# 1. Launch VM instance with Docker
+# 2. Clone repository: git clone <repo-url>
+# 3. Configure environment: cp .env.example .env
+# 4. Start services: docker-compose up -d
+```
+
+### **🔧 Environment Configuration**
+
+#### **Environment Files**
+
+- `.env.example` - Template with all configuration options
+- `.env.local` - Local development settings
+- `.env.production` - Production environment settings
+
+#### **Key Configuration Variables**
+
+```bash
+# Required for production
+JWT_SECRET=your-secure-secret-min-32-chars
+CORS_ALLOWED_ORIGINS=https://yourdomain.com
+REACT_APP_API_BASE_URL=https://yourdomain.com/api
+
+# Optional performance tuning
+JAVA_TOOL_OPTIONS=-Xmx400m -XX:MaxRAMPercentage=75
+```
+
+### **📊 Deployment Verification**
+
+#### **Health Checks**
+
+```bash
+# Backend health
+curl http://localhost:8080/actuator/health
+
+# Frontend availability
+curl http://localhost:3000
+
+# Check Docker containers
+docker-compose ps
+```
+
+#### **Service URLs**
+
+| Service | Development | Production |
+|---------|-------------|------------|
+| Frontend | <http://localhost:3000> | <https://yourdomain.com> |
+| Backend API | <http://localhost:8080> | <https://yourdomain.com/api> |
+| Swagger UI | <http://localhost:8080/swagger-ui.html> | <https://yourdomain.com/api/swagger-ui.html> |
+| H2 Console | <http://localhost:8080/h2-console> | Disabled in production |
+
+### **🔄 CI/CD Pipeline**
+
+#### **GitHub Actions Integration**
+
+```yaml
+# .github/workflows/deploy.yml
+- name: Deploy to Render
+  uses: johnbeynon/render-deploy-action@v0.0.8
+  with:
+    service-id: ${{ secrets.RENDER_SERVICE_ID }}
+    api-key: ${{ secrets.RENDER_API_KEY }}
+```
+
+#### **Automated Testing & Deployment**
+
+```bash
+# Run before deployment
+mvn clean test                    # Backend tests
+npm test                         # Frontend tests
+docker-compose config           # Validate compose file
 ```
 
 ---

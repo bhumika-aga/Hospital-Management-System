@@ -1,0 +1,44 @@
+# Docker Compose override for development
+# This file is automatically loaded alongside docker-compose.yml
+version: '3.8'
+
+services:
+  postgres:
+    environment:
+      - POSTGRES_DB=healthsync_dev_db
+      - POSTGRES_USER=healthsync_dev_user
+      - POSTGRES_PASSWORD=healthsync_dev_password
+    ports:
+      - "5432:5432"
+
+  backend:
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_JPA_SHOW_SQL=true
+      - LOGGING_LEVEL_ROOT=DEBUG
+      - LOGGING_LEVEL_COM_HOSPITAL=DEBUG
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/healthsync_dev_db
+      - DATABASE_USERNAME=healthsync_dev_user
+      - DATABASE_PASSWORD=healthsync_dev_password
+      - JPA_DDL_AUTO=update
+    ports:
+      - "8080:8080"
+      - "8081:8081" # Debug port
+    volumes:
+      - ./monolithic-app/src:/app/src:ro # For hot reload in development
+
+  frontend:
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_BASE_URL=http://localhost:8080
+    volumes:
+      - ./member-portal/src:/app/src:ro # For hot reload in development
+    command: ["nginx", "-g", "daemon off;"]
+
+  # Development database admin
+  pgadmin:
+    profiles:
+      - development
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@healthsync.dev
+      - PGADMIN_DEFAULT_PASSWORD=admin123
