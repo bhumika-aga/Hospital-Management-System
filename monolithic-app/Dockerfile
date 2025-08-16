@@ -1,5 +1,5 @@
 # Multi-stage build for hospital-management-system
-FROM maven:3.9.2-openjdk-17-slim AS builder
+FROM maven:3.9.6-eclipse-temurin-17-alpine AS builder
 
 # Set working directory
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Production stage
-FROM openjdk:17-jre-slim
+FROM eclipse-temurin:17-jre-alpine
 
 # Add labels for better container management
 LABEL maintainer="healthsync-team"
@@ -25,12 +25,10 @@ LABEL version="2.0.0"
 LABEL description="Hospital Management System - HealthSync"
 
 # Install curl for health checks
-RUN apt-get update && \
-    apt-get install -y curl && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache curl
 
 # Create app user for security
-RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
+RUN addgroup -S appgroup && adduser -S -G appgroup appuser
 
 # Set working directory
 WORKDIR /app
