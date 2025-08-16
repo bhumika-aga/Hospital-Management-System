@@ -38,7 +38,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: REACT_APP_API_BASE_URL
-        value: https://hospital-management-system.onrender.com
+        value: https://hospital-management-system-4s8g.onrender.com
       - key: GENERATE_SOURCEMAP
         value: "false"
 

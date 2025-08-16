@@ -1,63 +1,58 @@
-# Multi-stage build for Spring Boot application
-FROM openjdk:17-jdk-slim AS builder
+# Multi-stage build for hospital-management-system
+FROM maven:3.9.2-openjdk-17-slim AS builder
 
 # Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and pom.xml
-COPY mvnw .
-COPY .mvn ./.mvn
+# Copy pom.xml first for better layer caching
 COPY pom.xml .
 
-# Make Maven wrapper executable
-RUN chmod +x ./mvnw
-
-# Download dependencies (for better caching)
-RUN ./mvnw dependency:go-offline -B
+# Download dependencies
+RUN mvn dependency:go-offline -B
 
 # Copy source code
 COPY src ./src
 
-# Build application
-RUN ./mvnw clean package -DskipTests
+# Build the application
+RUN mvn clean package -DskipTests
 
 # Production stage
 FROM openjdk:17-jre-slim
 
-# Install curl for health checks and security updates
+# Add labels for better container management
+LABEL maintainer="healthsync-team"
+LABEL version="2.0.0"
+LABEL description="Hospital Management System - HealthSync"
+
+# Install curl for health checks
 RUN apt-get update && \
     apt-get install -y curl && \
-    apt-get upgrade -y && \
     rm -rf /var/lib/apt/lists/*
 
-# Create application user for security
-RUN groupadd -r healthsync && useradd -r -g healthsync healthsync
+# Create app user for security
+RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
 
 # Set working directory
 WORKDIR /app
 
-# Copy JAR from builder stage
-COPY --from=builder /app/target/hospital-management-system-*.jar app.jar
+# Create data directory
+RUN mkdir -p /app/data && chown -R appuser:appgroup /app
 
-# Create necessary directories
-RUN mkdir -p /app/data /app/logs
+# Copy the jar file from builder stage
+COPY --from=builder /app/target/hospital-management-system-*.jar /app/hospital-management-system.jar
 
-# Set proper permissions
-RUN chown -R healthsync:healthsync /app
+# Change ownership to app user
+RUN chown appuser:appgroup /app/hospital-management-system.jar
 
 # Switch to non-root user
-USER healthsync
+USER appuser
 
 # Expose port
 EXPOSE 8080
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-  CMD curl -f http://localhost:8080/actuator/health || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8080/actuator/health || exit 1
 
-# Environment variables
-ENV JAVA_OPTS="-Xmx400m -Xms200m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+UseStringDeduplication"
-ENV SPRING_PROFILES_ACTIVE=prod
-
-# Start application
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+# Run the application
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/hospital-management-system.jar"]

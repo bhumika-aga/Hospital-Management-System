@@ -627,7 +627,7 @@ Since you're on the free tier with an existing database, we'll use your `mediflo
 
    ```env
    NODE_ENV=production
-   REACT_APP_API_BASE_URL=https://hospital-management-system.onrender.com
+   REACT_APP_API_BASE_URL=https://hospital-management-system-4s8g.onrender.com
    GENERATE_SOURCEMAP=false
    ```
 
@@ -646,10 +646,10 @@ Instead of manual setup, use the included `render.yaml`:
 
 ```bash
 # Check backend health
-curl https://hospital-management-system.onrender.com/actuator/health
+curl https://hospital-management-system-4s8g.onrender.com/actuator/health
 
 # Test API endpoint
-curl https://hospital-management-system.onrender.com/auth/generate-token \
+curl https://hospital-management-system-4s8g.onrender.com/auth/generate-token \
   -H "Content-Type: application/json" \
   -d '{"username": "admin"}'
 
@@ -677,9 +677,9 @@ open https://healthsync-portal.onrender.com
 After successful deployment:
 
 - **Frontend**: `https://healthsync-portal.onrender.com`
-- **Backend API**: `https://hospital-management-system.onrender.com`
-- **API Docs**: `https://hospital-management-system.onrender.com/swagger-ui.html`
-- **Health Check**: `https://hospital-management-system.onrender.com/actuator/health`
+- **Backend API**: `https://hospital-management-system-4s8g.onrender.com`
+- **API Docs**: `https://hospital-management-system-4s8g.onrender.com/swagger-ui.html`
+- **Health Check**: `https://hospital-management-system-4s8g.onrender.com/actuator/health`
 
 #### **Local Development**
 
