@@ -1,0 +1,64 @@
+# Build artifacts
+target/
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+.fuse_hidden*
+.directory
+.Trash-*
+ehthumbs.db
+ehthumbs_vista.db
+
+# Logs
+*.log
+logs/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile*
+.dockerignore
+
+# Documentation
+README.md
+*.md
+
+# Test files (excluded from production builds to reduce size)
+src/test/
+test/
+
+# Development files
+.env*
+*.env
+
+# Dependencies (if any accidentally included)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Coverage reports
+coverage/
+jacoco.exec
+
+# Temporary files
+*.tmp
+*.temp

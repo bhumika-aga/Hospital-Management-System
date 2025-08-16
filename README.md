@@ -1,7 +1,7 @@
 # 🏥 HealthSync - Advanced Hospital Management System
 
 [![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://openjdk.java.net/)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.1.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.8-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![React](https://img.shields.io/badge/React-19.1.1-blue.svg)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-blue.svg)](https://www.typescriptlang.org/)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/yourusername/hospital-management-system/actions)
@@ -99,9 +99,9 @@
 | Technology | Version | Purpose |
 |------------|---------|---------|
 | Java | 17 | Core programming language |
-| Spring Boot | 3.1.5 | Application framework |
-| Spring Security | 6.0.13 | Authentication & authorization |
-| Spring Data JPA | 3.1.5 | Data persistence |
+| Spring Boot | 3.4.8 | Application framework |
+| Spring Security | 6.2.9 | Authentication & authorization |
+| Spring Data JPA | 3.4.8 | Data persistence |
 | PostgreSQL | 15+ | Production database |
 | H2 Database | 2.1.214 | Development database |
 | JWT | 0.11.5 | Token-based authentication |

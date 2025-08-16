@@ -25,7 +25,39 @@
 hs_err_pid*
 replay_pid*
 
+# System files
 .DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE files
 .idea
+.vscode
+
+# Build artifacts
 data
-target
+target/
+*/target/
+build/
+*/build/
+
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS generated files
+.fuse_hidden*
+.directory
+.Trash-*
+ehthumbs.db
+ehthumbs_vista.db

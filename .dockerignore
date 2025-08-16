@@ -1,0 +1,69 @@
+# Frontend (not needed for backend build)
+member-portal/
+
+# Build artifacts
+target/
+*/target/
+build/
+*/build/
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Dependencies
+node_modules/
+*/node_modules/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+.fuse_hidden*
+.directory
+.Trash-*
+ehthumbs.db
+ehthumbs_vista.db
+
+# Logs
+*.log
+logs/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+*.md
+CHANGELOG.md
+FEATURES.md
+
+# Development files
+.env*
+*.env
+
+# Test files (for production builds)
+**/src/test/
+**/test/
+coverage/
+jacoco.exec
+
+# Docker and deployment
+docker-compose*.yml
+nginx/
+render.yaml
+
+# Temporary files
+*.tmp
+*.temp

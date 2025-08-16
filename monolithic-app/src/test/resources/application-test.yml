@@ -16,7 +16,7 @@ spring:
     properties:
       hibernate:
         format_sql: false
-    database-platform: org.hibernate.dialect.H2Dialect
+    # database-platform auto-detected by Hibernate for H2
     
   # Disable data initialization for tests
   sql:

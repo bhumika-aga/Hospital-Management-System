@@ -21,7 +21,7 @@ spring:
   
   # JPA Configuration
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    # database-platform auto-detected by Hibernate for H2
     hibernate:
       ddl-auto: create-drop
     show-sql: true
