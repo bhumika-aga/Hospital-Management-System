@@ -1,6 +1,13 @@
 # Frontend (not needed for backend build)
 member-portal/
 
+# Root directory files not needed for monolithic-app build
+README.md
+CHANGELOG.md
+FEATURES.md
+render.yaml
+docker-compose*.yml
+
 # Build artifacts
 target/
 */target/

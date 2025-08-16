@@ -33,6 +33,11 @@ logs/
 .gitignore
 .gitattributes
 
+# Maven wrapper should be included for builds
+# .mvn/
+# mvnw
+# mvnw.cmd
+
 # Docker
 Dockerfile*
 .dockerignore

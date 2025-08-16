@@ -4,17 +4,19 @@ FROM maven:3.9.6-eclipse-temurin-17-alpine AS builder
 # Set working directory
 WORKDIR /app
 
-# Copy pom.xml first for better layer caching
-COPY pom.xml .
+# Copy Maven wrapper and pom.xml first for better layer caching
+COPY .mvn .mvn
+COPY mvnw mvnw.cmd pom.xml ./
+RUN chmod +x mvnw
 
 # Download dependencies
-RUN mvn dependency:go-offline -B
+RUN ./mvnw dependency:go-offline -B
 
 # Copy source code
 COPY src ./src
 
 # Build the application
-RUN mvn clean package -DskipTests
+RUN ./mvnw clean package -DskipTests
 
 # Production stage
 FROM eclipse-temurin:17-jre-alpine

@@ -7,8 +7,8 @@ services:
     name: hospital-management-system
     runtime: docker
     plan: free
-    dockerfilePath: ./Dockerfile
-    dockerContext: .
+    dockerfilePath: ./monolithic-app/Dockerfile
+    dockerContext: ./monolithic-app
     healthCheckPath: /actuator/health
     envVars:
       - key: JAVA_TOOL_OPTIONS
