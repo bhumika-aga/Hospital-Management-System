@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### ✨ Added
 
 #### 🔐 Authentication & User Management
+
 - **User Registration Flow**: Complete user creation system with role-based access
   - User types: Patient, Doctor, Administrator, General User
   - Form validation with error handling
@@ -23,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - User avatar with initials display
 
 #### 🌙 Theme & UI Enhancements
+
 - **Dark/Light Theme System**: Complete theme switching implementation
   - Persistent theme settings in localStorage
   - Conditional styling for all components
@@ -32,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Enhanced Typography**: Improved font hierarchy and spacing
 
 #### ⚙️ Settings & Preferences
+
 - **Comprehensive Settings Page**: Full application preferences management
   - Theme toggle with immediate effect
   - Notification preferences (Email, SMS, Sound)
@@ -43,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Clear Data Functionality**: Complete data cleanup with confirmation dialogs
 
 #### 💰 Enhanced Claims Processing
+
 - **Receipt Generation**: Professional HTML receipt download functionality
   - Branded hospital letterhead
   - Complete claim details formatting
@@ -56,6 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Auto-populated Forms**: Treatment cost auto-fill based on package selection
 
 #### 📞 Communication & Support
+
 - **Email Integration**: Direct email support functionality
   - Pre-filled support request templates
   - Opens default email client
@@ -70,6 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Professional styling with syntax highlighting
 
 #### 📋 Treatment Management Enhancements
+
 - **Timeline Visualization**: Enhanced treatment plan displays
   - Visual progress tracking
   - Status update capabilities
@@ -80,6 +86,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Enhanced specialist profiles
 
 #### 🎨 UI/UX Improvements
+
 - **Enhanced Navigation**: Improved sidebar and header functionality
 - **Loading States**: Better feedback for user interactions
 - **Error Handling**: Comprehensive error boundaries and user feedback
@@ -90,18 +97,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🔧 Technical Improvements
 
 #### 📱 Component Architecture
+
 - **TypeScript Enhancements**: Improved type safety across all components
 - **Form Management**: React Hook Form integration for better form handling
 - **State Management**: Enhanced state management patterns
 - **API Integration**: Improved error handling and loading states
 
 #### 🎨 Material-UI Integration
+
 - **Component Updates**: Updated to latest MUI patterns
 - **Theme Customization**: Enhanced theme system with conditional styling
 - **Responsive Breakpoints**: Improved mobile and tablet layouts
 - **Icon Integration**: Consistent icon usage across the application
 
 #### 🔒 Security & Performance
+
 - **Input Validation**: Enhanced form validation and sanitization
 - **Error Boundaries**: Comprehensive error handling
 - **Performance Optimization**: Reduced bundle size and improved loading
@@ -110,6 +120,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🐛 Fixed
 
 #### 🔧 Bug Fixes
+
 - **Analytics Button**: Removed non-functional Analytics navigation
 - **Infinite Loops**: Fixed useEffect dependency issues in treatment plans
 - **Type Mismatches**: Resolved insurer and package lookup type issues
@@ -118,6 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Form Validation**: Fixed validation messages and error states
 
 #### 📱 UI/UX Fixes
+
 - **Dark Mode Styling**: Fixed inconsistent styling in dark theme
 - **Button Functionality**: Made all buttons functional with proper handlers
 - **Navigation Issues**: Fixed routing and navigation flow problems
@@ -125,6 +137,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Modal Positioning**: Fixed dialog and modal positioning issues
 
 #### 🔧 Technical Fixes
+
 - **TypeScript Warnings**: Resolved all TypeScript compilation warnings
 - **Deprecated APIs**: Updated deprecated Material-UI props (InputProps → slotProps)
 - **Unused Variables**: Cleaned up unused imports and variables
@@ -133,6 +146,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 📚 Documentation
 
 #### 📖 Updated Documentation
+
 - **README.md**: Comprehensive updates reflecting all new features
 - **Feature Documentation**: Detailed descriptions of new capabilities
 - **Installation Guide**: Updated setup and configuration instructions
@@ -140,6 +154,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **User Guide**: Added user journey documentation
 
 #### 🎨 Visual Documentation
+
 - **ASCII Diagrams**: Updated UI mockups and feature representations
 - **Feature Screenshots**: Text-based representations of new interfaces
 - **Architecture Diagrams**: Updated system architecture documentation
@@ -147,6 +162,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🔄 Changed
 
 #### 🎨 UI/UX Updates
+
 - **Login Page**: Enhanced with tabbed interface and user creation
 - **Settings Page**: Complete redesign with functional preferences
 - **Claims Page**: Enhanced with receipt generation and detailed views
@@ -154,6 +170,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Profile Page**: New comprehensive profile management interface
 
 #### 🔧 Technical Changes
+
 - **Theme System**: Migrated to function-based theme generation
 - **Component Structure**: Improved component organization and reusability
 - **State Management**: Enhanced state management patterns
@@ -162,6 +179,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🗑️ Removed
 
 #### 🔧 Cleanup
+
 - **Analytics Button**: Removed non-functional analytics navigation
 - **Unused Code**: Cleaned up unused imports and components
 - **Deprecated Patterns**: Removed outdated Material-UI usage patterns
@@ -172,6 +190,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.0] - 2024-01-15
 
 ### ✨ Initial Release
+
 - Complete hospital management system
 - React frontend with Material-UI
 - Spring Boot backend with H2 database

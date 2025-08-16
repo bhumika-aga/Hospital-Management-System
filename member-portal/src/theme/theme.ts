@@ -121,12 +121,12 @@ export const createAppTheme = (isDark: boolean) => createTheme({
           transition: 'all 0.2s ease-in-out',
         },
         containedPrimary: {
-          background: isDark 
+          background: isDark
             ? 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)'
             : 'linear-gradient(135deg, #000000 0%, #333333 100%)',
           color: isDark ? '#000000' : '#ffffff',
           '&:hover': {
-            background: isDark 
+            background: isDark
               ? 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)'
               : 'linear-gradient(135deg, #333333 0%, #555555 100%)',
           },
@@ -159,12 +159,12 @@ export const createAppTheme = (isDark: boolean) => createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: isDark 
-            ? 'rgba(16, 16, 16, 0.8)' 
+          backgroundColor: isDark
+            ? 'rgba(16, 16, 16, 0.8)'
             : 'rgba(255, 255, 255, 0.8)',
           backdropFilter: 'blur(20px)',
-          borderBottom: isDark 
-            ? '1px solid rgba(255, 255, 255, 0.1)' 
+          borderBottom: isDark
+            ? '1px solid rgba(255, 255, 255, 0.1)'
             : '1px solid rgba(0, 0, 0, 0.1)',
           boxShadow: 'none',
         },
@@ -174,14 +174,14 @@ export const createAppTheme = (isDark: boolean) => createTheme({
       styleOverrides: {
         root: {
           borderRadius: 16,
-          boxShadow: isDark 
+          boxShadow: isDark
             ? '0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3)'
             : '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
-          border: isDark 
-            ? '1px solid rgba(255, 255, 255, 0.1)' 
+          border: isDark
+            ? '1px solid rgba(255, 255, 255, 0.1)'
             : '1px solid #f0f0f0',
           '&:hover': {
-            boxShadow: isDark 
+            boxShadow: isDark
               ? '0 4px 12px rgba(0, 0, 0, 0.6)'
               : '0 4px 12px rgba(0, 0, 0, 0.15)',
             transform: 'translateY(-2px)',

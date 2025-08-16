@@ -1,60 +1,60 @@
-import { 
-  Language, 
-  Security, 
+import {
+  Backup,
+  CloudDownload,
   DarkMode,
-  LightMode,
+  Delete,
   Email,
+  Language,
+  LightMode,
+  Security,
   Sms,
   VolumeUp,
-  Delete,
-  CloudDownload,
-  Backup,
 } from "@mui/icons-material";
 import {
+  Alert,
   Box,
+  Button,
   Card,
   CardContent,
+  Chip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Typography,
-  Switch,
-  Button,
   MenuItem,
+  Switch,
   TextField,
-  Alert,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Chip,
+  Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 
 const Settings: React.FC = () => {
   const [settings, setSettings] = useState({
-    darkMode: localStorage.getItem('theme') === 'dark',
+    darkMode: localStorage.getItem("theme") === "dark",
     emailNotifications: true,
     smsNotifications: false,
     soundNotifications: true,
-    language: 'en',
+    language: "en",
     autoSave: true,
-    dataRetention: '1year',
+    dataRetention: "1year",
   });
-  
+
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [clearDataDialog, setClearDataDialog] = useState(false);
 
   const handleSettingChange = (key: string, value: any) => {
-    setSettings(prev => ({ ...prev, [key]: value }));
-    
+    setSettings((prev) => ({ ...prev, [key]: value }));
+
     // Handle theme change immediately
-    if (key === 'darkMode') {
-      localStorage.setItem('theme', value ? 'dark' : 'light');
+    if (key === "darkMode") {
+      localStorage.setItem("theme", value ? "dark" : "light");
       window.location.reload(); // Refresh to apply theme
     }
-    
+
     setSaveSuccess(true);
     setTimeout(() => setSaveSuccess(false), 2000);
   };
@@ -62,15 +62,17 @@ const Settings: React.FC = () => {
   const handleExportData = () => {
     const data = {
       settings,
-      profile: localStorage.getItem('username'),
+      profile: localStorage.getItem("username"),
       exportDate: new Date().toISOString(),
     };
-    
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = `hospital-data-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `hospital-data-${new Date().toISOString().split("T")[0]}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -80,8 +82,8 @@ const Settings: React.FC = () => {
   const handleClearData = () => {
     localStorage.clear();
     setClearDataDialog(false);
-    alert('All data cleared successfully. You will be redirected to login.');
-    window.location.href = '/login';
+    alert("All data cleared successfully. You will be redirected to login.");
+    window.location.href = "/login";
   };
 
   return (
@@ -130,7 +132,9 @@ const Settings: React.FC = () => {
               />
               <Switch
                 checked={settings.darkMode}
-                onChange={(e) => handleSettingChange('darkMode', e.target.checked)}
+                onChange={(e) =>
+                  handleSettingChange("darkMode", e.target.checked)
+                }
               />
             </ListItem>
           </List>
@@ -154,7 +158,9 @@ const Settings: React.FC = () => {
               />
               <Switch
                 checked={settings.emailNotifications}
-                onChange={(e) => handleSettingChange('emailNotifications', e.target.checked)}
+                onChange={(e) =>
+                  handleSettingChange("emailNotifications", e.target.checked)
+                }
               />
             </ListItem>
             <ListItem>
@@ -167,7 +173,9 @@ const Settings: React.FC = () => {
               />
               <Switch
                 checked={settings.smsNotifications}
-                onChange={(e) => handleSettingChange('smsNotifications', e.target.checked)}
+                onChange={(e) =>
+                  handleSettingChange("smsNotifications", e.target.checked)
+                }
               />
             </ListItem>
             <ListItem>
@@ -180,7 +188,9 @@ const Settings: React.FC = () => {
               />
               <Switch
                 checked={settings.soundNotifications}
-                onChange={(e) => handleSettingChange('soundNotifications', e.target.checked)}
+                onChange={(e) =>
+                  handleSettingChange("soundNotifications", e.target.checked)
+                }
               />
             </ListItem>
           </List>
@@ -193,13 +203,13 @@ const Settings: React.FC = () => {
           <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
             Language & Region
           </Typography>
-          <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
-            <Language sx={{ color: 'primary.main' }} />
+          <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
+            <Language sx={{ color: "primary.main" }} />
             <TextField
               select
               label="Language"
               value={settings.language}
-              onChange={(e) => handleSettingChange('language', e.target.value)}
+              onChange={(e) => handleSettingChange("language", e.target.value)}
               sx={{ minWidth: 200 }}
             >
               <MenuItem value="en">English</MenuItem>
@@ -230,7 +240,9 @@ const Settings: React.FC = () => {
               />
               <Switch
                 checked={settings.autoSave}
-                onChange={(e) => handleSettingChange('autoSave', e.target.checked)}
+                onChange={(e) =>
+                  handleSettingChange("autoSave", e.target.checked)
+                }
               />
             </ListItem>
             <ListItem>
@@ -244,7 +256,9 @@ const Settings: React.FC = () => {
               <TextField
                 select
                 value={settings.dataRetention}
-                onChange={(e) => handleSettingChange('dataRetention', e.target.value)}
+                onChange={(e) =>
+                  handleSettingChange("dataRetention", e.target.value)
+                }
                 sx={{ minWidth: 150 }}
                 size="small"
               >
@@ -264,7 +278,7 @@ const Settings: React.FC = () => {
           <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
             Data Management
           </Typography>
-          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+          <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
             <Button
               variant="outlined"
               startIcon={<CloudDownload />}
@@ -282,7 +296,8 @@ const Settings: React.FC = () => {
             </Button>
           </Box>
           <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-            Export your data for backup or transfer. Clear all data will remove everything and log you out.
+            Export your data for backup or transfer. Clear all data will remove
+            everything and log you out.
           </Typography>
         </CardContent>
       </Card>
@@ -297,7 +312,8 @@ const Settings: React.FC = () => {
         <DialogTitle>Clear All Data</DialogTitle>
         <DialogContent>
           <Typography>
-            Are you sure you want to clear all your data? This action cannot be undone and you will be logged out.
+            Are you sure you want to clear all your data? This action cannot be
+            undone and you will be logged out.
           </Typography>
         </DialogContent>
         <DialogActions>

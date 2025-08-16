@@ -1,4 +1,11 @@
-import { Login as LoginIcon, MedicalServices, PersonAdd, Email, Phone, AccountCircle } from "@mui/icons-material";
+import {
+  AccountCircle,
+  Email,
+  Login as LoginIcon,
+  MedicalServices,
+  PersonAdd,
+  Phone,
+} from "@mui/icons-material";
 import {
   Alert,
   Box,
@@ -7,17 +14,17 @@ import {
   CardContent,
   CircularProgress,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Divider,
   Fade,
-  TextField,
-  Typography,
+  MenuItem,
   Tab,
   Tabs,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  MenuItem,
+  TextField,
+  Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -30,7 +37,7 @@ interface CreateUserForm {
   fullName: string;
   email: string;
   phone: string;
-  userType: 'patient' | 'doctor' | 'admin' | 'user';
+  userType: "patient" | "doctor" | "admin" | "user";
 }
 
 const Login: React.FC = () => {
@@ -89,17 +96,21 @@ const Login: React.FC = () => {
       };
 
       // Store user data in localStorage (in a real system, this would be an API call)
-      const existingUsers = JSON.parse(localStorage.getItem('hospitalUsers') || '[]');
-      
+      const existingUsers = JSON.parse(
+        localStorage.getItem("hospitalUsers") || "[]"
+      );
+
       // Check if username already exists
       if (existingUsers.some((user: any) => user.username === data.username)) {
-        setError('Username already exists. Please choose a different username.');
+        setError(
+          "Username already exists. Please choose a different username."
+        );
         setLoading(false);
         return;
       }
 
       existingUsers.push(userData);
-      localStorage.setItem('hospitalUsers', JSON.stringify(existingUsers));
+      localStorage.setItem("hospitalUsers", JSON.stringify(existingUsers));
 
       setCreateUserSuccess(true);
       resetCreateUser();
@@ -108,7 +119,6 @@ const Login: React.FC = () => {
         setCreateUserSuccess(false);
         setTabValue(0); // Switch back to login tab
       }, 2000);
-
     } catch (err: any) {
       setError("Failed to create user. Please try again.");
     } finally {
@@ -202,10 +212,10 @@ const Login: React.FC = () => {
               </Box>
 
               {/* Tabs */}
-              <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
-                <Tabs 
-                  value={tabValue} 
-                  onChange={handleTabChange} 
+              <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 3 }}>
+                <Tabs
+                  value={tabValue}
+                  onChange={handleTabChange}
                   centered
                   variant="fullWidth"
                 >
@@ -230,62 +240,62 @@ const Login: React.FC = () => {
                     Welcome Back
                   </Typography>
 
-                {error && (
-                  <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
-                    {error}
-                  </Alert>
-                )}
+                  {error && (
+                    <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
+                      {error}
+                    </Alert>
+                  )}
 
-                <TextField
-                  fullWidth
-                  label="Username"
-                  variant="outlined"
-                  margin="normal"
-                  {...register("username", {
-                    required: "Username is required",
-                    minLength: {
-                      value: 2,
-                      message: "Username must be at least 2 characters",
-                    },
-                  })}
-                  error={!!errors.username}
-                  helperText={errors.username?.message}
-                  sx={{
-                    mb: 3,
-                    "& .MuiOutlinedInput-root": {
+                  <TextField
+                    fullWidth
+                    label="Username"
+                    variant="outlined"
+                    margin="normal"
+                    {...register("username", {
+                      required: "Username is required",
+                      minLength: {
+                        value: 2,
+                        message: "Username must be at least 2 characters",
+                      },
+                    })}
+                    error={!!errors.username}
+                    helperText={errors.username?.message}
+                    sx={{
+                      mb: 3,
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: 2,
+                      },
+                    }}
+                  />
+
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    disabled={loading}
+                    startIcon={
+                      loading ? <CircularProgress size={20} /> : <LoginIcon />
+                    }
+                    sx={{
+                      py: 1.5,
                       borderRadius: 2,
-                    },
-                  }}
-                />
-
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  size="large"
-                  disabled={loading}
-                  startIcon={
-                    loading ? <CircularProgress size={20} /> : <LoginIcon />
-                  }
-                  sx={{
-                    py: 1.5,
-                    borderRadius: 2,
-                    fontSize: "1rem",
-                    fontWeight: 600,
-                    textTransform: "none",
-                    background:
-                      "linear-gradient(135deg, #000000 0%, #333333 100%)",
-                    "&:hover": {
+                      fontSize: "1rem",
+                      fontWeight: 600,
+                      textTransform: "none",
                       background:
-                        "linear-gradient(135deg, #333333 0%, #555555 100%)",
-                      transform: "translateY(-1px)",
-                      boxShadow: "0 8px 25px rgba(0, 0, 0, 0.25)",
-                    },
-                    transition: "all 0.2s ease-in-out",
-                  }}
-                >
-                  {loading ? "Signing In..." : "Sign In"}
-                </Button>
+                        "linear-gradient(135deg, #000000 0%, #333333 100%)",
+                      "&:hover": {
+                        background:
+                          "linear-gradient(135deg, #333333 0%, #555555 100%)",
+                        transform: "translateY(-1px)",
+                        boxShadow: "0 8px 25px rgba(0, 0, 0, 0.25)",
+                      },
+                      transition: "all 0.2s ease-in-out",
+                    }}
+                  >
+                    {loading ? "Signing In..." : "Sign In"}
+                  </Button>
 
                   {/* Additional Info */}
                   <Box sx={{ mt: 4, textAlign: "center" }}>
@@ -381,8 +391,8 @@ const Login: React.FC = () => {
         fullWidth
       >
         <DialogTitle>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <PersonAdd sx={{ color: 'primary.main' }} />
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <PersonAdd sx={{ color: "primary.main" }} />
             Create New User Account
           </Box>
         </DialogTitle>
@@ -403,7 +413,9 @@ const Login: React.FC = () => {
               helperText={createUserErrors.username?.message}
               slotProps={{
                 input: {
-                  startAdornment: <AccountCircle sx={{ mr: 1, color: 'text.secondary' }} />,
+                  startAdornment: (
+                    <AccountCircle sx={{ mr: 1, color: "text.secondary" }} />
+                  ),
                 },
               }}
             />
@@ -423,7 +435,9 @@ const Login: React.FC = () => {
               helperText={createUserErrors.fullName?.message}
               slotProps={{
                 input: {
-                  startAdornment: <AccountCircle sx={{ mr: 1, color: 'text.secondary' }} />,
+                  startAdornment: (
+                    <AccountCircle sx={{ mr: 1, color: "text.secondary" }} />
+                  ),
                 },
               }}
             />
@@ -444,7 +458,9 @@ const Login: React.FC = () => {
               helperText={createUserErrors.email?.message}
               slotProps={{
                 input: {
-                  startAdornment: <Email sx={{ mr: 1, color: 'text.secondary' }} />,
+                  startAdornment: (
+                    <Email sx={{ mr: 1, color: "text.secondary" }} />
+                  ),
                 },
               }}
             />
@@ -460,7 +476,9 @@ const Login: React.FC = () => {
               helperText={createUserErrors.phone?.message}
               slotProps={{
                 input: {
-                  startAdornment: <Phone sx={{ mr: 1, color: 'text.secondary' }} />,
+                  startAdornment: (
+                    <Phone sx={{ mr: 1, color: "text.secondary" }} />
+                  ),
                 },
               }}
             />
@@ -475,7 +493,10 @@ const Login: React.FC = () => {
                 required: "User type is required",
               })}
               error={!!createUserErrors.userType}
-              helperText={createUserErrors.userType?.message || "Select your role in the system"}
+              helperText={
+                createUserErrors.userType?.message ||
+                "Select your role in the system"
+              }
             >
               <MenuItem value="patient">Patient</MenuItem>
               <MenuItem value="doctor">Doctor</MenuItem>

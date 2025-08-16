@@ -51,7 +51,8 @@ const Treatments: React.FC = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [timelineDialogOpen, setTimelineDialogOpen] = useState(false);
   const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
-  const [selectedTreatment, setSelectedTreatment] = useState<TreatmentPlan | null>(null);
+  const [selectedTreatment, setSelectedTreatment] =
+    useState<TreatmentPlan | null>(null);
   const hasProcessedInitialSelection = useRef(false);
 
   const {
@@ -96,7 +97,7 @@ const Treatments: React.FC = () => {
     if (packages.length === 0 || hasProcessedInitialSelection.current) return;
 
     // Check if a package was selected from the packages page
-    const selectedPackageData = sessionStorage.getItem('selectedPackage');
+    const selectedPackageData = sessionStorage.getItem("selectedPackage");
     if (selectedPackageData) {
       try {
         const pkg = JSON.parse(selectedPackageData);
@@ -109,24 +110,26 @@ const Treatments: React.FC = () => {
         });
         setDialogOpen(true);
         // Clear the stored package
-        sessionStorage.removeItem('selectedPackage');
+        sessionStorage.removeItem("selectedPackage");
         hasProcessedInitialSelection.current = true;
       } catch (error) {
-        console.error('Error parsing selected package:', error);
+        console.error("Error parsing selected package:", error);
       }
       return; // Exit early if package was processed
     }
 
     // Check if a specialist was selected from the specialists page
-    const selectedSpecialistData = sessionStorage.getItem('selectedSpecialist');
+    const selectedSpecialistData = sessionStorage.getItem("selectedSpecialist");
     if (selectedSpecialistData) {
       try {
         const specialist = JSON.parse(selectedSpecialistData);
         // Filter packages by specialist's specialization if available
-        const specialistPackages = packages.filter(pkg => 
-          pkg.specialization.toLowerCase() === specialist.specialization.toLowerCase()
+        const specialistPackages = packages.filter(
+          (pkg) =>
+            pkg.specialization.toLowerCase() ===
+            specialist.specialization.toLowerCase()
         );
-        
+
         if (specialistPackages.length > 0) {
           reset({
             patientName: "",
@@ -138,10 +141,10 @@ const Treatments: React.FC = () => {
         }
         setDialogOpen(true);
         // Clear the stored specialist
-        sessionStorage.removeItem('selectedSpecialist');
+        sessionStorage.removeItem("selectedSpecialist");
         hasProcessedInitialSelection.current = true;
       } catch (error) {
-        console.error('Error parsing selected specialist:', error);
+        console.error("Error parsing selected specialist:", error);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -189,20 +192,36 @@ const Treatments: React.FC = () => {
 
   const handleContactSpecialist = (treatment: TreatmentPlan) => {
     if (treatment.specialist?.email) {
-      const subject = encodeURIComponent(`Treatment Update Request - ${treatment.patientName || treatment.name}`);
+      const subject = encodeURIComponent(
+        `Treatment Update Request - ${treatment.patientName || treatment.name}`
+      );
       const body = encodeURIComponent(
-        `Dear Dr. ${treatment.specialist.name},\n\nI would like to discuss updates to the treatment plan for ${treatment.patientName || treatment.name}.\n\nTreatment ID: ${treatment.id}\nPackage: ${treatment.treatmentPackage?.name || treatment.treatmentPackageName}\n\nPlease let me know your availability for consultation.\n\nBest regards`
+        `Dear Dr. ${
+          treatment.specialist.name
+        },\n\nI would like to discuss updates to the treatment plan for ${
+          treatment.patientName || treatment.name
+        }.\n\nTreatment ID: ${treatment.id}\nPackage: ${
+          treatment.treatmentPackage?.name || treatment.treatmentPackageName
+        }\n\nPlease let me know your availability for consultation.\n\nBest regards`
       );
       window.location.href = `mailto:${treatment.specialist.email}?subject=${subject}&body=${body}`;
     } else {
       // Fallback to a generic contact message
-      alert(`Please contact Dr. ${treatment.specialist?.name || "your assigned specialist"} directly for treatment updates.`);
+      alert(
+        `Please contact Dr. ${
+          treatment.specialist?.name || "your assigned specialist"
+        } directly for treatment updates.`
+      );
     }
   };
 
   const handleRequestChanges = (treatment: TreatmentPlan) => {
     // This could open another dialog for change requests in the future
-    alert(`Change request functionality for ${treatment.patientName || treatment.name}'s treatment will be available soon. Please contact the specialist directly for now.`);
+    alert(
+      `Change request functionality for ${
+        treatment.patientName || treatment.name
+      }'s treatment will be available soon. Please contact the specialist directly for now.`
+    );
   };
 
   const getStatusColor = (endDate: string) => {
@@ -406,18 +425,18 @@ const Treatments: React.FC = () => {
 
                 {/* Action Buttons */}
                 <Box sx={{ display: "flex", gap: 1 }}>
-                  <Button 
-                    variant="outlined" 
-                    size="small" 
+                  <Button
+                    variant="outlined"
+                    size="small"
                     startIcon={<Timeline />}
                     onClick={() => handleViewTimeline(treatment)}
                     sx={{ flex: 1 }}
                   >
                     View Timeline
                   </Button>
-                  <Button 
-                    variant="contained" 
-                    size="small" 
+                  <Button
+                    variant="contained"
+                    size="small"
                     startIcon={<Edit />}
                     onClick={() => handleUpdateTreatment(treatment)}
                     sx={{ flex: 1 }}
@@ -594,14 +613,17 @@ const Treatments: React.FC = () => {
                   </StepLabel>
                   <StepContent>
                     <Typography variant="body2" color="text.secondary">
-                      Started: {new Date(
+                      Started:{" "}
+                      {new Date(
                         selectedTreatment.treatmentCommencementDate ||
-                        selectedTreatment.treatmentStartDate ||
-                        new Date()
+                          selectedTreatment.treatmentStartDate ||
+                          new Date()
                       ).toLocaleDateString()}
                     </Typography>
                     <Typography variant="body2">
-                      Package: {selectedTreatment.treatmentPackage?.name || selectedTreatment.treatmentPackageName}
+                      Package:{" "}
+                      {selectedTreatment.treatmentPackage?.name ||
+                        selectedTreatment.treatmentPackageName}
                     </Typography>
                   </StepContent>
                 </Step>
@@ -615,32 +637,79 @@ const Treatments: React.FC = () => {
                       Dr. {selectedTreatment.specialist?.name || "Not Assigned"}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {selectedTreatment.specialist?.specialization || "General"} • {selectedTreatment.specialist?.level || "Available"}
+                      {selectedTreatment.specialist?.specialization ||
+                        "General"}{" "}
+                      • {selectedTreatment.specialist?.level || "Available"}
                     </Typography>
                   </StepContent>
                 </Step>
 
-                <Step active={getStatusColor(selectedTreatment.treatmentEndDate || new Date().toISOString()) === "success"}>
-                  <StepLabel icon={<Schedule color={getStatusColor(selectedTreatment.treatmentEndDate || new Date().toISOString()) === "success" ? "primary" : "disabled"} />}>
+                <Step
+                  active={
+                    getStatusColor(
+                      selectedTreatment.treatmentEndDate ||
+                        new Date().toISOString()
+                    ) === "success"
+                  }
+                >
+                  <StepLabel
+                    icon={
+                      <Schedule
+                        color={
+                          getStatusColor(
+                            selectedTreatment.treatmentEndDate ||
+                              new Date().toISOString()
+                          ) === "success"
+                            ? "primary"
+                            : "disabled"
+                        }
+                      />
+                    }
+                  >
                     Treatment In Progress
                   </StepLabel>
                   <StepContent>
                     <Typography variant="body2" color="text.secondary">
-                      Duration: {selectedTreatment.treatmentPackage?.durationWeeks || 4} weeks
+                      Duration:{" "}
+                      {selectedTreatment.treatmentPackage?.durationWeeks || 4}{" "}
+                      weeks
                     </Typography>
                     <Typography variant="body2">
-                      Ailment: {selectedTreatment.ailmentDetails || selectedTreatment.ailment}
+                      Ailment:{" "}
+                      {selectedTreatment.ailmentDetails ||
+                        selectedTreatment.ailment}
                     </Typography>
                   </StepContent>
                 </Step>
 
-                <Step completed={getStatusColor(selectedTreatment.treatmentEndDate || new Date().toISOString()) === "default"}>
-                  <StepLabel icon={<CheckCircle color={getStatusColor(selectedTreatment.treatmentEndDate || new Date().toISOString()) === "default" ? "success" : "disabled"} />}>
+                <Step
+                  completed={
+                    getStatusColor(
+                      selectedTreatment.treatmentEndDate ||
+                        new Date().toISOString()
+                    ) === "default"
+                  }
+                >
+                  <StepLabel
+                    icon={
+                      <CheckCircle
+                        color={
+                          getStatusColor(
+                            selectedTreatment.treatmentEndDate ||
+                              new Date().toISOString()
+                          ) === "default"
+                            ? "success"
+                            : "disabled"
+                        }
+                      />
+                    }
+                  >
                     Treatment Completed
                   </StepLabel>
                   <StepContent>
                     <Typography variant="body2" color="text.secondary">
-                      Expected End: {new Date(
+                      Expected End:{" "}
+                      {new Date(
                         selectedTreatment.treatmentEndDate || new Date()
                       ).toLocaleDateString()}
                     </Typography>
@@ -682,29 +751,60 @@ const Treatments: React.FC = () => {
                 <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
                   Current Treatment Status
                 </Typography>
-                
+
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   {/* Treatment Overview Card */}
-                  <Paper sx={{ p: 2, bgcolor: "primary.50", border: 1, borderColor: "primary.200" }}>
+                  <Paper
+                    sx={{
+                      p: 2,
+                      bgcolor: "primary.50",
+                      border: 1,
+                      borderColor: "primary.200",
+                    }}
+                  >
                     <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                       <LocalHospital sx={{ mr: 1, color: "primary.main" }} />
                       <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                        {selectedTreatment.treatmentPackage?.name || selectedTreatment.treatmentPackageName}
+                        {selectedTreatment.treatmentPackage?.name ||
+                          selectedTreatment.treatmentPackageName}
                       </Typography>
-                      <Chip 
-                        label={getStatusColor(selectedTreatment.treatmentEndDate || new Date().toISOString()) === "success" ? "Active" : "Completed"}
-                        color={getStatusColor(selectedTreatment.treatmentEndDate || new Date().toISOString()) === "success" ? "success" : "default"}
-                        size="small" 
+                      <Chip
+                        label={
+                          getStatusColor(
+                            selectedTreatment.treatmentEndDate ||
+                              new Date().toISOString()
+                          ) === "success"
+                            ? "Active"
+                            : "Completed"
+                        }
+                        color={
+                          getStatusColor(
+                            selectedTreatment.treatmentEndDate ||
+                              new Date().toISOString()
+                          ) === "success"
+                            ? "success"
+                            : "default"
+                        }
+                        size="small"
                         sx={{ ml: "auto" }}
                       />
                     </Box>
                     <Typography variant="body2" color="text.secondary">
-                      Treatment ID: {selectedTreatment.id} • Duration: {selectedTreatment.treatmentPackage?.durationWeeks || 4} weeks
+                      Treatment ID: {selectedTreatment.id} • Duration:{" "}
+                      {selectedTreatment.treatmentPackage?.durationWeeks || 4}{" "}
+                      weeks
                     </Typography>
                   </Paper>
 
                   {/* Specialist Information Card */}
-                  <Paper sx={{ p: 2, bgcolor: "background.paper", border: 1, borderColor: "divider" }}>
+                  <Paper
+                    sx={{
+                      p: 2,
+                      bgcolor: "background.paper",
+                      border: 1,
+                      borderColor: "divider",
+                    }}
+                  >
                     <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                       <Person sx={{ mr: 1, color: "text.secondary" }} />
                       <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
@@ -715,68 +815,104 @@ const Treatments: React.FC = () => {
                       Dr. {selectedTreatment.specialist?.name || "Not Assigned"}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {selectedTreatment.specialist?.specialization || "General"} • {selectedTreatment.specialist?.level || "Available"}
+                      {selectedTreatment.specialist?.specialization ||
+                        "General"}{" "}
+                      • {selectedTreatment.specialist?.level || "Available"}
                     </Typography>
                     {selectedTreatment.specialist?.contactNumber && (
-                      <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ mt: 0.5 }}
+                      >
                         Contact: {selectedTreatment.specialist.contactNumber}
                       </Typography>
                     )}
                   </Paper>
 
                   {/* Timeline Information */}
-                  <Paper sx={{ p: 2, bgcolor: "background.paper", border: 1, borderColor: "divider" }}>
+                  <Paper
+                    sx={{
+                      p: 2,
+                      bgcolor: "background.paper",
+                      border: 1,
+                      borderColor: "divider",
+                    }}
+                  >
                     <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                       <Schedule sx={{ mr: 1, color: "text.secondary" }} />
                       <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
                         Treatment Schedule
                       </Typography>
                     </Box>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        mt: 1,
+                      }}
+                    >
                       <Box>
-                        <Typography variant="caption" color="text.secondary">Start Date</Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          Start Date
+                        </Typography>
                         <Typography variant="body2">
                           {new Date(
                             selectedTreatment.treatmentCommencementDate ||
-                            selectedTreatment.treatmentStartDate ||
-                            new Date()
+                              selectedTreatment.treatmentStartDate ||
+                              new Date()
                           ).toLocaleDateString()}
                         </Typography>
                       </Box>
                       <Box>
-                        <Typography variant="caption" color="text.secondary">End Date</Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          End Date
+                        </Typography>
                         <Typography variant="body2">
-                          {new Date(selectedTreatment.treatmentEndDate || new Date()).toLocaleDateString()}
+                          {new Date(
+                            selectedTreatment.treatmentEndDate || new Date()
+                          ).toLocaleDateString()}
                         </Typography>
                       </Box>
                     </Box>
                   </Paper>
                 </Box>
 
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 3, p: 2, bgcolor: "warning.50", borderRadius: 1, border: 1, borderColor: "warning.200" }}>
-                  <strong>💡 Need Changes?</strong> Use the buttons below to contact your specialist or request treatment modifications. All changes require specialist approval for safety and effectiveness.
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{
+                    mt: 3,
+                    p: 2,
+                    bgcolor: "warning.50",
+                    borderRadius: 1,
+                    border: 1,
+                    borderColor: "warning.200",
+                  }}
+                >
+                  <strong>💡 Need Changes?</strong> Use the buttons below to
+                  contact your specialist or request treatment modifications.
+                  All changes require specialist approval for safety and
+                  effectiveness.
                 </Typography>
               </Box>
             </DialogContent>
 
             <DialogActions sx={{ p: 3, gap: 1 }}>
-              <Button 
-                onClick={handleCloseUpdateDialog}
-                color="inherit"
-              >
+              <Button onClick={handleCloseUpdateDialog} color="inherit">
                 Close
               </Button>
               <Box sx={{ flex: 1 }} />
-              <Button 
-                variant="outlined" 
+              <Button
+                variant="outlined"
                 startIcon={<ContactPhone />}
                 onClick={() => handleContactSpecialist(selectedTreatment)}
                 sx={{ minWidth: 140 }}
               >
                 Contact Specialist
               </Button>
-              <Button 
-                variant="contained" 
+              <Button
+                variant="contained"
                 startIcon={<Update />}
                 onClick={() => handleRequestChanges(selectedTreatment)}
                 sx={{ minWidth: 140 }}

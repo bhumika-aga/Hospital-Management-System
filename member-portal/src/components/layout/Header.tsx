@@ -65,8 +65,8 @@ const Header: React.FC<HeaderProps> = ({
       position="fixed"
       elevation={0}
       sx={{
-        bgcolor: isDarkMode 
-          ? "rgba(16, 16, 16, 0.9)" 
+        bgcolor: isDarkMode
+          ? "rgba(16, 16, 16, 0.9)"
           : "rgba(255, 255, 255, 0.9)",
         backdropFilter: "blur(20px)",
         color: "text.primary",
@@ -94,7 +94,7 @@ const Header: React.FC<HeaderProps> = ({
             component="div"
             sx={{
               fontWeight: 700,
-              background: isDarkMode 
+              background: isDarkMode
                 ? "linear-gradient(135deg, #ffffff 0%, #0070F3 100%)"
                 : "linear-gradient(135deg, #000000 0%, #0070F3 100%)",
               backgroundClip: "text",

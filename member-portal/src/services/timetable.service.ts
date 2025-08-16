@@ -7,7 +7,7 @@ export class TimetableService {
     // Get package name from ID
     const packages = await TreatmentService.getTreatmentPackages();
     const selectedPackage = packages.find(pkg => pkg.id === patientDetail.treatmentPackageId);
-    
+
     if (!selectedPackage) {
       throw new Error('Treatment package not found');
     }

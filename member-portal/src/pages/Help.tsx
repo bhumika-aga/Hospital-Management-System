@@ -18,25 +18,29 @@ import React from "react";
 
 const Help: React.FC = () => {
   const handleSendEmail = () => {
-    const subject = 'HealthSync Support Request';
-    const body = 'Hello HealthSync Support Team,\n\nI need assistance with:\n\n[Please describe your issue here]\n\nThank you for your help!\n\nBest regards';
-    const mailtoUrl = `mailto:support@healthsync.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.open(mailtoUrl, '_blank');
+    const subject = "HealthSync Support Request";
+    const body =
+      "Hello HealthSync Support Team,\n\nI need assistance with:\n\n[Please describe your issue here]\n\nThank you for your help!\n\nBest regards";
+    const mailtoUrl = `mailto:support@healthsync.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+    window.open(mailtoUrl, "_blank");
   };
 
   const handleCallNow = () => {
-    window.open('tel:+15551234567', '_self');
+    window.open("tel:+15551234567", "_self");
   };
 
   const handleViewDocs = () => {
     // Create a new window/tab with the README content
-    const readmeUrl = 'https://raw.githubusercontent.com/bhumika-aga/hospital-management-system/main/README.md';
-    
+    const readmeUrl =
+      "https://raw.githubusercontent.com/bhumika-aga/hospital-management-system/main/README.md";
+
     // Fetch the README content and display it
     fetch(readmeUrl)
-      .then(response => response.text())
-      .then(content => {
-        const newWindow = window.open('', '_blank');
+      .then((response) => response.text())
+      .then((content) => {
+        const newWindow = window.open("", "_blank");
         if (newWindow) {
           newWindow.document.write(`
             <!DOCTYPE html>
@@ -99,17 +103,19 @@ const Help: React.FC = () => {
                     <strong>📚 HealthSync Documentation</strong><br>
                     This is the official documentation for the HealthSync Hospital Management System.
                 </div>
-                <pre>${content.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+                <pre>${content
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;")}</pre>
             </body>
             </html>
           `);
           newWindow.document.close();
         }
       })
-      .catch(error => {
-        console.error('Error fetching documentation:', error);
+      .catch((error) => {
+        console.error("Error fetching documentation:", error);
         // Fallback: open a simple documentation page
-        const newWindow = window.open('', '_blank');
+        const newWindow = window.open("", "_blank");
         if (newWindow) {
           newWindow.document.write(`
             <!DOCTYPE html>
@@ -268,11 +274,7 @@ const Help: React.FC = () => {
                 primary="Email Support"
                 secondary="support@healthsync.com"
               />
-              <Button 
-                variant="outlined" 
-                size="small"
-                onClick={handleSendEmail}
-              >
+              <Button variant="outlined" size="small" onClick={handleSendEmail}>
                 Send Email
               </Button>
             </ListItem>
@@ -284,11 +286,7 @@ const Help: React.FC = () => {
                 primary="Phone Support"
                 secondary="+1 (555) 123-4567"
               />
-              <Button 
-                variant="outlined" 
-                size="small"
-                onClick={handleCallNow}
-              >
+              <Button variant="outlined" size="small" onClick={handleCallNow}>
                 Call Now
               </Button>
             </ListItem>
@@ -300,11 +298,7 @@ const Help: React.FC = () => {
                 primary="Documentation"
                 secondary="Access detailed documentation and user guides"
               />
-              <Button 
-                variant="outlined" 
-                size="small"
-                onClick={handleViewDocs}
-              >
+              <Button variant="outlined" size="small" onClick={handleViewDocs}>
                 View Docs
               </Button>
             </ListItem>

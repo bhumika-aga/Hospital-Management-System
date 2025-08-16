@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const isDarkMode = theme.palette.mode === 'dark';
+  const isDarkMode = theme.palette.mode === "dark";
 
   const handleNavigation = (path: string) => {
     navigate(path);
@@ -67,7 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           p: 3,
           borderBottom: "1px solid",
           borderColor: "divider",
-          background: isDarkMode 
+          background: isDarkMode
             ? "linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)"
             : "linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)",
         }}
@@ -208,7 +208,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
           p: 2,
           borderTop: "1px solid",
           borderColor: "divider",
-          background: isDarkMode 
+          background: isDarkMode
             ? "linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)"
             : "linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)",
         }}

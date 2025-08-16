@@ -1,12 +1,12 @@
 import {
+  CalendarToday,
+  Edit,
   Email,
+  LocationOn,
+  Person,
   Phone,
   Save,
-  Edit,
   Security,
-  Person,
-  LocationOn,
-  CalendarToday,
 } from "@mui/icons-material";
 import {
   Alert,
@@ -16,16 +16,16 @@ import {
   Card,
   CardContent,
   Chip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Divider,
   Grid,
   TextField,
   Typography,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
 } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 interface UserProfile {
@@ -36,23 +36,23 @@ interface UserProfile {
   address: string;
   dateOfBirth: string;
   membershipId: string;
-  membershipType: 'Basic' | 'Premium' | 'VIP';
+  membershipType: "Basic" | "Premium" | "VIP";
   joinDate: string;
   emergencyContact: string;
 }
 
 const Profile: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile>({
-    username: localStorage.getItem('username') || 'user',
-    fullName: 'John Doe',
-    email: 'john.doe@example.com',
-    phone: '+91 98765 43210',
-    address: '123 Health Street, Medical City, MC 110001',
-    dateOfBirth: '1990-01-15',
-    membershipId: 'HM2024001',
-    membershipType: 'Premium',
-    joinDate: '2024-01-01',
-    emergencyContact: '+91 98765 43211',
+    username: localStorage.getItem("username") || "user",
+    fullName: "John Doe",
+    email: "john.doe@example.com",
+    phone: "+91 98765 43210",
+    address: "123 Health Street, Medical City, MC 110001",
+    dateOfBirth: "1990-01-15",
+    membershipId: "HM2024001",
+    membershipType: "Premium",
+    joinDate: "2024-01-01",
+    emergencyContact: "+91 98765 43211",
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -86,12 +86,12 @@ const Profile: React.FC = () => {
 
   const getMembershipColor = (type: string) => {
     switch (type) {
-      case 'VIP':
-        return 'error';
-      case 'Premium':
-        return 'warning';
+      case "VIP":
+        return "error";
+      case "Premium":
+        return "warning";
       default:
-        return 'primary';
+        return "primary";
     }
   };
 
@@ -133,30 +133,34 @@ const Profile: React.FC = () => {
         <Grid size={12}>
           <Card sx={{ borderRadius: 3 }}>
             <CardContent sx={{ p: 4 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
                 <Avatar
                   sx={{
                     width: 100,
                     height: 100,
-                    bgcolor: 'primary.main',
-                    fontSize: '2.5rem',
+                    bgcolor: "primary.main",
+                    fontSize: "2.5rem",
                     fontWeight: 600,
                   }}
                 >
                   {profile.fullName
-                    .split(' ')
+                    .split(" ")
                     .map((n) => n[0])
-                    .join('')
+                    .join("")
                     .toUpperCase()}
                 </Avatar>
                 <Box sx={{ flex: 1 }}>
                   <Typography variant="h4" sx={{ fontWeight: 600, mb: 1 }}>
                     {profile.fullName}
                   </Typography>
-                  <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
+                  <Typography
+                    variant="h6"
+                    color="text.secondary"
+                    sx={{ mb: 2 }}
+                  >
                     @{profile.username}
                   </Typography>
-                  <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                  <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
                     <Chip
                       label={`${profile.membershipType} Member`}
                       color={getMembershipColor(profile.membershipType) as any}
@@ -178,11 +182,8 @@ const Profile: React.FC = () => {
                       Edit Profile
                     </Button>
                   ) : (
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                      <Button
-                        variant="outlined"
-                        onClick={handleCancelEdit}
-                      >
+                    <Box sx={{ display: "flex", gap: 1 }}>
+                      <Button variant="outlined" onClick={handleCancelEdit}>
                         Cancel
                       </Button>
                       <Button
@@ -208,13 +209,13 @@ const Profile: React.FC = () => {
               <Typography variant="h5" sx={{ fontWeight: 600, mb: 3 }}>
                 Personal Information
               </Typography>
-              
+
               <Grid container spacing={3}>
                 <Grid size={{ xs: 12, sm: 6 }}>
                   <Controller
                     name="fullName"
                     control={control}
-                    rules={{ required: 'Full name is required' }}
+                    rules={{ required: "Full name is required" }}
                     render={({ field }) => (
                       <TextField
                         {...field}
@@ -225,23 +226,25 @@ const Profile: React.FC = () => {
                         helperText={errors.fullName?.message}
                         slotProps={{
                           input: {
-                            startAdornment: <Person sx={{ mr: 1, color: 'text.secondary' }} />,
+                            startAdornment: (
+                              <Person sx={{ mr: 1, color: "text.secondary" }} />
+                            ),
                           },
                         }}
                       />
                     )}
                   />
                 </Grid>
-                
+
                 <Grid size={{ xs: 12, sm: 6 }}>
                   <Controller
                     name="email"
                     control={control}
-                    rules={{ 
-                      required: 'Email is required',
+                    rules={{
+                      required: "Email is required",
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: 'Invalid email address',
+                        message: "Invalid email address",
                       },
                     }}
                     render={({ field }) => (
@@ -254,7 +257,9 @@ const Profile: React.FC = () => {
                         helperText={errors.email?.message}
                         slotProps={{
                           input: {
-                            startAdornment: <Email sx={{ mr: 1, color: 'text.secondary' }} />,
+                            startAdornment: (
+                              <Email sx={{ mr: 1, color: "text.secondary" }} />
+                            ),
                           },
                         }}
                       />
@@ -266,7 +271,7 @@ const Profile: React.FC = () => {
                   <Controller
                     name="phone"
                     control={control}
-                    rules={{ required: 'Phone number is required' }}
+                    rules={{ required: "Phone number is required" }}
                     render={({ field }) => (
                       <TextField
                         {...field}
@@ -277,7 +282,9 @@ const Profile: React.FC = () => {
                         helperText={errors.phone?.message}
                         slotProps={{
                           input: {
-                            startAdornment: <Phone sx={{ mr: 1, color: 'text.secondary' }} />,
+                            startAdornment: (
+                              <Phone sx={{ mr: 1, color: "text.secondary" }} />
+                            ),
                           },
                         }}
                       />
@@ -289,7 +296,7 @@ const Profile: React.FC = () => {
                   <Controller
                     name="dateOfBirth"
                     control={control}
-                    rules={{ required: 'Date of birth is required' }}
+                    rules={{ required: "Date of birth is required" }}
                     render={({ field }) => (
                       <TextField
                         {...field}
@@ -301,7 +308,11 @@ const Profile: React.FC = () => {
                         helperText={errors.dateOfBirth?.message}
                         slotProps={{
                           input: {
-                            startAdornment: <CalendarToday sx={{ mr: 1, color: 'text.secondary' }} />,
+                            startAdornment: (
+                              <CalendarToday
+                                sx={{ mr: 1, color: "text.secondary" }}
+                              />
+                            ),
                           },
                           inputLabel: {
                             shrink: true,
@@ -316,7 +327,7 @@ const Profile: React.FC = () => {
                   <Controller
                     name="address"
                     control={control}
-                    rules={{ required: 'Address is required' }}
+                    rules={{ required: "Address is required" }}
                     render={({ field }) => (
                       <TextField
                         {...field}
@@ -330,7 +341,14 @@ const Profile: React.FC = () => {
                         slotProps={{
                           input: {
                             startAdornment: (
-                              <LocationOn sx={{ mr: 1, color: 'text.secondary', alignSelf: 'flex-start', mt: 0.5 }} />
+                              <LocationOn
+                                sx={{
+                                  mr: 1,
+                                  color: "text.secondary",
+                                  alignSelf: "flex-start",
+                                  mt: 0.5,
+                                }}
+                              />
                             ),
                           },
                         }}
@@ -343,7 +361,7 @@ const Profile: React.FC = () => {
                   <Controller
                     name="emergencyContact"
                     control={control}
-                    rules={{ required: 'Emergency contact is required' }}
+                    rules={{ required: "Emergency contact is required" }}
                     render={({ field }) => (
                       <TextField
                         {...field}
@@ -354,7 +372,9 @@ const Profile: React.FC = () => {
                         helperText={errors.emergencyContact?.message}
                         slotProps={{
                           input: {
-                            startAdornment: <Phone sx={{ mr: 1, color: 'text.secondary' }} />,
+                            startAdornment: (
+                              <Phone sx={{ mr: 1, color: "text.secondary" }} />
+                            ),
                           },
                         }}
                       />
@@ -373,7 +393,7 @@ const Profile: React.FC = () => {
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
                 Account Information
               </Typography>
-              
+
               <Box sx={{ mb: 3 }}>
                 <Typography variant="body2" color="text.secondary">
                   Username
@@ -388,10 +408,10 @@ const Profile: React.FC = () => {
                   Member Since
                 </Typography>
                 <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                  {new Date(profile.joinDate).toLocaleDateString('en-IN', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
+                  {new Date(profile.joinDate).toLocaleDateString("en-IN", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
                   })}
                 </Typography>
               </Box>
@@ -410,7 +430,7 @@ const Profile: React.FC = () => {
               </Box>
 
               <Divider sx={{ my: 2 }} />
-              
+
               <Button
                 fullWidth
                 variant="outlined"
@@ -457,7 +477,10 @@ const Profile: React.FC = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setPasswordDialogOpen(false)}>Cancel</Button>
-          <Button variant="contained" onClick={() => setPasswordDialogOpen(false)}>
+          <Button
+            variant="contained"
+            onClick={() => setPasswordDialogOpen(false)}
+          >
             Update Password
           </Button>
         </DialogActions>

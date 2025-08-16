@@ -68,9 +68,9 @@ const TreatmentPackages: React.FC = () => {
 
   const handleSelectPackage = (pkg: TreatmentPackage) => {
     // Store selected package in sessionStorage for the Treatments page
-    sessionStorage.setItem('selectedPackage', JSON.stringify(pkg));
+    sessionStorage.setItem("selectedPackage", JSON.stringify(pkg));
     // Navigate to treatments page
-    navigate('/treatments');
+    navigate("/treatments");
   };
 
   if (loading) {
@@ -339,8 +339,8 @@ const TreatmentPackages: React.FC = () => {
 
             <DialogActions>
               <Button onClick={handleCloseDetails}>Close</Button>
-              <Button 
-                variant="contained" 
+              <Button
+                variant="contained"
                 onClick={() => handleSelectPackage(selectedPackage!)}
               >
                 Select Package
