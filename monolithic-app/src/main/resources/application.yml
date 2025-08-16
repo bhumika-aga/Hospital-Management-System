@@ -25,6 +25,7 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
+    defer-datasource-initialization: true
     properties:
       hibernate:
         format_sql: true
@@ -33,6 +34,12 @@ spring:
         order_inserts: true
         order_updates: true
     open-in-view: false
+  
+  # SQL Initialization - disabled for now
+  # sql:
+  #   init:
+  #     mode: embedded
+  #     data-locations: classpath:data.sql
 
 # Server Configuration
 server:

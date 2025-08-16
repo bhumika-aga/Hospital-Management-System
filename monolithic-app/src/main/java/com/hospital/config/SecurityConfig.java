@@ -30,7 +30,7 @@ public class SecurityConfig {
         http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .headers(headers -> headers.frameOptions().sameOrigin())
+            .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
             .authorizeHttpRequests(authz -> authz
                                                 .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                                                 .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()

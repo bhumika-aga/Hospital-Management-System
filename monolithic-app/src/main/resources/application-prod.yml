@@ -10,20 +10,18 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    show-sql: true
+      ddl-auto: update
+    show-sql: false
     defer-datasource-initialization: true
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
     generate-ddl: true
-  sql:
-    init:
-      mode: always
-
-jwt:
-  secret: ${JWT_SECRET}
-  expiration: ${JWT_EXPIRATION}
+  # SQL Initialization - handled by DataLoader component
+  # sql:
+  #   init:
+  #     mode: embedded
+  #     data-locations: classpath:data.sql
 
 # Server Configuration - optimized for Render.com
 server:
