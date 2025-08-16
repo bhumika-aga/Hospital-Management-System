@@ -597,12 +597,13 @@ Since you're on the free tier with an existing database, we'll use your `mediflo
 
 2. **Configure Backend Service**
    - **Name**: `hospital-management-system`
-   - **Runtime**: `Docker`
-   - **Build Command**: `cd monolithic-app && mvn clean package -DskipTests`
-   - **Start Command**: `java -jar target/hospital-management-system-2.0.0.jar`
-   - **Dockerfile Path**: `monolithic-app/Dockerfile`
+   - **Runtime**: `Java` (recommended for reliability)
+   - **Build Command**: `cd monolithic-app && chmod +x mvnw && ./mvnw clean package -DskipTests -B`
+   - **Start Command**: `cd monolithic-app && java $JAVA_TOOL_OPTIONS -jar target/hospital-management-system-*.jar`
 
-3. **Set Environment Variables**
+> **Note**: Java runtime is more reliable than Docker on Render.com free tier. Docker option available for local development.
+
+3.**Set Environment Variables**
 
    ```env
    SPRING_PROFILES_ACTIVE=prod
