@@ -12,9 +12,9 @@
 
 ## 🌟 **Live Demo**
 
-- **🌐 healthsync Portal**: [https://healthsync-portal.onrender.com](https://healthsync-portal.onrender.com)
-- **⚡ Backend API**: [https://healthsync-api.onrender.com](https://healthsync-api.onrender.com)
-- **📚 API Documentation**: [https://healthsync-api.onrender.com/swagger-ui.html](https://healthsync-api.onrender.com/swagger-ui.html)
+- **🌐 Frontend Portal**: [https://healthsync-portal.onrender.com](https://healthsync-portal.onrender.com)
+- **⚡ Backend API**: [https://healthsync-backend-d783.onrender.com](https://hospital-management-system-4s8g.onrender.com)
+- **📚 API Documentation**: [https://healthsync-backend-d783.onrender.com/swagger-ui.html](https://hospital-management-system-4s8g.onrender.com/swagger-ui.html)
 
 ---
 
@@ -192,8 +192,8 @@ HealthSync/
 ### **1. Clone & Setup**
 
 ```bash
-git clone https://github.com/yourusername/hospital-management-system.git
-cd hospital-management-system
+git clone https://github.com/bhumika-aga/Hospital-Management-System.git
+cd Hospital-Management-System
 ```
 
 ### **2. Backend Setup**
@@ -502,7 +502,7 @@ mvn clean package -DskipTests
 
 3. **Deploy**:
    - Services deploy automatically
-   - Backend: `https://healthsync-api.onrender.com`
+   - Backend: `https://healthsync-backend-d783.onrender.com`
    - Frontend: `https://healthsync-portal.onrender.com`
 
 ### **🐳 Docker Deployment**
@@ -511,8 +511,8 @@ mvn clean package -DskipTests
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/hospital-management-system.git
-cd hospital-management-system
+git clone https://github.com/bhumika-aga/Hospital-Management-System.git
+cd Hospital-Management-System
 
 # Copy environment configuration
 cp .env.example .env
@@ -597,11 +597,11 @@ Since you're on the free tier with an existing database, we'll use your `mediflo
 
 2. **Configure Backend Service**
    - **Name**: `hospital-management-system`
-   - **Runtime**: `Java` (recommended for reliability)
-   - **Build Command**: `cd monolithic-app && chmod +x mvnw && ./mvnw clean package -DskipTests -B`
-   - **Start Command**: `cd monolithic-app && java $JAVA_TOOL_OPTIONS -jar target/hospital-management-system-*.jar`
+   - **Runtime**: `Docker` (uses Dockerfile for Java app)
+   - **Dockerfile Path**: `./Dockerfile`
+   - Auto-builds from root Dockerfile
 
-> **Note**: Java runtime is more reliable than Docker on Render.com free tier. Docker option available for local development.
+> **Note**: Using Docker runtime with custom Dockerfile for Java Spring Boot application.
 
 3.**Set Environment Variables**
 
@@ -628,7 +628,7 @@ Since you're on the free tier with an existing database, we'll use your `mediflo
 
    ```env
    NODE_ENV=production
-   REACT_APP_API_BASE_URL=https://hospital-management-system-4s8g.onrender.com
+   REACT_APP_API_BASE_URL=https://healthsync-backend-d783.onrender.com
    GENERATE_SOURCEMAP=false
    ```
 
@@ -647,10 +647,10 @@ Instead of manual setup, use the included `render.yaml`:
 
 ```bash
 # Check backend health
-curl https://hospital-management-system-4s8g.onrender.com/actuator/health
+curl https://healthsync-backend-d783.onrender.com/actuator/health
 
 # Test API endpoint
-curl https://hospital-management-system-4s8g.onrender.com/auth/generate-token \
+curl https://healthsync-backend-d783.onrender.com/auth/generate-token \
   -H "Content-Type: application/json" \
   -d '{"username": "admin"}'
 
@@ -678,9 +678,9 @@ open https://healthsync-portal.onrender.com
 After successful deployment:
 
 - **Frontend**: `https://healthsync-portal.onrender.com`
-- **Backend API**: `https://hospital-management-system-4s8g.onrender.com`
-- **API Docs**: `https://hospital-management-system-4s8g.onrender.com/swagger-ui.html`
-- **Health Check**: `https://hospital-management-system-4s8g.onrender.com/actuator/health`
+- **Backend API**: `https://healthsync-backend-d783.onrender.com`
+- **API Docs**: `https://healthsync-backend-d783.onrender.com/swagger-ui.html`
+- **Health Check**: `https://healthsync-backend-d783.onrender.com/actuator/health`
 
 #### **Local Development**
 
@@ -1009,8 +1009,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ## 📞 **Support & Contact**
 
 - **📧 Email**: <bhumika.aga@gmail.com>
-- **🐛 Issues**: [GitHub Issues](https://github.com/bhumika-aga/hospital-management-system/issues)
-- **💬 Discussions**: [GitHub Discussions](https://github.com/bhuika-aga/hospital-management-system/discussions)
+- **🐛 Issues**: [GitHub Issues](https://github.com/bhumika-aga/Hospital-Management-System/issues)
+- **💬 Discussions**: [GitHub Discussions](https://github.com/bhumika-aga/Hospital-Management-System/discussions)
 
 ---
 
