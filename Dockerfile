@@ -25,4 +25,4 @@ RUN ./mvnw clean package -DskipTests
 EXPOSE 8080
 
 # Run the application
-CMD java -Dserver.port=8080 -jar monolithic-app/target/hospital-management-system-2.0.0.jar
+CMD java -Dserver.port=8080 -jar target/hospital-management-system-2.0.0.jar
