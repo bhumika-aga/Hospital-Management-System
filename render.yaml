@@ -5,10 +5,9 @@ services:
   # Monolithic Backend Service
   - type: web
     name: hospital-management-system
-    runtime: java
+    runtime: docker
     plan: free
-    buildCommand: cd monolithic-app && chmod +x mvnw && ./mvnw clean package -DskipTests -B
-    startCommand: cd monolithic-app && java $JAVA_TOOL_OPTIONS -Djava.security.egd=file:/dev/./urandom -jar target/hospital-management-system-*.jar
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /actuator/health
     envVars:
       - key: JAVA_TOOL_OPTIONS
