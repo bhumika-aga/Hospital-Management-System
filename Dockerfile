@@ -22,7 +22,7 @@ COPY src src
 RUN ./mvnw clean package -DskipTests
 
 # Expose port
-EXPOSE 8080
+EXPOSE ${PORT:-8080}
 
 # Run the application
 CMD ["java", "-Dserver.port=${PORT:-8080}", "-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-prod}", "-jar", "target/hospital-management-system-2.0.0.jar"]

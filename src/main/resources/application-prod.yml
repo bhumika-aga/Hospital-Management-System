@@ -30,7 +30,7 @@ spring:
 
 # Server Configuration - optimized for Render.com
 server:
-  port: ${PORT:10000}
+  port: ${PORT:8080}
 
 # Logging Configuration - production optimized
 logging:

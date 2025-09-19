@@ -13,8 +13,8 @@
 ## 🌟 **Live Demo**
 
 - **🌐 Frontend Portal**: [https://healthsync-portal.onrender.com](https://healthsync-portal.onrender.com)
-- **⚡ Backend API**: [https://healthsync-backend-d783.onrender.com](https://hospital-management-system-4s8g.onrender.com)
-- **📚 API Documentation**: [https://healthsync-backend-d783.onrender.com/swagger-ui.html](https://hospital-management-system-4s8g.onrender.com/swagger-ui.html)
+- **⚡ Backend API**: [https://healthsync-backend-d783.onrender.com](https://healthsync-backend-d783.onrender.com)
+- **📚 API Documentation**: [https://healthsync-backend-d783.onrender.com/swagger-ui.html](https://healthsync-backend-d783.onrender.com/swagger-ui.html)
 
 ---
 
@@ -99,7 +99,7 @@
 | Technology | Version | Purpose |
 |------------|---------|---------|
 | Java | 17 | Core programming language |
-| Spring Boot | 3.4.8 | Application framework |
+| Spring Boot | 3.4.10 | Application framework |
 | Spring Security | 6.2.9 | Authentication & authorization |
 | Spring Data JPA | 3.4.8 | Data persistence |
 | PostgreSQL | 15+ | Production database |

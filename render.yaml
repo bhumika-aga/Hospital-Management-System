@@ -17,11 +17,11 @@ services:
       - key: JWT_EXPIRATION
         value: 86400000
       - key: SPRING_JPA_SHOW_SQL
-        value: "false"
+        value: "true"
       - key: LOGGING_LEVEL_ROOT
         value: INFO
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
-        value: update
+        value: create-drop
       - key: DATABASE_URL
         value: jdbc:postgresql://aws-1-ap-south-1.pooler.supabase.com:5432/postgres
       - key: DATABASE_USERNAME
