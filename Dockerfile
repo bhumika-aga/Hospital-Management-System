@@ -5,9 +5,9 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy Maven wrapper and pom.xml first for better layer caching
-COPY monolithic-app/.mvn .mvn
-COPY monolithic-app/mvnw .
-COPY monolithic-app/pom.xml .
+COPY .mvn .mvn
+COPY mvnw .
+COPY pom.xml .
 
 # Make mvnw executable
 RUN chmod +x ./mvnw
@@ -16,7 +16,7 @@ RUN chmod +x ./mvnw
 RUN ./mvnw dependency:go-offline -B
 
 # Copy source code
-COPY monolithic-app/src src
+COPY src src
 
 # Build the application
 RUN ./mvnw clean package -DskipTests
@@ -25,4 +25,4 @@ RUN ./mvnw clean package -DskipTests
 EXPOSE 8080
 
 # Run the application
-CMD java -Dserver.port=8080 -jar target/hospital-management-system-2.0.0.jar
+CMD ["java", "-Dserver.port=${PORT:-8080}", "-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-prod}", "-jar", "target/hospital-management-system-2.0.0.jar"]

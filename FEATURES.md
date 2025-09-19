@@ -91,7 +91,7 @@
 
 - ✅ Fixed Docker build issues
 - ✅ Updated to latest base images (Alpine Linux)
-- ✅ Dual Docker support (root + monolithic)
+- ✅ Unified Docker support (streamlined configuration)
 - ✅ Enhanced Render.com configuration
 
 ### 🔧 Code Quality

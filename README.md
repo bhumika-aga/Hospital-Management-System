@@ -135,31 +135,29 @@
 
 ```txt
 HealthSync/
-├── 📁 monolithic-app/                    # Spring Boot Backend
-│   ├── 📁 src/main/java/com/hospital/
-│   │   ├── 📁 auth/                      # JWT Authentication
-│   │   │   ├── 📁 controller/            # REST Controllers
-│   │   │   ├── 📁 dto/                   # Data Transfer Objects
-│   │   │   ├── 📁 security/              # Security Configuration
-│   │   │   ├── 📁 service/               # Business Logic
-│   │   │   └── 📁 util/                  # JWT Utilities
-│   │   ├── 📁 insurance/                 # Insurance Management
-│   │   │   ├── 📁 controller/            # Insurance Controllers
-│   │   │   ├── 📁 dto/                   # Insurance DTOs
-│   │   │   ├── 📁 entity/                # JPA Entities
-│   │   │   ├── 📁 repository/            # Data Repositories
-│   │   │   └── 📁 service/               # Insurance Services
-│   │   ├── 📁 treatment/                 # Treatment Management
-│   │   │   ├── 📁 offering/              # Treatment Packages & Specialists
-│   │   │   └── 📁 service/               # Treatment Services
-│   │   ├── 📁 config/                    # Application Configuration
-│   │   └── 📁 swagger/                   # API Documentation
-│   ├── 📁 src/main/resources/
-│   │   ├── 📄 application.yml            # Main configuration
-│   │   ├── 📄 application-local.yml      # Local environment
-│   │   ├── 📄 application-prod.yml       # Production environment
-│   │   └── 📄 application.properties     # Legacy properties
-│   └── 📁 src/test/                      # Unit & Integration Tests
+├── 📁 src/main/java/com/hospital/        # Spring Boot Backend
+│   ├── 📁 auth/                      # JWT Authentication
+│   │   ├── 📁 controller/                # REST Controllers
+│   │   ├── 📁 dto/                       # Data Transfer Objects
+│   │   ├── 📁 security/                  # Security Configuration
+│   │   ├── 📁 service/                   # Business Logic
+│   │   └── 📁 util/                      # JWT Utilities
+│   ├── 📁 insurance/                 # Insurance Management
+│   │   ├── 📁 controller/                # Insurance Controllers
+│   │   ├── 📁 dto/                       # Insurance DTOs
+│   │   ├── 📁 entity/                    # JPA Entities
+│   │   ├── 📁 repository/                # Data Repositories
+│   │   └── 📁 service/                   # Insurance Services
+│   ├── 📁 treatment/                 # Treatment Management
+│   │   ├── 📁 offering/                  # Treatment Packages & Specialists
+│   │   └── 📁 service/                   # Treatment Services
+│   ├── 📁 config/                        # Application Configuration (Security Config)
+│   └── 📁 swagger/                       # API Documentation
+├── 📁 src/main/resources/
+│   ├── 📄 application.yml                # Main configuration
+│   ├── 📄 application-prod.yml           # Production environment
+│   └── 📄 data.sql                       # SQL initialization data
+├── 📁 src/test/                          # Unit & Integration Tests
 ├── 📁 member-portal/                     # React Frontend
 │   ├── 📁 src/
 │   │   ├── 📁 components/                # Reusable Components
@@ -171,8 +169,9 @@ HealthSync/
 │   ├── 📄 .env.local                     # Local environment variables
 │   ├── 📄 .env.production               # Production environment variables
 │   └── 📄 package.json                   # Dependencies
+├── 📄 pom.xml                            # Maven configuration
+├── 📄 Dockerfile                         # Docker configuration
 ├── 📄 render.yaml                        # Deployment configuration
-├── 📄 deploy.sh                         # Deployment script
 └── 📄 README.md                         # Project documentation
 ```
 
@@ -199,14 +198,14 @@ cd Hospital-Management-System
 ### **2. Backend Setup**
 
 ```bash
-cd monolithic-app
+# From project root
 
 # Run in local development mode
-mvn spring-boot:run -Dspring-boot.run.profiles=local
+mvn spring-boot:run
 
 # Or build and run JAR
 mvn clean package -DskipTests
-java -jar target/hospital-management-system-2.0.0.jar --spring.profiles.active=local
+java -jar target/hospital-management-system-2.0.0.jar
 ```
 
 ### **3. Frontend Setup**
@@ -460,7 +459,7 @@ Content-Type: application/json
 ### **Run Tests**
 
 ```bash
-cd monolithic-app
+# From project root
 
 # Run all tests
 mvn clean test
@@ -531,8 +530,7 @@ docker-compose down
 #### **Individual Container Deployment**
 
 ```bash
-# Backend only
-cd monolithic-app
+# Backend only (from project root)
 docker build -t healthsync-backend .
 docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod healthsync-backend
 
@@ -686,7 +684,7 @@ After successful deployment:
 
 ```bash
 # Backend (uses H2 in-memory)
-cd monolithic-app && mvn spring-boot:run
+mvn spring-boot:run
 
 # Frontend (separate terminal)
 cd member-portal && npm start
@@ -907,7 +905,7 @@ docker-compose config           # Validate compose file
 
 ## 📊 **Sample Data**
 
-The application comes with comprehensive sample data for immediate testing:
+The application comes with comprehensive sample data for immediate testing via SQL initialization (data.sql):
 
 ### **Insurance Providers (10)**
 

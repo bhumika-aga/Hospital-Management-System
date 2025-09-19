@@ -1,0 +1,77 @@
+# Local Development Configuration
+spring:
+  # Database Configuration - H2 for development
+  datasource:
+    url: jdbc:h2:mem:hospital_db
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+
+  # H2 Console Configuration
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: false
+
+  # JPA Configuration
+  jpa:
+    # database-platform auto-detected by Hibernate for H2
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          batch_size: 25
+        order_inserts: true
+        order_updates: true
+    open-in-view: false
+
+  # SQL Initialization
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+
+# Server Configuration
+server:
+  port: 8080
+
+# Logging Configuration
+logging:
+  level:
+    com.hospital: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:MediFlowHospitalManagementSystemSecureJWTSigningKey2024ForHS512Algorithm}
+  expiration: 86400000
+
+# API Documentation Configuration
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+
+# Management Endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env,configprops
+  endpoint:
+    health:
+      show-details: always

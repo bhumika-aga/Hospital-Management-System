@@ -131,7 +131,7 @@ The application will open at `http://localhost:3000`
 
 ### Backend Connection
 
-The frontend connects to the monolithic backend at `http://localhost:8080` with the following endpoints:
+The frontend connects to the Spring Boot backend at `http://localhost:8080` with the following endpoints:
 
 - **Authentication:** `POST /auth/generate-token`
 - **Treatment Packages:** `GET /IPTreatmentPackages`

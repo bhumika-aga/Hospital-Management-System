@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # PostgreSQL Database
@@ -17,7 +17,11 @@ services:
     networks:
       - healthsync-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-healthsync_user} -d ${POSTGRES_DB:-healthsync_db}"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-healthsync_user} -d ${POSTGRES_DB:-healthsync_db}",
+        ]
       interval: 30s
       timeout: 5s
       retries: 5
@@ -25,7 +29,7 @@ services:
   # Backend Service - Spring Boot Application
   backend:
     build:
-      context: ./monolithic-app
+      context: .
       dockerfile: Dockerfile
     container_name: healthsync-backend
     restart: unless-stopped
@@ -72,7 +76,15 @@ services:
     networks:
       - healthsync-network
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:80/",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3

@@ -33,16 +33,14 @@ services:
     runtime: node
     plan: free
     buildCommand: cd member-portal && npm ci && npm run build
-    startCommand: cd member-portal && npm run serve
-    healthCheckPath: /
+    startCommand: cd member-portal && npx serve -s build -l $PORT
     envVars:
       - key: NODE_ENV
         value: production
       - key: REACT_APP_API_BASE_URL
-        value: https://hospital-management-system-4s8g.onrender.com
+        value: https://hospital-management-system.onrender.com
       - key: GENERATE_SOURCEMAP
         value: "false"
-
 # Build settings optimized for Render free tier
 # - Uses existing mediflow-database (free tier limitation)
 # - Backend connects to shared PostgreSQL database
