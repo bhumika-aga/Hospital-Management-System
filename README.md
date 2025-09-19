@@ -607,7 +607,6 @@ Since you're on the free tier with an existing database, we'll use your `mediflo
    SPRING_PROFILES_ACTIVE=prod
    DATABASE_URL=postgresql://mediflow_user:p9b7x3MCz3VJFZycM6AagAu4023WzX8Z@dpg-d2a7qjadbo4c73b2j4n0-a/mediflow
    JWT_SECRET=healthsync-super-secret-jwt-key-change-in-production
-   JAVA_TOOL_OPTIONS=-Xmx400m -XX:MaxRAMPercentage=75
    SPRING_JPA_HIBERNATE_DDL_AUTO=update
    ```
 
@@ -717,9 +716,6 @@ cd member-portal && npm start
 JWT_SECRET=your-secure-secret-min-32-chars
 CORS_ALLOWED_ORIGINS=https://yourdomain.com
 REACT_APP_API_BASE_URL=https://yourdomain.com/api
-
-# Optional performance tuning
-JAVA_TOOL_OPTIONS=-Xmx400m -XX:MaxRAMPercentage=75
 ```
 
 ### **📊 Deployment Verification**

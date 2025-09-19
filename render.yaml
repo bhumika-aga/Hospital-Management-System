@@ -10,8 +10,6 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /actuator/health
     envVars:
-      - key: JAVA_TOOL_OPTIONS
-        value: -Xmx400m -XX:MaxRAMPercentage=75
       - key: SPRING_PROFILES_ACTIVE
         value: prod
       - key: JWT_SECRET
