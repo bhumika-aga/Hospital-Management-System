@@ -42,7 +42,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: REACT_APP_API_BASE_URL
-        value: https://hospital-management-system.onrender.com
+        value: https://healthsync-backend-d783.onrender.com
       - key: GENERATE_SOURCEMAP
         value: "false"
 # Build settings optimized for Render free tier

@@ -5,6 +5,70 @@ All notable changes to the HealthSync Hospital Management System will be documen
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.2] - 2024-09-19
+
+### 🔧 Configuration Synchronization & Cleanup
+
+#### ⚙️ Complete Configuration Alignment
+
+- **Unified Configuration**: Synchronized all deployment files with `application-prod.yml`
+  - Fixed port consistency across Dockerfile, docker-compose.yml, and render.yaml
+  - Aligned DDL mode, SQL show, and logging configurations
+  - Updated frontend API base URL to correct backend endpoint
+- **YAML Formatting**: Fixed YAML warnings and special character escaping
+  - Properly escaped logger names in configuration files
+  - Merged duplicate spring configuration sections
+  - Resolved custom property warnings for jwt and cors
+
+#### 🐳 Deployment Improvements
+
+- **Docker Configuration**: Enhanced Dockerfile for better port handling
+  - Dynamic port exposure with `${PORT:-8080}` 
+  - Consistent environment variable usage
+- **Render.com Optimization**: Updated render.yaml for proper deployment
+  - Corrected frontend API base URL to `healthsync-backend-d783.onrender.com`
+  - Aligned all environment variables with application configuration
+- **Docker Compose**: Synchronized local development environment
+  - Consistent port mappings and environment variables
+  - Proper health check endpoints
+
+#### 📚 Documentation Updates
+
+- **README.md**: Updated deployment URLs and Spring Boot version
+  - Fixed backend API links to correct deployment URL
+  - Updated Spring Boot version from 3.4.8 to 3.4.10
+  - Corrected API documentation links
+
+#### 🧹 Code Quality Improvements
+
+- **Clean Codebase**: Verified no unnecessary files or code
+  - All configuration files properly synchronized
+  - No compilation errors or critical warnings
+  - Minimal YAML formatting warnings (IDE-specific)
+
+### 🛠️ Technical Improvements
+
+#### 🔒 Production Readiness
+
+- **Security Configuration**: Proper security user password disabling
+- **Environment Variables**: Complete environment variable coverage
+- **Health Checks**: Correct actuator health endpoint configuration
+
+#### 🚀 Performance & Monitoring
+
+- **Tomcat Optimization**: Enhanced server configuration for Render.com
+  - Optimized thread pool settings (max: 50, min-spare: 5)
+  - Proper connection timeout and keep-alive settings
+  - Error handling configuration for production
+
+### 🐛 Fixed
+
+#### 🔧 Configuration Issues
+
+- **YAML Syntax**: Fixed duplicate spring keys and formatting
+- **Port Consistency**: Resolved port mismatch between files
+- **Environment Variables**: Proper variable usage across all files
+
 ## [2.1.1] - 2024-08-16
 
 ### 🚀 Performance & Build Optimizations
@@ -304,6 +368,7 @@ When adding new features or fixes, please:
 
 ## Version History
 
+- **v2.1.2** - Configuration synchronization, deployment fixes, documentation updates
 - **v2.1.1** - Performance optimization, Docker fixes, build improvements (99.9% size reduction)
 - **v2.1.0** - Enhanced UI, dark mode, user management, communication features
 - **v2.0.0** - Initial complete system release
