@@ -30,7 +30,7 @@ spring:
 
 # Server Configuration - optimized for Render.com
 server:
-  port: ${PORT:8080}
+  port: ${PORT:10000}
   tomcat:
     threads:
       max: 50

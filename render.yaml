@@ -25,7 +25,13 @@ services:
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
         value: update
       - key: DATABASE_URL
-        value: postgresql://mediflow_user:p9b7x3MCz3VJFZycM6AagAu4023WzX8Z@dpg-d2a7qjadbo4c73b2j4n0-a/mediflow
+        value: jdbc:postgresql://aws-1-ap-south-1.pooler.supabase.com:5432/postgres
+      - key: DATABASE_USERNAME
+        value: mediflow_user
+      - key: DATABASE_PASSWORD
+        value: p9b7x3MCz3VJFZycM6AagAu4023WzX8Z
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://healthsync-portal.onrender.com,http://localhost:3000
 
   # React Frontend Service
   - type: web
