@@ -22,33 +22,33 @@ INSERT INTO treatment_packages (name, specialization, cost, duration_weeks, pack
 ('Urology Package 2', 'Urology', 5000.0, 6, 2);
 
 -- Insert Specialists
-INSERT INTO specialists (name, specialization, level, qualification, experience, contact_number, email) VALUES
-('Dr. Rajesh Kumar', 'Orthopaedics', 'JUNIOR', 'MBBS, MS Orthopaedics', 3, '+91-9876543210', 'rajesh.kumar@healthsync.com'),
-('Dr. Priya Sharma', 'Orthopaedics', 'JUNIOR', 'MBBS, DNB Orthopaedics', 4, '+91-9876543211', 'priya.sharma@healthsync.com'),
-('Dr. Anil Gupta', 'Orthopaedics', 'SENIOR', 'MBBS, MS, MCh Orthopaedics', 15, '+91-9876543212', 'anil.gupta@healthsync.com'),
-('Dr. Sunita Rao', 'Orthopaedics', 'SENIOR', 'MBBS, MS, Fellowship Joint Replacement', 18, '+91-9876543213', 'sunita.rao@healthsync.com'),
-('Dr. Vikram Singh', 'Urology', 'JUNIOR', 'MBBS, MS Urology', 2, '+91-9876543214', 'vikram.singh@healthsync.com'),
-('Dr. Neha Jain', 'Urology', 'JUNIOR', 'MBBS, DNB Urology', 3, '+91-9876543215', 'neha.jain@healthsync.com'),
-('Dr. Ashok Mehta', 'Urology', 'SENIOR', 'MBBS, MS, MCh Urology', 20, '+91-9876543216', 'ashok.mehta@healthsync.com'),
-('Dr. Kavita Verma', 'Urology', 'SENIOR', 'MBBS, MS, Fellowship Uro-Oncology', 16, '+91-9876543217', 'kavita.verma@healthsync.com');
+INSERT INTO specialists (name, specialization, level, qualification, experience, contact_number, email, available) VALUES
+('Dr. Rajesh Kumar', 'Orthopaedics', 'JUNIOR', 'MBBS, MS Orthopaedics', 3, '+91-9876543210', 'rajesh.kumar@healthsync.com', true),
+('Dr. Priya Sharma', 'Orthopaedics', 'JUNIOR', 'MBBS, DNB Orthopaedics', 4, '+91-9876543211', 'priya.sharma@healthsync.com', true),
+('Dr. Anil Gupta', 'Orthopaedics', 'SENIOR', 'MBBS, MS, MCh Orthopaedics', 15, '+91-9876543212', 'anil.gupta@healthsync.com', true),
+('Dr. Sunita Rao', 'Orthopaedics', 'SENIOR', 'MBBS, MS, Fellowship Joint Replacement', 18, '+91-9876543213', 'sunita.rao@healthsync.com', true),
+('Dr. Vikram Singh', 'Urology', 'JUNIOR', 'MBBS, MS Urology', 2, '+91-9876543214', 'vikram.singh@healthsync.com', true),
+('Dr. Neha Jain', 'Urology', 'JUNIOR', 'MBBS, DNB Urology', 3, '+91-9876543215', 'neha.jain@healthsync.com', true),
+('Dr. Ashok Mehta', 'Urology', 'SENIOR', 'MBBS, MS, MCh Urology', 20, '+91-9876543216', 'ashok.mehta@healthsync.com', true),
+('Dr. Kavita Verma', 'Urology', 'SENIOR', 'MBBS, MS, Fellowship Uro-Oncology', 16, '+91-9876543217', 'kavita.verma@healthsync.com', true);
 
 -- Insert Patient Details
-INSERT INTO patient_details (name, age, ailment, treatment_package_name, treatment_start_date, treatment_end_date, contact_number, email, address, insurance_provider) VALUES
-('Amit Sharma', 45, 'Knee joint pain and stiffness', 'Orthopaedics Package 1', CURRENT_DATE - INTERVAL '10 days', CURRENT_DATE + INTERVAL '18 days', '+91-9876543220', 'amit.sharma@gmail.com', '123 MG Road, Bangalore', 'Star Health Insurance'),
-('Priya Patel', 38, 'Lower back pain and disc problems', 'Orthopaedics Package 2', CURRENT_DATE - INTERVAL '15 days', CURRENT_DATE + INTERVAL '27 days', '+91-9876543221', 'priya.patel@gmail.com', '456 Park Street, Mumbai', 'HDFC ERGO Health'),
-('Rajesh Kumar', 52, 'Kidney stones and urinary issues', 'Urology Package 1', CURRENT_DATE - INTERVAL '8 days', CURRENT_DATE + INTERVAL '20 days', '+91-9876543222', 'rajesh.kumar@gmail.com', '789 Anna Salai, Chennai', 'ICICI Lombard Health'),
-('Sunita Singh', 41, 'Bladder infection and related complications', 'Urology Package 2', CURRENT_DATE - INTERVAL '12 days', CURRENT_DATE + INTERVAL '30 days', '+91-9876543223', 'sunita.singh@gmail.com', '321 CP Road, Delhi', 'Max Bupa Health'),
-('Vikram Rao', 48, 'Hip replacement surgery required', 'Orthopaedics Package 2', CURRENT_DATE - INTERVAL '5 days', CURRENT_DATE + INTERVAL '37 days', '+91-9876543224', 'vikram.rao@gmail.com', '654 Brigade Road, Bangalore', 'Apollo Munich Health Insurance'),
-('Neha Gupta', 35, 'Prostate treatment and monitoring', 'Urology Package 1', CURRENT_DATE - INTERVAL '18 days', CURRENT_DATE + INTERVAL '10 days', '+91-9876543225', 'neha.gupta@gmail.com', '987 Linking Road, Mumbai', 'Bajaj Allianz Health');
+INSERT INTO patient_details (name, age, ailment, treatment_package_name, treatment_start_date, treatment_end_date, contact_number, email, address, insurance_provider, treatment_status) VALUES
+('Amit Sharma', 45, 'Knee joint pain and stiffness', 'Orthopaedics Package 1', CURRENT_DATE - INTERVAL '10 days', CURRENT_DATE + INTERVAL '18 days', '+91-9876543220', 'amit.sharma@gmail.com', '123 MG Road, Bangalore', 'Star Health Insurance', 'IN_PROGRESS'),
+('Priya Patel', 38, 'Lower back pain and disc problems', 'Orthopaedics Package 2', CURRENT_DATE - INTERVAL '15 days', CURRENT_DATE + INTERVAL '27 days', '+91-9876543221', 'priya.patel@gmail.com', '456 Park Street, Mumbai', 'HDFC ERGO Health', 'IN_PROGRESS'),
+('Rajesh Kumar', 52, 'Kidney stones and urinary issues', 'Urology Package 1', CURRENT_DATE - INTERVAL '8 days', CURRENT_DATE + INTERVAL '20 days', '+91-9876543222', 'rajesh.kumar@gmail.com', '789 Anna Salai, Chennai', 'ICICI Lombard Health', 'IN_PROGRESS'),
+('Sunita Singh', 41, 'Bladder infection and related complications', 'Urology Package 2', CURRENT_DATE - INTERVAL '12 days', CURRENT_DATE + INTERVAL '30 days', '+91-9876543223', 'sunita.singh@gmail.com', '321 CP Road, Delhi', 'Max Bupa Health', 'IN_PROGRESS'),
+('Vikram Rao', 48, 'Hip replacement surgery required', 'Orthopaedics Package 2', CURRENT_DATE - INTERVAL '5 days', CURRENT_DATE + INTERVAL '37 days', '+91-9876543224', 'vikram.rao@gmail.com', '654 Brigade Road, Bangalore', 'Apollo Munich Health Insurance', 'IN_PROGRESS'),
+('Neha Gupta', 35, 'Prostate treatment and monitoring', 'Urology Package 1', CURRENT_DATE - INTERVAL '18 days', CURRENT_DATE + INTERVAL '10 days', '+91-9876543225', 'neha.gupta@gmail.com', '987 Linking Road, Mumbai', 'Bajaj Allianz Health', 'IN_PROGRESS');
 
 -- Insert Treatment Plans
-INSERT INTO treatment_plans (patient_id, package_name, cost, specialist_name, specialist_level, specialization, treatment_start_date, treatment_end_date, duration_weeks, specialist_contact_number, specialist_email) VALUES
-(1, 'Orthopaedics Package 1', 2500.0, 'Dr. Rajesh Kumar', 'JUNIOR', 'Orthopaedics', CURRENT_DATE - INTERVAL '10 days', CURRENT_DATE + INTERVAL '18 days', 4, '+91-9876543210', 'rajesh.kumar@healthsync.com'),
-(2, 'Orthopaedics Package 2', 3000.0, 'Dr. Anil Gupta', 'SENIOR', 'Orthopaedics', CURRENT_DATE - INTERVAL '15 days', CURRENT_DATE + INTERVAL '27 days', 6, '+91-9876543212', 'anil.gupta@healthsync.com'),
-(3, 'Urology Package 1', 4000.0, 'Dr. Vikram Singh', 'JUNIOR', 'Urology', CURRENT_DATE - INTERVAL '8 days', CURRENT_DATE + INTERVAL '20 days', 4, '+91-9876543214', 'vikram.singh@healthsync.com'),
-(4, 'Urology Package 2', 5000.0, 'Dr. Ashok Mehta', 'SENIOR', 'Urology', CURRENT_DATE - INTERVAL '12 days', CURRENT_DATE + INTERVAL '30 days', 6, '+91-9876543216', 'ashok.mehta@healthsync.com'),
-(5, 'Orthopaedics Package 2', 3000.0, 'Dr. Sunita Rao', 'SENIOR', 'Orthopaedics', CURRENT_DATE - INTERVAL '5 days', CURRENT_DATE + INTERVAL '37 days', 6, '+91-9876543213', 'sunita.rao@healthsync.com'),
-(6, 'Urology Package 1', 4000.0, 'Dr. Neha Jain', 'JUNIOR', 'Urology', CURRENT_DATE - INTERVAL '18 days', CURRENT_DATE + INTERVAL '10 days', 4, '+91-9876543215', 'neha.jain@healthsync.com');
+INSERT INTO treatment_plans (patient_id, package_name, cost, specialist_name, specialist_level, specialization, treatment_start_date, treatment_end_date, duration_weeks, specialist_contact_number, specialist_email, status) VALUES
+(1, 'Orthopaedics Package 1', 2500.0, 'Dr. Rajesh Kumar', 'JUNIOR', 'Orthopaedics', CURRENT_DATE - INTERVAL '10 days', CURRENT_DATE + INTERVAL '18 days', 4, '+91-9876543210', 'rajesh.kumar@healthsync.com', 'SCHEDULED'),
+(2, 'Orthopaedics Package 2', 3000.0, 'Dr. Anil Gupta', 'SENIOR', 'Orthopaedics', CURRENT_DATE - INTERVAL '15 days', CURRENT_DATE + INTERVAL '27 days', 6, '+91-9876543212', 'anil.gupta@healthsync.com', 'SCHEDULED'),
+(3, 'Urology Package 1', 4000.0, 'Dr. Vikram Singh', 'JUNIOR', 'Urology', CURRENT_DATE - INTERVAL '8 days', CURRENT_DATE + INTERVAL '20 days', 4, '+91-9876543214', 'vikram.singh@healthsync.com', 'SCHEDULED'),
+(4, 'Urology Package 2', 5000.0, 'Dr. Ashok Mehta', 'SENIOR', 'Urology', CURRENT_DATE - INTERVAL '12 days', CURRENT_DATE + INTERVAL '30 days', 6, '+91-9876543216', 'ashok.mehta@healthsync.com', 'SCHEDULED'),
+(5, 'Orthopaedics Package 2', 3000.0, 'Dr. Sunita Rao', 'SENIOR', 'Orthopaedics', CURRENT_DATE - INTERVAL '5 days', CURRENT_DATE + INTERVAL '37 days', 6, '+91-9876543213', 'sunita.rao@healthsync.com', 'SCHEDULED'),
+(6, 'Urology Package 1', 4000.0, 'Dr. Neha Jain', 'JUNIOR', 'Urology', CURRENT_DATE - INTERVAL '18 days', CURRENT_DATE + INTERVAL '10 days', 4, '+91-9876543215', 'neha.jain@healthsync.com', 'SCHEDULED');
 
 -- Insert Claim Requests
 INSERT INTO claim_requests (patient_name, ailment, treatment_package_name, treatment_cost, insurer_name, insurer_package_name, insurance_amount_limit, balance_amount, claim_status, claim_reference_number, patient_id, claim_initiated_date) VALUES
