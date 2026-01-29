@@ -30,12 +30,12 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Create nginx user for better security
 RUN addgroup -g 101 -S nginx && \
-    adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx
+  adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx
 
 # Create necessary directories and set permissions
 RUN mkdir -p /var/cache/nginx/client_temp /var/cache/nginx/proxy_temp /var/cache/nginx/fastcgi_temp /var/cache/nginx/uwsgi_temp /var/cache/nginx/scgi_temp && \
-    chmod 700 /var/cache/nginx/* && \
-    chown -R nginx:nginx /var/cache/nginx /var/log/nginx /etc/nginx/conf.d /usr/share/nginx/html
+  chmod 700 /var/cache/nginx/* && \
+  chown -R nginx:nginx /var/cache/nginx /var/log/nginx /etc/nginx/conf.d /usr/share/nginx/html
 
 # Switch to nginx user
 USER nginx

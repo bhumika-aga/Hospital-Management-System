@@ -68,7 +68,7 @@ const App: React.FC = () => {
 
   const currentTheme = React.useMemo(
     () => createAppTheme(isDarkMode),
-    [isDarkMode]
+    [isDarkMode],
   );
 
   return (

@@ -73,7 +73,7 @@ const Login: React.FC = () => {
       navigate("/dashboard");
     } catch (err: any) {
       setError(
-        err.response?.data?.message || "Login failed. Please try again."
+        err.response?.data?.message || "Login failed. Please try again.",
       );
     } finally {
       setLoading(false);
@@ -97,13 +97,13 @@ const Login: React.FC = () => {
 
       // Store user data in localStorage (in a real system, this would be an API call)
       const existingUsers = JSON.parse(
-        localStorage.getItem("hospitalUsers") || "[]"
+        localStorage.getItem("hospitalUsers") || "[]",
       );
 
       // Check if username already exists
       if (existingUsers.some((user: any) => user.username === data.username)) {
         setError(
-          "Username already exists. Please choose a different username."
+          "Username already exists. Please choose a different username.",
         );
         setLoading(false);
         return;

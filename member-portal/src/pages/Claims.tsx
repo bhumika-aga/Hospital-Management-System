@@ -77,7 +77,7 @@ const Claims: React.FC = () => {
         "Selected package ID:",
         selectedPackageId,
         "Type:",
-        typeof selectedPackageId
+        typeof selectedPackageId,
       );
       console.log(
         "Available packages:",
@@ -85,13 +85,13 @@ const Claims: React.FC = () => {
           id: pkg.id,
           name: pkg.name,
           cost: pkg.cost,
-        }))
+        })),
       );
 
       const selectedPackage = treatmentPackages.find(
         (pkg) =>
           pkg.id === Number(selectedPackageId) ||
-          pkg.id.toString() === selectedPackageId.toString()
+          pkg.id.toString() === selectedPackageId.toString(),
       );
 
       console.log("Found package:", selectedPackage);
@@ -109,14 +109,14 @@ const Claims: React.FC = () => {
       if (packageId && treatmentPackages.length > 0) {
         const selectedPackage = treatmentPackages.find(
           (pkg) =>
-            pkg.id.toString() === packageId || pkg.id === Number(packageId)
+            pkg.id.toString() === packageId || pkg.id === Number(packageId),
         );
         if (selectedPackage) {
           setValue("treatmentCost", selectedPackage.cost);
         }
       }
     },
-    [treatmentPackages, setValue]
+    [treatmentPackages, setValue],
   );
 
   const loadData = async () => {
@@ -149,20 +149,20 @@ const Claims: React.FC = () => {
       console.log("Form data submitted:", data);
       console.log(
         "Available insurers:",
-        insurers.map((ins) => ({ id: ins.id, name: ins.insurerName }))
+        insurers.map((ins) => ({ id: ins.id, name: ins.insurerName })),
       );
       console.log(
         "Looking for insurer ID:",
         data.insurerId,
         "Type:",
-        typeof data.insurerId
+        typeof data.insurerId,
       );
 
       // Find the selected insurer to get the insurer name
       const selectedInsurer = insurers.find(
         (insurer) =>
           insurer.id === Number(data.insurerId) ||
-          insurer.id.toString() === data.insurerId.toString()
+          insurer.id.toString() === data.insurerId.toString(),
       );
 
       console.log("Found insurer:", selectedInsurer);
@@ -171,7 +171,7 @@ const Claims: React.FC = () => {
         throw new Error(
           `Selected insurer not found. Insurer ID: ${
             data.insurerId
-          }, Available IDs: ${insurers.map((i) => i.id).join(", ")}`
+          }, Available IDs: ${insurers.map((i) => i.id).join(", ")}`,
         );
       }
 
@@ -179,11 +179,11 @@ const Claims: React.FC = () => {
       const selectedPackage = treatmentPackages.find(
         (pkg) =>
           pkg.id === Number(data.treatmentPackageId) ||
-          pkg.id.toString() === data.treatmentPackageId.toString()
+          pkg.id.toString() === data.treatmentPackageId.toString(),
       );
       if (!selectedPackage) {
         throw new Error(
-          `Selected treatment package not found. Package ID: ${data.treatmentPackageId}`
+          `Selected treatment package not found. Package ID: ${data.treatmentPackageId}`,
         );
       }
 
@@ -317,7 +317,7 @@ const Claims: React.FC = () => {
             <div class="detail-item">
                 <span class="label">Date of Claim:</span>
                 <span class="value">${new Date(
-                  claim.dateOfClaim
+                  claim.dateOfClaim,
                 ).toLocaleDateString("en-IN")}</span>
             </div>
         </div>
@@ -331,7 +331,7 @@ const Claims: React.FC = () => {
     <div class="footer">
         <p>This is a computer-generated receipt. No signature is required.</p>
         <p>Generated on: ${new Date().toLocaleDateString(
-          "en-IN"
+          "en-IN",
         )} at ${new Date().toLocaleTimeString("en-IN")}</p>
     </div>
 </body>
@@ -896,7 +896,7 @@ const Claims: React.FC = () => {
                             year: "numeric",
                             month: "long",
                             day: "numeric",
-                          }
+                          },
                         )}
                       </Typography>
                     </CardContent>

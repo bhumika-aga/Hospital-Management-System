@@ -95,15 +95,15 @@ public class TreatmentTimetableService {
     private PackageInfo getPackageInfo(String packageName) {
         // Predefined package information based on requirements
         return switch (packageName.toLowerCase()) {
-        case "orthopaedics package 1" -> new PackageInfo("Orthopaedics Package 1", "Orthopaedics",
-                Arrays.asList("OPT1", "OPT2"), 2500.0, 4, 1);
-        case "orthopaedics package 2" -> new PackageInfo("Orthopaedics Package 2", "Orthopaedics",
-                Arrays.asList("OPT3", "OPT4"), 3000.0, 6, 2);
-        case "urology package 1" -> new PackageInfo("Urology Package 1", "Urology", Arrays.asList("UPT1", "UPT2"),
-                4000.0, 4, 1);
-        case "urology package 2" -> new PackageInfo("Urology Package 2", "Urology", Arrays.asList("UPT3", "UPT4"),
-                5000.0, 6, 2);
-        default -> throw new RuntimeException("Unknown package: " + packageName);
+            case "orthopaedics package 1" -> new PackageInfo("Orthopaedics Package 1", "Orthopaedics",
+                    Arrays.asList("OPT1", "OPT2"), 2500.0, 4, 1);
+            case "orthopaedics package 2" -> new PackageInfo("Orthopaedics Package 2", "Orthopaedics",
+                    Arrays.asList("OPT3", "OPT4"), 3000.0, 6, 2);
+            case "urology package 1" -> new PackageInfo("Urology Package 1", "Urology", Arrays.asList("UPT1", "UPT2"),
+                    4000.0, 4, 1);
+            case "urology package 2" -> new PackageInfo("Urology Package 2", "Urology", Arrays.asList("UPT3", "UPT4"),
+                    5000.0, 6, 2);
+            default -> throw new RuntimeException("Unknown package: " + packageName);
         };
     }
 

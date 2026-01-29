@@ -22,7 +22,7 @@ const Help: React.FC = () => {
     const body =
       "Hello HealthSync Support Team,\n\nI need assistance with:\n\n[Please describe your issue here]\n\nThank you for your help!\n\nBest regards";
     const mailtoUrl = `mailto:support@healthsync.com?subject=${encodeURIComponent(
-      subject
+      subject,
     )}&body=${encodeURIComponent(body)}`;
     window.open(mailtoUrl, "_blank");
   };

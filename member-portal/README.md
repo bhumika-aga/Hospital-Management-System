@@ -143,22 +143,23 @@ The frontend connects to the Spring Boot backend at `http://localhost:8080` with
 
 ```typescript
 // services/api.ts
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080';
+const API_BASE_URL =
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
 
 export const API_ENDPOINTS = {
   auth: {
     base: `${API_BASE_URL}`,
-    generateToken: '/auth/generate-token',
+    generateToken: "/auth/generate-token",
   },
   treatment: {
-    packages: '/IPTreatmentPackages',
-    specialists: '/specialists',
-    generateTimetable: '/IPTreatment/generateTimetable',
+    packages: "/IPTreatmentPackages",
+    specialists: "/specialists",
+    generateTimetable: "/IPTreatment/generateTimetable",
   },
   insurance: {
-    initiateClaim: '/insurance/InitiateClaim',
-    insurers: '/insurance/GetAllInsurerDetail',
-    claims: '/insurance/claims',
+    initiateClaim: "/insurance/InitiateClaim",
+    insurers: "/insurance/GetAllInsurerDetail",
+    claims: "/insurance/claims",
   },
 };
 ```

@@ -45,10 +45,10 @@ const Specialists: React.FC = () => {
   const handleContactSpecialist = (specialist: Specialist) => {
     // Create a mailto link with pre-filled subject and body
     const subject = encodeURIComponent(
-      `Appointment Request - Dr. ${specialist.name}`
+      `Appointment Request - Dr. ${specialist.name}`,
     );
     const body = encodeURIComponent(
-      `Dear Dr. ${specialist.name},\n\nI would like to schedule an appointment for consultation.\n\nSpecialization: ${specialist.specialization}\nContact: ${specialist.contactNumber}\n\nThank you for your time.\n\nBest regards`
+      `Dear Dr. ${specialist.name},\n\nI would like to schedule an appointment for consultation.\n\nSpecialization: ${specialist.specialization}\nContact: ${specialist.contactNumber}\n\nThank you for your time.\n\nBest regards`,
     );
 
     // Try to open email client, fallback to phone number if no email

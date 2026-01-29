@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -30,16 +29,16 @@ public class SecurityConfig {
         http.cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
-                .authorizeHttpRequests(authz -> authz.requestMatchers(new AntPathRequestMatcher("/")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/swagger-resources/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/webjars/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/health")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(authz -> authz.requestMatchers("/").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-resources/**").permitAll()
+                        .requestMatchers("/webjars/**").permitAll()
+                        .requestMatchers("/health").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/**").permitAll().anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

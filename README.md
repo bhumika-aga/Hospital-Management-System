@@ -96,38 +96,38 @@
 
 ### **Backend**
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| Java | 17 | Core programming language |
-| Spring Boot | 3.4.10 | Application framework |
-| Spring Security | 6.2.9 | Authentication & authorization |
-| Spring Data JPA | 3.4.8 | Data persistence |
-| PostgreSQL | 15+ | Production database |
-| H2 Database | 2.1.214 | Development database |
-| JWT | 0.11.5 | Token-based authentication |
-| Maven | 3.8+ | Dependency management |
-| JUnit 5 | 5.9.3 | Testing framework |
+| Technology      | Version | Purpose                        |
+| --------------- | ------- | ------------------------------ |
+| Java            | 17      | Core programming language      |
+| Spring Boot     | 3.4.10  | Application framework          |
+| Spring Security | 6.2.9   | Authentication & authorization |
+| Spring Data JPA | 3.4.8   | Data persistence               |
+| PostgreSQL      | 15+     | Production database            |
+| H2 Database     | 2.1.214 | Development database           |
+| JWT             | 0.11.5  | Token-based authentication     |
+| Maven           | 3.8+    | Dependency management          |
+| JUnit 5         | 5.9.3   | Testing framework              |
 
 ### **Frontend**
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| React | 19.1.1 | UI framework |
-| TypeScript | 4.9.5 | Type-safe JavaScript |
-| Material-UI | 7.3.1 | Component library |
-| React Router | 6.30.1 | Client-side routing |
-| Axios | 1.11.0 | HTTP client |
-| React Hook Form | 7.62.0 | Form handling |
+| Technology      | Version | Purpose              |
+| --------------- | ------- | -------------------- |
+| React           | 19.1.1  | UI framework         |
+| TypeScript      | 4.9.5   | Type-safe JavaScript |
+| Material-UI     | 7.3.1   | Component library    |
+| React Router    | 6.30.1  | Client-side routing  |
+| Axios           | 1.11.0  | HTTP client          |
+| React Hook Form | 7.62.0  | Form handling        |
 
 ### **DevOps & Deployment**
 
-| Technology | Purpose |
-|------------|---------|
-| Render.com | Cloud deployment |
-| PostgreSQL | Production database |
-| Docker | Containerization |
-| GitHub Actions | CI/CD pipeline |
-| Maven | Build automation |
+| Technology     | Purpose             |
+| -------------- | ------------------- |
+| Render.com     | Cloud deployment    |
+| PostgreSQL     | Production database |
+| Docker         | Containerization    |
+| GitHub Actions | CI/CD pipeline      |
+| Maven          | Build automation    |
 
 ---
 
@@ -182,7 +182,7 @@ HealthSync/
 ### **Prerequisites**
 
 - ☕ **Java 17** or higher
-- 🟢 **Node.js 18** or higher  
+- 🟢 **Node.js 18** or higher
 - 📦 **Maven 3.8** or higher
 - 🔧 **Git**
 - 🐘 **PostgreSQL 15+** (for production deployment)
@@ -226,14 +226,14 @@ npm run serve
 
 ### **4. Access Applications**
 
-| Service | URL | Description |
-|---------|-----|-------------|
-| 🌐 **Frontend** | <http://localhost:3000> | React application |
-| ⚡ **Backend API** | <http://localhost:8080> | Spring Boot API |
-| 📚 **Swagger UI** | <http://localhost:8080/swagger-ui.html> | API documentation |
-| 💾 **H2 Console** | <http://localhost:8080/h2-console> | Database console (local dev) |
-| 🐘 **PgAdmin** | <http://localhost:8082> | PostgreSQL admin (Docker) |
-| 📊 **Health Check** | <http://localhost:8080/actuator/health> | Application health |
+| Service             | URL                                     | Description                  |
+| ------------------- | --------------------------------------- | ---------------------------- |
+| 🌐 **Frontend**     | <http://localhost:3000>                 | React application            |
+| ⚡ **Backend API**  | <http://localhost:8080>                 | Spring Boot API              |
+| 📚 **Swagger UI**   | <http://localhost:8080/swagger-ui.html> | API documentation            |
+| 💾 **H2 Console**   | <http://localhost:8080/h2-console>      | Database console (local dev) |
+| 🐘 **PgAdmin**      | <http://localhost:8082>                 | PostgreSQL admin (Docker)    |
+| 📊 **Health Check** | <http://localhost:8080/actuator/health> | Application health           |
 
 ---
 
@@ -258,15 +258,15 @@ npm run serve
 
 ### **Environment Variables**
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `SPRING_PROFILES_ACTIVE` | `local` | Active profile |
-| `DATABASE_URL` | H2 (local) / PostgreSQL (prod) | Database connection URL |
-| `DATABASE_USERNAME` | User-specific | Database username |
-| `DATABASE_PASSWORD` | User-specific | Database password |
-| `JWT_SECRET` | Auto-generated | JWT signing secret |
-| `PORT` | `8080` | Server port |
-| `CORS_ALLOWED_ORIGINS` | Localhost | Allowed CORS origins |
+| Variable                 | Default                        | Description             |
+| ------------------------ | ------------------------------ | ----------------------- |
+| `SPRING_PROFILES_ACTIVE` | `local`                        | Active profile          |
+| `DATABASE_URL`           | H2 (local) / PostgreSQL (prod) | Database connection URL |
+| `DATABASE_USERNAME`      | User-specific                  | Database username       |
+| `DATABASE_PASSWORD`      | User-specific                  | Database password       |
+| `JWT_SECRET`             | Auto-generated                 | JWT signing secret      |
+| `PORT`                   | `8080`                         | Server port             |
+| `CORS_ALLOWED_ORIGINS`   | Localhost                      | Allowed CORS origins    |
 
 ---
 
@@ -327,7 +327,7 @@ Authorization: Bearer your-jwt-token
   {
     "id": 2,
     "packageName": "Urology Package 2",
-    "specialization": "Urology", 
+    "specialization": "Urology",
     "testList": ["URT1", "URT2", "URT3"],
     "packageCost": 5000.0,
     "durationWeeks": 6,
@@ -603,12 +603,12 @@ Since you're on the free tier with an existing database, we'll use your `mediflo
 
 3.**Set Environment Variables**
 
-   ```env
-   SPRING_PROFILES_ACTIVE=prod
-   DATABASE_URL=postgresql://mediflow_user:p9b7x3MCz3VJFZycM6AagAu4023WzX8Z@dpg-d2a7qjadbo4c73b2j4n0-a/mediflow
-   JWT_SECRET=healthsync-super-secret-jwt-key-change-in-production
-   SPRING_JPA_HIBERNATE_DDL_AUTO=update
-   ```
+```env
+SPRING_PROFILES_ACTIVE=prod
+DATABASE_URL=postgresql://mediflow_user:p9b7x3MCz3VJFZycM6AagAu4023WzX8Z@dpg-d2a7qjadbo4c73b2j4n0-a/mediflow
+JWT_SECRET=healthsync-super-secret-jwt-key-change-in-production
+SPRING_JPA_HIBERNATE_DDL_AUTO=update
+```
 
 #### **Step 4: Deploy Frontend Service**
 
@@ -735,12 +735,12 @@ docker-compose ps
 
 #### **Service URLs**
 
-| Service | Development | Production |
-|---------|-------------|------------|
-| Frontend | <http://localhost:3000> | <https://yourdomain.com> |
-| Backend API | <http://localhost:8080> | <https://yourdomain.com/api> |
-| Swagger UI | <http://localhost:8080/swagger-ui.html> | <https://yourdomain.com/api/swagger-ui.html> |
-| H2 Console | <http://localhost:8080/h2-console> | Disabled in production |
+| Service     | Development                             | Production                                   |
+| ----------- | --------------------------------------- | -------------------------------------------- |
+| Frontend    | <http://localhost:3000>                 | <https://yourdomain.com>                     |
+| Backend API | <http://localhost:8080>                 | <https://yourdomain.com/api>                 |
+| Swagger UI  | <http://localhost:8080/swagger-ui.html> | <https://yourdomain.com/api/swagger-ui.html> |
+| H2 Console  | <http://localhost:8080/h2-console>      | Disabled in production                       |
 
 ### **🔄 CI/CD Pipeline**
 
@@ -906,7 +906,7 @@ The application comes with comprehensive sample data for immediate testing via S
 ### **Insurance Providers (10)**
 
 - Apollo Munich Health Insurance
-- Star Health Insurance  
+- Star Health Insurance
 - HDFC ERGO Health Insurance
 - ICICI Lombard Health Insurance
 - Max Bupa Health Insurance
@@ -918,12 +918,12 @@ The application comes with comprehensive sample data for immediate testing via S
 
 ### **Treatment Packages (4)**
 
-| Package | Cost | Duration | Tier | Specialization |
-|---------|------|----------|------|----------------|
-| Orthopaedics Package 1 | ₹2,500 | 4 weeks | Junior | Orthopaedics |
-| Orthopaedics Package 2 | ₹3,000 | 6 weeks | Senior | Orthopaedics |
-| Urology Package 1 | ₹4,000 | 4 weeks | Junior | Urology |
-| Urology Package 2 | ₹5,000 | 6 weeks | Senior | Urology |
+| Package                | Cost   | Duration | Tier   | Specialization |
+| ---------------------- | ------ | -------- | ------ | -------------- |
+| Orthopaedics Package 1 | ₹2,500 | 4 weeks  | Junior | Orthopaedics   |
+| Orthopaedics Package 2 | ₹3,000 | 6 weeks  | Senior | Orthopaedics   |
+| Urology Package 1      | ₹4,000 | 4 weeks  | Junior | Urology        |
+| Urology Package 2      | ₹5,000 | 6 weeks  | Senior | Urology        |
 
 ### **Medical Specialists (8)**
 
@@ -943,7 +943,7 @@ The application comes with comprehensive sample data for immediate testing via S
 ### **⚡ Response Times (Average)**
 
 - Authentication: ~50ms
-- Treatment Packages: ~100ms  
+- Treatment Packages: ~100ms
 - Insurance Claims: ~150ms
 - Specialist Lookup: ~75ms
 
@@ -986,14 +986,14 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 👥 **Authors & Contributors**
 
-- **Bhumika Agarwal** - *Initial work* - [GitHub](https://github.com/bhumika-aga)
+- **Bhumika Agarwal** - _Initial work_ - [GitHub](https://github.com/bhumika-aga)
 
 ---
 
 ## 🙏 **Acknowledgments**
 
 - Spring Boot team for the excellent framework
-- React community for the powerful UI library  
+- React community for the powerful UI library
 - Material-UI for the beautiful component library
 - Render.com for free hosting
 - All contributors and testers

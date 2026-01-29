@@ -127,7 +127,7 @@ const Treatments: React.FC = () => {
         const specialistPackages = packages.filter(
           (pkg) =>
             pkg.specialization.toLowerCase() ===
-            specialist.specialization.toLowerCase()
+            specialist.specialization.toLowerCase(),
         );
 
         if (specialistPackages.length > 0) {
@@ -157,9 +157,8 @@ const Treatments: React.FC = () => {
         ...data,
         treatmentPackageId: Number(data.treatmentPackageId),
       };
-      const newTreatment = await TimetableService.generateTimetable(
-        patientDetail
-      );
+      const newTreatment =
+        await TimetableService.generateTimetable(patientDetail);
       setTreatments([...treatments, newTreatment]);
       setDialogOpen(false);
       reset();
@@ -193,7 +192,7 @@ const Treatments: React.FC = () => {
   const handleContactSpecialist = (treatment: TreatmentPlan) => {
     if (treatment.specialist?.email) {
       const subject = encodeURIComponent(
-        `Treatment Update Request - ${treatment.patientName || treatment.name}`
+        `Treatment Update Request - ${treatment.patientName || treatment.name}`,
       );
       const body = encodeURIComponent(
         `Dear Dr. ${
@@ -202,7 +201,7 @@ const Treatments: React.FC = () => {
           treatment.patientName || treatment.name
         }.\n\nTreatment ID: ${treatment.id}\nPackage: ${
           treatment.treatmentPackage?.name || treatment.treatmentPackageName
-        }\n\nPlease let me know your availability for consultation.\n\nBest regards`
+        }\n\nPlease let me know your availability for consultation.\n\nBest regards`,
       );
       window.location.href = `mailto:${treatment.specialist.email}?subject=${subject}&body=${body}`;
     } else {
@@ -210,7 +209,7 @@ const Treatments: React.FC = () => {
       alert(
         `Please contact Dr. ${
           treatment.specialist?.name || "your assigned specialist"
-        } directly for treatment updates.`
+        } directly for treatment updates.`,
       );
     }
   };
@@ -220,7 +219,7 @@ const Treatments: React.FC = () => {
     alert(
       `Change request functionality for ${
         treatment.patientName || treatment.name
-      }'s treatment will be available soon. Please contact the specialist directly for now.`
+      }'s treatment will be available soon. Please contact the specialist directly for now.`,
     );
   };
 
@@ -336,13 +335,13 @@ const Treatments: React.FC = () => {
                   <Chip
                     label={
                       getStatusColor(
-                        treatment.treatmentEndDate || new Date().toISOString()
+                        treatment.treatmentEndDate || new Date().toISOString(),
                       ) === "success"
                         ? "Active"
                         : "Completed"
                     }
                     color={getStatusColor(
-                      treatment.treatmentEndDate || new Date().toISOString()
+                      treatment.treatmentEndDate || new Date().toISOString(),
                     )}
                     size="small"
                   />
@@ -381,7 +380,7 @@ const Treatments: React.FC = () => {
                             {new Date(
                               treatment.treatmentCommencementDate ||
                                 treatment.treatmentStartDate ||
-                                new Date()
+                                new Date(),
                             ).toLocaleDateString()}
                           </Typography>
                         </Box>
@@ -398,7 +397,7 @@ const Treatments: React.FC = () => {
                           </Typography>
                           <Typography variant="body2">
                             {new Date(
-                              treatment.treatmentEndDate || new Date()
+                              treatment.treatmentEndDate || new Date(),
                             ).toLocaleDateString()}
                           </Typography>
                         </Box>
@@ -617,7 +616,7 @@ const Treatments: React.FC = () => {
                       {new Date(
                         selectedTreatment.treatmentCommencementDate ||
                           selectedTreatment.treatmentStartDate ||
-                          new Date()
+                          new Date(),
                       ).toLocaleDateString()}
                     </Typography>
                     <Typography variant="body2">
@@ -648,7 +647,7 @@ const Treatments: React.FC = () => {
                   active={
                     getStatusColor(
                       selectedTreatment.treatmentEndDate ||
-                        new Date().toISOString()
+                        new Date().toISOString(),
                     ) === "success"
                   }
                 >
@@ -658,7 +657,7 @@ const Treatments: React.FC = () => {
                         color={
                           getStatusColor(
                             selectedTreatment.treatmentEndDate ||
-                              new Date().toISOString()
+                              new Date().toISOString(),
                           ) === "success"
                             ? "primary"
                             : "disabled"
@@ -686,7 +685,7 @@ const Treatments: React.FC = () => {
                   completed={
                     getStatusColor(
                       selectedTreatment.treatmentEndDate ||
-                        new Date().toISOString()
+                        new Date().toISOString(),
                     ) === "default"
                   }
                 >
@@ -696,7 +695,7 @@ const Treatments: React.FC = () => {
                         color={
                           getStatusColor(
                             selectedTreatment.treatmentEndDate ||
-                              new Date().toISOString()
+                              new Date().toISOString(),
                           ) === "default"
                             ? "success"
                             : "disabled"
@@ -710,7 +709,7 @@ const Treatments: React.FC = () => {
                     <Typography variant="body2" color="text.secondary">
                       Expected End:{" "}
                       {new Date(
-                        selectedTreatment.treatmentEndDate || new Date()
+                        selectedTreatment.treatmentEndDate || new Date(),
                       ).toLocaleDateString()}
                     </Typography>
                   </StepContent>
@@ -772,7 +771,7 @@ const Treatments: React.FC = () => {
                         label={
                           getStatusColor(
                             selectedTreatment.treatmentEndDate ||
-                              new Date().toISOString()
+                              new Date().toISOString(),
                           ) === "success"
                             ? "Active"
                             : "Completed"
@@ -780,7 +779,7 @@ const Treatments: React.FC = () => {
                         color={
                           getStatusColor(
                             selectedTreatment.treatmentEndDate ||
-                              new Date().toISOString()
+                              new Date().toISOString(),
                           ) === "success"
                             ? "success"
                             : "default"
@@ -860,7 +859,7 @@ const Treatments: React.FC = () => {
                           {new Date(
                             selectedTreatment.treatmentCommencementDate ||
                               selectedTreatment.treatmentStartDate ||
-                              new Date()
+                              new Date(),
                           ).toLocaleDateString()}
                         </Typography>
                       </Box>
@@ -870,7 +869,7 @@ const Treatments: React.FC = () => {
                         </Typography>
                         <Typography variant="body2">
                           {new Date(
-                            selectedTreatment.treatmentEndDate || new Date()
+                            selectedTreatment.treatmentEndDate || new Date(),
                           ).toLocaleDateString()}
                         </Typography>
                       </Box>
