@@ -4,18 +4,16 @@ spring:
     activate:
       on-profile: prod
 
-  # Database Configuration - PostgreSQL for production (shared mediflow database)
+  # Database Configuration - H2 for production (Render Free Tier)
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:hospital_db
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
     hikari:
       maximum-pool-size: 10
-      data-source-properties:
-        sslmode: disable
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
     show-sql: true
@@ -36,9 +34,9 @@ server:
 logging:
   level:
     root: INFO
-    com.hospital: INFO
-    org.springframework.security: WARN
-    org.springframework.web: WARN
+    "com.hospital": INFO
+    "org.springframework.security": WARN
+    "org.springframework.web": WARN
     sql: ERROR
 
 # JWT Configuration
@@ -72,4 +70,4 @@ management:
       show-details: when-authorized
 
 # Security optimizations
-spring.security.user.password: disabled
+"spring.security.user.password": disabled

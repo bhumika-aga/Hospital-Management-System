@@ -96,17 +96,16 @@
 
 ### **Backend**
 
-| Technology      | Version | Purpose                        |
-| --------------- | ------- | ------------------------------ |
-| Java            | 17      | Core programming language      |
-| Spring Boot     | 3.4.10  | Application framework          |
-| Spring Security | 6.2.9   | Authentication & authorization |
-| Spring Data JPA | 3.4.8   | Data persistence               |
-| PostgreSQL      | 15+     | Production database            |
-| H2 Database     | 2.1.214 | Development database           |
-| JWT             | 0.11.5  | Token-based authentication     |
-| Maven           | 3.8+    | Dependency management          |
-| JUnit 5         | 5.9.3   | Testing framework              |
+| Technology      | Version | Purpose                                               |
+| --------------- | ------- | ----------------------------------------------------- |
+| Java            | 17      | Core programming language                             |
+| Spring Boot     | 3.4.10  | Application framework                                 |
+| Spring Security | 6.2.9   | Authentication & authorization                        |
+| Spring Data JPA | 3.4.8   | Data persistence                                      |
+| H2 Database     | 2.1.214 | Production & Development (Render Free Tier optimized) |
+| JWT             | 0.11.5  | Token-based authentication                            |
+| Maven           | 3.8+    | Dependency management                                 |
+| JUnit 5         | 5.9.3   | Testing framework                                     |
 
 ### **Frontend**
 
@@ -121,13 +120,12 @@
 
 ### **DevOps & Deployment**
 
-| Technology     | Purpose             |
-| -------------- | ------------------- |
-| Render.com     | Cloud deployment    |
-| PostgreSQL     | Production database |
-| Docker         | Containerization    |
-| GitHub Actions | CI/CD pipeline      |
-| Maven          | Build automation    |
+| Technology     | Purpose          |
+| -------------- | ---------------- |
+| Render.com     | Cloud deployment |
+| Docker         | Containerization |
+| GitHub Actions | CI/CD pipeline   |
+| Maven          | Build automation |
 
 ---
 
@@ -605,9 +603,7 @@ Since you're on the free tier with an existing database, we'll use your `mediflo
 
 ```env
 SPRING_PROFILES_ACTIVE=prod
-DATABASE_URL=postgresql://mediflow_user:p9b7x3MCz3VJFZycM6AagAu4023WzX8Z@dpg-d2a7qjadbo4c73b2j4n0-a/mediflow
 JWT_SECRET=healthsync-super-secret-jwt-key-change-in-production
-SPRING_JPA_HIBERNATE_DDL_AUTO=update
 ```
 
 #### **Step 4: Deploy Frontend Service**
