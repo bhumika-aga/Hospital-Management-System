@@ -8,9 +8,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "patient_details")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PatientDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,9 +55,6 @@ public class PatientDetail {
     @Column
     private String insuranceProvider;
 
-    public PatientDetail() {
-    }
-
     public PatientDetail(String name, Integer age, String ailment, String treatmentPackageName,
             LocalDate treatmentStartDate) {
         this.name = name;
@@ -60,102 +63,5 @@ public class PatientDetail {
         this.treatmentPackageName = treatmentPackageName;
         this.treatmentStartDate = treatmentStartDate;
         this.treatmentStatus = "IN_PROGRESS";
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getAilment() {
-        return ailment;
-    }
-
-    public void setAilment(String ailment) {
-        this.ailment = ailment;
-    }
-
-    public String getTreatmentPackageName() {
-        return treatmentPackageName;
-    }
-
-    public void setTreatmentPackageName(String treatmentPackageName) {
-        this.treatmentPackageName = treatmentPackageName;
-    }
-
-    public LocalDate getTreatmentStartDate() {
-        return treatmentStartDate;
-    }
-
-    public void setTreatmentStartDate(LocalDate treatmentStartDate) {
-        this.treatmentStartDate = treatmentStartDate;
-    }
-
-    public LocalDate getTreatmentEndDate() {
-        return treatmentEndDate;
-    }
-
-    public void setTreatmentEndDate(LocalDate treatmentEndDate) {
-        this.treatmentEndDate = treatmentEndDate;
-    }
-
-    public String getTreatmentStatus() {
-        return treatmentStatus;
-    }
-
-    public void setTreatmentStatus(String treatmentStatus) {
-        this.treatmentStatus = treatmentStatus;
-    }
-
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getInsuranceProvider() {
-        return insuranceProvider;
-    }
-
-    public void setInsuranceProvider(String insuranceProvider) {
-        this.insuranceProvider = insuranceProvider;
     }
 }

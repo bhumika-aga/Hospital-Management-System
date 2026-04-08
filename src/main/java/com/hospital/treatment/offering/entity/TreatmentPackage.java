@@ -12,9 +12,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "treatment_packages")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TreatmentPackage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,9 +46,6 @@ public class TreatmentPackage {
     @Column(nullable = false)
     private Integer packageLevel; // 1 for Package 1, 2 for Package 2
 
-    public TreatmentPackage() {
-    }
-
     public TreatmentPackage(String name, String specialization, List<String> tests, Double cost, Integer durationWeeks,
             Integer packageLevel) {
         this.name = name;
@@ -50,63 +53,6 @@ public class TreatmentPackage {
         this.tests = tests;
         this.cost = cost;
         this.durationWeeks = durationWeeks;
-        this.packageLevel = packageLevel;
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSpecialization() {
-        return specialization;
-    }
-
-    public void setSpecialization(String specialization) {
-        this.specialization = specialization;
-    }
-
-    public List<String> getTests() {
-        return tests;
-    }
-
-    public void setTests(List<String> tests) {
-        this.tests = tests;
-    }
-
-    public Double getCost() {
-        return cost;
-    }
-
-    public void setCost(Double cost) {
-        this.cost = cost;
-    }
-
-    public Integer getDurationWeeks() {
-        return durationWeeks;
-    }
-
-    public void setDurationWeeks(Integer durationWeeks) {
-        this.durationWeeks = durationWeeks;
-    }
-
-    public Integer getPackageLevel() {
-        return packageLevel;
-    }
-
-    public void setPackageLevel(Integer packageLevel) {
         this.packageLevel = packageLevel;
     }
 }

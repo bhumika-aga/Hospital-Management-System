@@ -3,18 +3,19 @@ package com.hospital.treatment.offering.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hospital.treatment.offering.dto.SpecialistDTO;
 import com.hospital.treatment.offering.entity.Specialist;
 import com.hospital.treatment.offering.repository.SpecialistRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class SpecialistService {
 
-    @Autowired
-    private SpecialistRepository specialistRepository;
+    private final SpecialistRepository specialistRepository;
 
     public List<SpecialistDTO> getAllSpecialists() {
         return specialistRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());

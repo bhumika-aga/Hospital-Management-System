@@ -3,7 +3,6 @@ package com.hospital.treatment.service.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,16 +26,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/IPTreatment")
 @CrossOrigin(origins = "*")
 @SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Treatment Management", description = "International Patient Treatment Timetable and Management")
+@RequiredArgsConstructor
 public class TreatmentController {
 
-        @Autowired
-        private TreatmentTimetableService treatmentService;
+        private final TreatmentTimetableService treatmentService;
 
         @PostMapping("/generateTimetable")
         @Operation(summary = "Formulate Treatment Timetable", description = "Generate a comprehensive treatment timetable for a patient based on their ailment and chosen package. "

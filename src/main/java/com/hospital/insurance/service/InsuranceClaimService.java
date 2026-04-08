@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,15 +16,15 @@ import com.hospital.insurance.entity.Insurer;
 import com.hospital.insurance.repository.ClaimRequestRepository;
 import com.hospital.insurance.repository.InsurerRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class InsuranceClaimService {
 
-    @Autowired
-    private InsurerRepository insurerRepository;
-
-    @Autowired
-    private ClaimRequestRepository claimRequestRepository;
+    private final InsurerRepository insurerRepository;
+    private final ClaimRequestRepository claimRequestRepository;
 
     public List<InsurerDTO> getAllInsurerDetails() {
         return insurerRepository.findByActive(true).stream().map(this::convertToDTO).collect(Collectors.toList());

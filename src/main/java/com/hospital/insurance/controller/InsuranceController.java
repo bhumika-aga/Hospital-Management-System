@@ -3,7 +3,6 @@ package com.hospital.insurance.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,16 +27,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/insurance")
 @CrossOrigin(origins = "*")
 @SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Insurance Claims", description = "Insurance Claim Processing and Insurer Management")
+@RequiredArgsConstructor
 public class InsuranceController {
 
-        @Autowired
-        private InsuranceClaimService claimService;
+        private final InsuranceClaimService claimService;
 
         @GetMapping("/GetAllInsurerDetail")
         @Operation(summary = "Get All Insurer Details", description = "Retrieve comprehensive list of all active insurance providers with their coverage details, limits, and contact information")

@@ -3,7 +3,6 @@ package com.hospital.treatment.offering.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,11 +10,13 @@ import com.hospital.treatment.offering.dto.TreatmentPackageDTO;
 import com.hospital.treatment.offering.entity.TreatmentPackage;
 import com.hospital.treatment.offering.repository.TreatmentPackageRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class TreatmentPackageService {
 
-    @Autowired
-    private TreatmentPackageRepository packageRepository;
+    private final TreatmentPackageRepository packageRepository;
 
     @Transactional(readOnly = true)
     public List<TreatmentPackageDTO> getAllPackages() {
