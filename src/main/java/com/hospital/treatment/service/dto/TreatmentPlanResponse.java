@@ -1,11 +1,11 @@
 package com.hospital.treatment.service.dto;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +17,7 @@ public class TreatmentPlanResponse {
     private SpecialistInfo assignedSpecialist;
     private TreatmentSchedule schedule;
     private String status;
-
+    
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -30,7 +30,7 @@ public class TreatmentPlanResponse {
         private String email;
         private String address;
     }
-
+    
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -42,7 +42,7 @@ public class TreatmentPlanResponse {
         private Integer durationWeeks;
         private Integer packageLevel;
     }
-
+    
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -55,7 +55,7 @@ public class TreatmentPlanResponse {
         private String qualification;
         private Integer experience;
     }
-
+    
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

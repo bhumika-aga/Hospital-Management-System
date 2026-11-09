@@ -1,11 +1,11 @@
-import { api, API_ENDPOINTS } from '../config/api';
-import { TokenRequest, TokenResponse } from '../types';
+import { api, API_ENDPOINTS } from "../config/api";
+import { TokenRequest, TokenResponse } from "../types";
 
 export class AuthService {
   static async generateToken(request: TokenRequest): Promise<TokenResponse> {
     const response = await api.post<TokenResponse>(
       API_ENDPOINTS.auth.generateToken,
-      request
+      request,
     );
     return response.data;
   }
@@ -16,19 +16,19 @@ export class AuthService {
   }
 
   static setToken(token: string): void {
-    localStorage.setItem('authToken', token);
+    localStorage.setItem("authToken", token);
   }
 
   static getToken(): string | null {
-    return localStorage.getItem('authToken');
+    return localStorage.getItem("authToken");
   }
 
   static removeToken(): void {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem("authToken");
   }
 
   static isAuthenticated(): boolean {
     const token = this.getToken();
-    return token !== null && token !== undefined && token !== '';
+    return token !== null && token !== undefined && token !== "";
   }
 }

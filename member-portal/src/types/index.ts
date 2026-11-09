@@ -17,7 +17,7 @@ export interface Specialist {
   id: number;
   name: string;
   specialization: string;
-  level: 'JUNIOR' | 'SENIOR';
+  level: "JUNIOR" | "SENIOR";
   qualification: string;
   experience: number;
   contactNumber: string;
@@ -64,7 +64,7 @@ export interface ClaimRequest {
   treatmentCost: number;
   insurerId: number;
   insurer?: Insurer;
-  claimStatus: 'INITIATED' | 'APPROVED' | 'REJECTED';
+  claimStatus: "INITIATED" | "APPROVED" | "REJECTED";
   claimAmount: number;
   dateOfClaim: string;
 }
@@ -126,7 +126,7 @@ export interface TableColumn<T> {
   id: keyof T;
   label: string;
   minWidth?: number;
-  align?: 'right' | 'left' | 'center';
+  align?: "right" | "left" | "center";
   format?: (value: any) => string;
 }
 
