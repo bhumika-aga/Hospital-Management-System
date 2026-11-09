@@ -36,15 +36,15 @@ services:
     name: healthsync-portal
     runtime: node
     plan: free
-    buildCommand: cd member-portal && npm ci && npm run build
+    buildCommand: cd member-portal && npm ci --include=dev && npm run build
     startCommand: cd member-portal && npx serve -s build -l $PORT
     envVars:
+      - key: NODE_VERSION
+        value: "24"
       - key: NODE_ENV
         value: production
-      - key: REACT_APP_API_BASE_URL
+      - key: VITE_API_BASE_URL
         value: https://healthsync-backend-d783.onrender.com
-      - key: GENERATE_SOURCEMAP
-        value: "false"
 # Build settings optimized for Render free tier
 # - Uses existing mediflow-database (free tier limitation)
 # - Backend connects to shared PostgreSQL database

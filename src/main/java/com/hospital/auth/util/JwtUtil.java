@@ -2,12 +2,12 @@ package com.hospital.auth.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +22,8 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private Long expiration;
     
-    private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes());
+    private SecretKey getSigningKey() {
+        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
     
     public String extractUsername(String token) {
@@ -40,7 +40,7 @@ public class JwtUtil {
     }
     
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token).getBody();
+        return Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token).getPayload();
     }
     
     private Boolean isTokenExpired(String token) {
@@ -53,9 +53,12 @@ public class JwtUtil {
     }
     
     private String createToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                   .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                   .signWith(getSigningKey(), SignatureAlgorithm.HS512).compact();
+        long now = System.currentTimeMillis();
+        // The HMAC algorithm (HS256/HS384/HS512) is chosen from the key length, so any secret of
+        // at least 32 bytes works instead of failing at runtime when it is shorter than 64 bytes.
+        return Jwts.builder().claims(claims).subject(subject).issuedAt(new Date(now))
+                   .expiration(new Date(now + expiration))
+                   .signWith(getSigningKey()).compact();
     }
     
     public Boolean validateToken(String token, String username) {

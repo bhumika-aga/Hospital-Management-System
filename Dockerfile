@@ -1,25 +1,20 @@
-# Use OpenJDK 17 as base image
-FROM eclipse-temurin:17-jdk
+# Maven + Eclipse Temurin JDK 21 base image (the project does not use the Maven wrapper)
+FROM maven:3.9-eclipse-temurin-21
 
 # Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and pom.xml first for better layer caching
-COPY .mvn .mvn
-COPY mvnw .
+# Copy pom.xml first for better layer caching
 COPY pom.xml .
 
-# Make mvnw executable
-RUN chmod +x ./mvnw
-
 # Download dependencies
-RUN ./mvnw dependency:go-offline -B
+RUN mvn dependency:go-offline -B
 
 # Copy source code
 COPY src src
 
 # Build the application
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests -B
 
 # Expose port
 EXPOSE ${PORT:-8080}

@@ -24,10 +24,10 @@ The **HealthSync Portal** is a modern React application that serves as the front
 ## 🛠️ Technology Stack
 
 - **React 19** with TypeScript for robust development
+- **Vite** for the dev server and production build, **Vitest** for tests
 - **Material-UI v7** with custom theming
-- **React Router v6** for client-side routing
-- **React Query (TanStack Query)** for server state management
-- **React Hook Form** with Yup validation
+- **React Router v7** for client-side routing
+- **React Hook Form** for form handling and validation
 - **Axios** for API communication with interceptors
 - **Custom Theme System** implementing Apple & Vercel design patterns
 
@@ -35,6 +35,7 @@ The **HealthSync Portal** is a modern React application that serves as the front
 
 ```text
 member-portal/
+├── index.html                 # Vite entry HTML
 ├── public/                     # Static assets
 ├── src/
 │   ├── components/            # Reusable UI components
@@ -68,7 +69,7 @@ member-portal/
 
 ### Prerequisites
 
-- **Node.js 18+**
+- **Node.js 22.12+** (24 LTS recommended)
 - **npm or yarn**
 - **Backend server** running at `http://localhost:8080`
 
@@ -86,7 +87,7 @@ npm install
 Create `.env.local` file (optional):
 
 ```bash
-REACT_APP_API_BASE_URL=http://localhost:8080
+VITE_API_BASE_URL=http://localhost:8080
 ```
 
 3.**Start development server:**
@@ -100,9 +101,11 @@ The application will open at `http://localhost:3000`
 ### Available Scripts
 
 - **`npm start`** - Start development server with hot reload
-- **`npm test`** - Run test suite with Jest & React Testing Library
-- **`npm run build`** - Create optimized production build
-- **`npm run eject`** - Eject from Create React App (irreversible)
+- **`npm test`** - Run test suite once with Vitest & React Testing Library
+- **`npm run test:watch`** - Run tests in watch mode
+- **`npm run lint`** - Lint with ESLint
+- **`npm run build`** - Type-check and create optimized production build in `build/`
+- **`npm run preview`** - Preview the production build locally
 
 ## 🎨 Design System
 
@@ -142,9 +145,9 @@ The frontend connects to the Spring Boot backend at `http://localhost:8080` with
 ### API Service Layer
 
 ```typescript
-// services/api.ts
+// config/api.ts
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
 export const API_ENDPOINTS = {
   auth: {
@@ -180,35 +183,31 @@ export const API_ENDPOINTS = {
 # Run all tests
 npm test
 
-# Run tests with coverage
-npm test -- --coverage --watchAll=false
+# Run tests in watch mode
+npm run test:watch
 
 # Run specific test file
-npm test Dashboard.test.tsx
+npm test -- App.test.tsx
 ```
 
 ### Testing Stack
 
-- **Jest** - Test runner and assertions
-- **React Testing Library** - Component testing utilities
-- **MSW (Mock Service Worker)** - API mocking for tests
-- **User Event** - Realistic user interaction testing
+- **Vitest** (jsdom environment) - Test runner and assertions
+- **React Testing Library** + **jest-dom** - Component testing utilities
 
 ## 🔧 Configuration
 
 ### Environment Variables
 
-- `REACT_APP_API_BASE_URL` - Backend server URL (default: <http://localhost:8080>)
-- `REACT_APP_VERSION` - Application version for display
+- `VITE_API_BASE_URL` - Backend server URL, baked in at build time (default: <http://localhost:8080>)
+- `VITE_ENVIRONMENT` - Environment label (`local` / `production`)
 
 ### Build Configuration
 
 Production build optimizations:
 
-- **Code Splitting** - Automatic route-based splitting
 - **Tree Shaking** - Remove unused code
-- **Bundle Analysis** - Use `npm run analyze` to inspect bundle
-- **Service Worker** - Caching for offline functionality
+- **Minification** - Output written to `build/` without source maps
 
 ## 🚀 Deployment
 
@@ -226,11 +225,11 @@ npx serve -s build
 services:
   - type: web
     name: healthsync-portal
-    env: node
-    buildCommand: npm ci && npm run build
-    startCommand: npm start
+    runtime: node
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npx serve -s build -l $PORT
     envVars:
-      - key: REACT_APP_API_BASE_URL
+      - key: VITE_API_BASE_URL
         value: https://your-backend.render.com
 ```
 
@@ -319,7 +318,7 @@ services:
 
 3. **Build Failures**
    - Clear node_modules and reinstall: `rm -rf node_modules package-lock.json && npm install`
-   - Check Node.js version compatibility (18+)
+   - Check Node.js version compatibility (22.12+)
    - Verify TypeScript compilation errors
 
 ### Development Tools

@@ -1,7 +1,7 @@
 # 🏥 HealthSync - Advanced Hospital Management System
 
-[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://openjdk.java.net/)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.13-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://openjdk.java.net/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.2-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Lombok](https://img.shields.io/badge/Lombok-1.18.30-red.svg)](https://projectlombok.org/)
 [![React](https://img.shields.io/badge/React-19-blue.svg)](https://reactjs.org/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -75,15 +75,15 @@ Refactored core services to retrieve business rules (package costs, specialist a
 
 ### **Backend**
 
-| Technology             | Purpose                            |
-| ---------------------- | ---------------------------------- |
-| **Java 17**            | Core programming language          |
-| **Spring Boot 3.5.13** | Application framework              |
-| **Spring Data JPA**    | Data persistence layer             |
-| **H2 Database**        | In-memory DB for rapid development |
-| **Project Lombok**     | Boilerplate reduction              |
-| **Spring Security**    | JWT-based auth & API protection    |
-| **OpenAPI 3.0**        | Swagger UI documentation           |
+| Technology            | Purpose                            |
+| --------------------- | ---------------------------------- |
+| **Java 21**           | Core programming language          |
+| **Spring Boot 4.1.2** | Application framework              |
+| **Spring Data JPA**   | Data persistence layer             |
+| **H2 Database**       | In-memory DB for rapid development |
+| **Project Lombok**    | Boilerplate reduction              |
+| **Spring Security**   | JWT-based auth & API protection    |
+| **OpenAPI 3.0**       | Swagger UI documentation           |
 
 ### **Frontend**
 
@@ -100,14 +100,14 @@ Refactored core services to retrieve business rules (package costs, specialist a
 
 ### **Prerequisites**
 
-- Java 17+
-- Node.js 18+
+- Java 21+
+- Node.js 22.12+ (24 LTS recommended)
 - Maven 3.8+
 
 ### **1. Run Backend**
 
 ```bash
-./mvnw clean spring-boot:run
+mvn clean spring-boot:run
 ```
 
 - Access API: `http://localhost:8080`

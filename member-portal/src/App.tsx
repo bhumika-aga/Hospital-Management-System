@@ -1,6 +1,4 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React, { useEffect, useState } from "react";
 import {
   Navigate,
@@ -28,17 +26,6 @@ import Treatments from "./pages/Treatments";
 
 // Services
 import { AuthService } from "./services/auth.service";
-
-// Create a client
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: 1,
-      staleTime: 5 * 60 * 1000, // 5 minutes
-    },
-  },
-});
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -72,48 +59,38 @@ const App: React.FC = () => {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={currentTheme}>
-        <CssBaseline />
-        <Router
-          future={{
-            v7_startTransition: true,
-            v7_relativeSplatPath: true,
-          }}
-        >
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/login" element={<Login />} />
+    <ThemeProvider theme={currentTheme}>
+      <CssBaseline />
+      <Router>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/login" element={<Login />} />
 
-            {/* Protected Routes */}
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Layout isDarkMode={isDarkMode} onThemeToggle={toggleTheme} />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Navigate to="/dashboard" replace />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="packages" element={<TreatmentPackages />} />
-              <Route path="specialists" element={<Specialists />} />
-              <Route path="treatments" element={<Treatments />} />
-              <Route path="claims" element={<Claims />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="help" element={<Help />} />
-            </Route>
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Layout isDarkMode={isDarkMode} onThemeToggle={toggleTheme} />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="packages" element={<TreatmentPackages />} />
+            <Route path="specialists" element={<Specialists />} />
+            <Route path="treatments" element={<Treatments />} />
+            <Route path="claims" element={<Claims />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="help" element={<Help />} />
+          </Route>
 
-            {/* Catch all route */}
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
-          </Routes>
-        </Router>
-
-        {/* React Query Dev Tools */}
-        <ReactQueryDevtools initialIsOpen={false} />
-      </ThemeProvider>
-    </QueryClientProvider>
+          {/* Catch all route */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 };
 
